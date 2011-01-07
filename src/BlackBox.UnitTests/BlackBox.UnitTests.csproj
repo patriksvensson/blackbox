@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2712A560-4A44-4749-95A5-D73DD953ADFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlackBox.UnitTests</RootNamespace>
+    <AssemblyName>BlackBox.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>BlackBox.UnitTests.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\nunit-2.5.9\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tests\Collections\IndexedLinkedListTests.cs" />
+    <Compile Include="Tests\Collections\LruCacheTests.cs" />
+    <Compile Include="Tests\Conditions\ConditionExpressionTests.cs" />
+    <Compile Include="Tests\Conditions\ConditionParserTests.cs" />
+    <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs" />
+    <Compile Include="Tests\Configuration\XmlConfigurationDeserializerTests.cs" />
+    <Compile Include="Tests\Filters\LevelMatchFilterTests.cs" />
+    <Compile Include="Tests\LogFilterFactoryTests.cs" />
+    <Compile Include="Tests\Extensions\AttributeExtensionsTests.cs" />
+    <Compile Include="Tests\Extensions\QueueExtensionsTests.cs" />
+    <Compile Include="Tests\Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Tests\Extensions\TypeExtensionsTests.cs" />
+    <Compile Include="Tests\Formatting\FormatPatternFactoryTests.cs" />
+    <Compile Include="Tests\Formatting\FormatPatternTests.cs" />
+    <Compile Include="Tests\Formatting\FormatRendererTypeMapTests.cs" />
+    <Compile Include="Tests\Formatting\Parsing\FormatParserTests.cs" />
+    <Compile Include="Tests\Collections\StringBufferTests.cs" />
+    <Compile Include="Tests\Extensions\CharExtensionsTests.cs" />
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenBufferTests.cs" />
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenizerTests.cs" />
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenTests.cs" />
+    <Compile Include="Tests\LogKernelTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\LogSinkFactoryTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LogSinkTests.cs" />
+    <Compile Include="Tests\Runtime\ServiceProviderTests.cs" />
+    <Compile Include="Utilities\Filters\DenyAllFilter.cs" />
+    <Compile Include="Utilities\Sinks\MemorySink.cs" />
+    <Compile Include="Utilities\Sinks\StringSink.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="BlackBox.UnitTests.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlackBox\BlackBox.csproj">
+      <Project>{1D645729-E48E-4465-B4E7-049DFE20A883}</Project>
+      <Name>BlackBox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

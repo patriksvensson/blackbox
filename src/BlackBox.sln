@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBox", "BlackBox\BlackBox.csproj", "{1D645729-E48E-4465-B4E7-049DFE20A883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBox.UnitTests", "BlackBox.UnitTests\BlackBox.UnitTests.csproj", "{2712A560-4A44-4749-95A5-D73DD953ADFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D645729-E48E-4465-B4E7-049DFE20A883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D645729-E48E-4465-B4E7-049DFE20A883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D645729-E48E-4465-B4E7-049DFE20A883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D645729-E48E-4465-B4E7-049DFE20A883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2712A560-4A44-4749-95A5-D73DD953ADFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2712A560-4A44-4749-95A5-D73DD953ADFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2712A560-4A44-4749-95A5-D73DD953ADFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2712A560-4A44-4749-95A5-D73DD953ADFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ""
+	EndGlobalSection
+EndGlobal

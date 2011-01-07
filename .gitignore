@@ -1,0 +1,14 @@
+*.suo
+
+*.userprefs
+*.user
+
+*.pidb
+
+bin
+
+obj
+
+~
+TestResults
+*.vsdoc

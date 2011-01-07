@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D645729-E48E-4465-B4E7-049DFE20A883}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlackBox</RootNamespace>
+    <AssemblyName>BlackBox</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>BlackBox.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\AssemblyCollection.cs" />
+    <Compile Include="Collections\LogFilterCollection.cs" />
+    <Compile Include="Collections\IndexedLinkedList.cs" />
+    <Compile Include="Collections\LoggerCollection.cs" />
+    <Compile Include="Collections\LogSinkCollection.cs" />
+    <Compile Include="Collections\LruCache.cs" />
+    <Compile Include="Collections\EventArgs[T].cs" />
+    <Compile Include="Conditions\ConditionParser.cs" />
+    <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
+    <Compile Include="Configuration\Deserialization\XmlAssemblyDeserializer.cs" />
+    <Compile Include="Configuration\Deserialization\XmlConfigurationDeserializer.cs" />
+    <Compile Include="Configuration\Deserialization\XmlFilterDeserializer.cs" />
+    <Compile Include="Configuration\Deserialization\XmlSinkDeserializer.cs" />
+    <Compile Include="Configuration\LogConfigurationSectionHandler.cs" />
+    <Compile Include="Exceptions\ConditionException.cs" />
+    <Compile Include="Conditions\Expressions\AndExpression.cs" />
+    <Compile Include="Conditions\Expressions\BinaryExpression.cs" />
+    <Compile Include="Conditions\Expressions\ConditionExpression.cs" />
+    <Compile Include="Conditions\Expressions\ConstantExpression.cs" />
+    <Compile Include="Conditions\Expressions\NotExpression.cs" />
+    <Compile Include="Conditions\Expressions\OrExpression.cs" />
+    <Compile Include="Conditions\Expressions\RelationalExpression.cs" />
+    <Compile Include="Conditions\Expressions\RelationalOperator.cs" />
+    <Compile Include="Conditions\Expressions\UnaryExpression.cs" />
+    <Compile Include="Conditions\Tokenization\ConditionToken.cs" />
+    <Compile Include="Conditions\Tokenization\ConditionTokenizer.cs" />
+    <Compile Include="Conditions\Tokenization\ConditionTokenType.cs" />
+    <Compile Include="Configuration\LogConfiguration.cs" />
+    <Compile Include="Exceptions\BlackBoxException.cs" />
+    <Compile Include="Extensions\AttributeExtensions.cs" />
+    <Compile Include="Extensions\LockExtensions.cs" />
+    <Compile Include="Extensions\QueueExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Extensions\XElementExtensions.cs" />
+    <Compile Include="Filters\LevelMatchFilter.cs" />
+    <Compile Include="Formatting\FormatPattern.cs" />
+    <Compile Include="Formatting\FormatPatternFactory.cs" />
+    <Compile Include="Formatting\FormatRenderer.cs" />
+    <Compile Include="Formatting\FormatRendererTypeAttribute.cs" />
+    <Compile Include="Formatting\FormatRendererTypeMap.cs" />
+    <Compile Include="Formatting\FormatTransformer.cs" />
+    <Compile Include="Formatting\Parsing\FormatPatternParser.cs" />
+    <Compile Include="Exceptions\FormatPatternException.cs" />
+    <Compile Include="Formatting\Parsing\FormatPatternNode.cs" />
+    <Compile Include="Formatting\Parsing\Nodes\FormatRendererArgumentNode.cs" />
+    <Compile Include="Formatting\Parsing\Nodes\FormatLiteralNode.cs" />
+    <Compile Include="Formatting\Parsing\Nodes\FormatRendererNode.cs" />
+    <Compile Include="Formatting\Parsing\Nodes\FormatTransformerNode.cs" />
+    <Compile Include="Formatting\Renderers\BaseDirectoryRenderer.cs" />
+    <Compile Include="Formatting\Renderers\LevelRenderer.cs" />
+    <Compile Include="Formatting\Renderers\LiteralRenderer.cs" />
+    <Compile Include="Formatting\Renderers\LoggerRenderer.cs" />
+    <Compile Include="Formatting\Renderers\MessageRenderer.cs" />
+    <Compile Include="Formatting\Renderers\TimeRenderer.cs" />
+    <Compile Include="Collections\StringBuffer.cs" />
+    <Compile Include="Extensions\CharExtensions.cs" />
+    <Compile Include="Formatting\Tokenization\FormatToken.cs" />
+    <Compile Include="Collections\Buffer.cs" />
+    <Compile Include="Formatting\Tokenization\FormatTokenBuffer.cs" />
+    <Compile Include="Formatting\Tokenization\FormatTokenizer.cs" />
+    <Compile Include="Formatting\Tokenization\FormatTokenType.cs" />
+    <Compile Include="Formatting\Transformers\LowercaseTransformer.cs" />
+    <Compile Include="Formatting\Transformers\Rot13Transformer.cs" />
+    <Compile Include="Formatting\Transformers\UppercaseTransformer.cs" />
+    <Compile Include="Interfaces\ILogKernel.cs" />
+    <Compile Include="Interfaces\ILogEntry.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="LogEntry.cs" />
+    <Compile Include="LogFilter.cs" />
+    <Compile Include="LogFilterFactory.cs" />
+    <Compile Include="LogFilterResult.cs" />
+    <Compile Include="LogFilterTypeAttribute.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogKernel.cs" />
+    <Compile Include="LogLevel.cs" />
+    <Compile Include="LogSinkFactory.cs" />
+    <Compile Include="LogSinkTypeAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runtime\IServiceLocator.cs" />
+    <Compile Include="Runtime\ServiceProvider.cs" />
+    <Compile Include="Sinks\ConsoleSink.cs" />
+    <Compile Include="Sinks\FileSink.cs" />
+    <Compile Include="Sinks\MessageQueueSink.cs" />
+    <Compile Include="Sinks\Proxies\BufferProxy.cs" />
+    <Compile Include="Sinks\Proxies\FunnelProxy.cs" />
+    <Compile Include="Sinks\TraceSink.cs" />
+    <Compile Include="Sinks\DebugSink.cs" />
+    <Compile Include="Sinks\FormatLogSink.cs" />
+    <Compile Include="LogSink.cs" />
+    <Compile Include="LogSinkProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BlackBox.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
