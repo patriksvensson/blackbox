@@ -45,6 +45,13 @@ namespace BlackBox.UnitTests.Tests
 		}
 		#endregion
 
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentNullException), UserMessage = "Log configuration cannot be null.")]
+        public void LogKernel_NullLogConfigurationCannotBePassedToConstructor_Throws()
+        {
+            LogKernel kernel = new LogKernel(null);
+        }
+
 		[Test]
 		public void LogKernel_LogSinksAreInitializedWhenCreatingKernel()
 		{

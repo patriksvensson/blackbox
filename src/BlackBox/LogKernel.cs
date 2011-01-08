@@ -39,6 +39,11 @@ namespace BlackBox
 
         public LogKernel(LogConfiguration configuration)
         {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException("configuration", "Log configuration cannot be null.");
+            }
+
             _serviceProvider = new ServiceProvider();
             _formatRendererTypeMap = new FormatRendererTypeMap<ILogEntry>();
             _formatPatternFactory = new FormatPatternFactory<ILogEntry>(_formatRendererTypeMap);
