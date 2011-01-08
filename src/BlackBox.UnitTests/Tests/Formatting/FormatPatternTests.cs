@@ -32,7 +32,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPattern_RenderLiteralPattern()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("Hello World!");
@@ -45,7 +45,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPattern_RenderTimeRenderer()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("$(time(format='HH:mm:ss'))");
@@ -59,7 +59,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPattern_RenderEscapedRenderer()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("$$(time(format='HH:mm:ss'))");
@@ -70,7 +70,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPatternFactory_BuildPatternWithTransformer()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("$(uppercase(message()))");
@@ -83,7 +83,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPatternFactory_BuildPatternWithNestedTransformers()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("$(rot13(uppercase(message())))");
@@ -96,7 +96,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatPatternFactory_BuildComplexPattern()
         {
-            LogKernel kernel = new LogKernel(null);
+            LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("[$(time(format='HH:mm:ss'))] $(uppercase(rot13(message())))");
