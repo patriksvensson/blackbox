@@ -99,11 +99,7 @@ namespace BlackBox
 
         #endregion
 
-        /// <summary>
-        /// Initializes the log sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-		protected internal void Initialize(IServiceLocator locator)
+		internal void Initialize(IServiceLocator locator)
 		{
 			this.InitializeSink(locator);
 			_initialized = true;
