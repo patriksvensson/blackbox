@@ -25,6 +25,10 @@ using System.Globalization;
 
 namespace BlackBox.Formatting
 {
+    /// <summary>
+    /// Represents a format pattern.
+    /// </summary>
+    /// <typeparam name="TContext">The type of the context.</typeparam>
 	public sealed class FormatPattern<TContext>
 	{
 		private readonly FormatRenderer<TContext>[] _renderers;
@@ -35,17 +39,32 @@ namespace BlackBox.Formatting
 			get { return _renderers; }
 		}
 
+        /// <summary>
+        /// Gets the format that was used to create the format pattern.
+        /// </summary>
+        /// <value>The format.</value>
 		public string Format
 		{
 			get { return _format; }
-		} 
+		}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatPattern&lt;TContext&gt;"/> class.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="renderers">The renderers.</param>
 		internal FormatPattern(string format, FormatRenderer<TContext>[] renderers)
 		{
 			_format = format;
 			_renderers = renderers;
 		}
 
+        /// <summary>
+        /// Creates a format pattern from the specified format.
+        /// </summary>
+        /// <param name="locator">The service locator.</param>
+        /// <param name="pattern">The pattern.</param>
+        /// <returns></returns>
 		internal static FormatPattern<TContext> Create(IServiceLocator locator, string pattern)
 		{
 			// Resolve the format pattern factory.

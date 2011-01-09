@@ -24,16 +24,73 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The logger contract interface.
+    /// </summary>
     public interface ILogger
     {
+        /// <summary>
+        /// Gets the logger source type.
+        /// </summary>
+        /// <value>The source.</value>
         Type Source { get; }
 
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="message">The message.</param>
         void Write(LogLevel level, string message);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The format arguments.</param>
         void Write(LogLevel level, string format, params object[] args);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The format arguments.</param>
         void Write(LogLevel level, IFormatProvider provider, string format, params object[] args);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="exception">The exception.</param>
         void Write(LogLevel level, Exception exception);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="exception">The exception.</param>
+        /// <param name="message">The message.</param>
         void Write(LogLevel level, Exception exception, string message);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="exception">The exception.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The format arguments.</param>
         void Write(LogLevel level, Exception exception, IFormatProvider provider, string format, params object[] args);
+
+        /// <summary>
+        /// Creates a new log entry.
+        /// </summary>
+        /// <param name="level">The log level.</param>
+        /// <param name="exception">The exception.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The format arguments.</param>
         void Write(LogLevel level, Exception exception, string format, params object[] args);
     }
 }

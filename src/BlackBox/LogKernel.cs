@@ -27,6 +27,9 @@ using System.Diagnostics;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The BlackBox logging kernel.
+    /// </summary>
     public sealed class LogKernel : ILogKernel, IDisposable
     {        
         private readonly ReaderWriterLockSlim _lock;
@@ -37,6 +40,10 @@ namespace BlackBox
         private LogConfiguration _configuration;
         private bool _disposed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogKernel"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
         public LogKernel(LogConfiguration configuration)
         {
             if (configuration == null)
@@ -59,12 +66,19 @@ namespace BlackBox
 
         #region IDisposable Members
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -110,6 +124,10 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Gets the logger for the calling type.
+        /// </summary>
+        /// <returns></returns>
         public ILogger GetLogger()
         {
             if (_disposed)
@@ -123,6 +141,11 @@ namespace BlackBox
             return GetLogger(type);
         }
 
+        /// <summary>
+        /// Gets the logger for the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         public ILogger GetLogger(Type type)
         {
             if (_disposed)

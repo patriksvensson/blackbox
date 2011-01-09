@@ -24,14 +24,51 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The log entry contract interface.
+    /// </summary>
     public interface ILogEntry
     {
+        /// <summary>
+        /// Gets the associated exception.
+        /// </summary>
+        /// <value>The exception.</value>
         Exception Exception { get; }
+
+        /// <summary>
+        /// Gets the log level.
+        /// </summary>
+        /// <value>The level.</value>
         LogLevel Level { get; }
+
+        /// <summary>
+        /// Gets the log message.
+        /// </summary>
+        /// <value>The message.</value>
         string Message { get; }
+
+        /// <summary>
+        /// Gets the logger source.
+        /// </summary>
+        /// <value>The source.</value>
         Type Source { get; }
+
+        /// <summary>
+        /// Gets the id of the thread that the log entry was created on.
+        /// </summary>
+        /// <value>The thread id.</value>
         int ThreadId { get; }
+
+        /// <summary>
+        /// Gets the name of the thread that the log entry was created on.
+        /// </summary>
+        /// <value>The name of the thread.</value>
         string ThreadName { get; }
+
+        /// <summary>
+        /// Gets the time when the log entry was created.
+        /// </summary>
+        /// <value>The timestamp.</value>
         DateTimeOffset Timestamp { get; }
     }
 }

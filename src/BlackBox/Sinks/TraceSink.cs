@@ -25,9 +25,17 @@ using System.Diagnostics;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log sink that writes messages to the trace output.
+    /// </summary>
     [LogSinkType("trace")]
     public sealed class TraceSink : FormatLogSink
     {
+        /// <summary>
+        /// Writes a message to the trace listeners in
+        /// the <see cref="System.Diagnostics.Trace.Listeners"/> collection.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
         protected override void WriteEntry(ILogEntry entry)
         {
             Trace.WriteLine(this.FormatEntry(entry));

@@ -26,20 +26,34 @@ using System.Collections.ObjectModel;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Represents a strongly typed list of log filters that can be accessed by index.
+    /// </summary>
     public sealed class LogFilterCollection : IEnumerable<LogFilter>
     {
         private readonly List<LogFilter> _filters;
 
+        /// <summary>
+        /// Gets the number of log filters in the collection.
+        /// </summary>
+        /// <value>The count.</value>
         public int Count
         {
             get { return _filters.Count; }
         }
 
+        /// <summary>
+        /// Gets the <see cref="BlackBox.LogFilter"/> at the specified index.
+        /// </summary>
+        /// <value></value>
         internal LogFilter this[int index]
         {
             get { return _filters[index]; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogFilterCollection"/> class.
+        /// </summary>
         public LogFilterCollection()
         {
             _filters = new List<LogFilter>();
@@ -47,6 +61,10 @@ namespace BlackBox
 
         #region IEnumerable<LogFilter> Members
 
+        /// <summary>
+        /// Gets the enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<LogFilter> GetEnumerator()
         {
             return _filters.GetEnumerator();
@@ -56,6 +74,12 @@ namespace BlackBox
 
         #region IEnumerable Members
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+        /// </returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -63,11 +87,19 @@ namespace BlackBox
 
         #endregion
 
+        /// <summary>
+        /// Adds the specified filter to the collection.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
         public void Add(LogFilter filter)
         {
             _filters.Add(filter);
         }
 
+        /// <summary>
+        /// Adds the specified log filters to the collection.
+        /// </summary>
+        /// <param name="filters">The filters.</param>
         public void AddRange(IEnumerable<LogFilter> filters)
         {
             if (filters != null)
@@ -79,11 +111,19 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Removes the specified log filter from the collection.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         public bool Remove(LogFilter filter)
         {
             return _filters.Remove(filter);
         }
 
+        /// <summary>
+        /// Removes all log filters from the collection.
+        /// </summary>
         public void Clear()
         {
             _filters.Clear();

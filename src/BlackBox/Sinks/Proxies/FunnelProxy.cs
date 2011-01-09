@@ -24,13 +24,23 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log sink proxy that is used to group log sinks together.
+    /// </summary>
     [LogSinkType("funnel")]
     public sealed class FunnelProxy : LogSinkProxy
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FunnelProxy"/> class.
+        /// </summary>
         public FunnelProxy()
         {
         }
 
+        /// <summary>
+        /// Performs the writing of the specified entry to the nested log sinks.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
         protected override void WriteEntry(ILogEntry entry)
         {
             foreach (LogSink sink in this.Sinks)
@@ -39,6 +49,10 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Performs the writing of the specified entries to the nested log sinks.
+        /// </summary>
+        /// <param name="entries">The entries.</param>
         protected override void WriteEntries(ILogEntry[] entries)
         {
             foreach (LogSink sink in this.Sinks)

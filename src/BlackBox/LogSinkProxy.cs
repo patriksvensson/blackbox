@@ -24,15 +24,25 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The base class for a log sink proxy.
+    /// </summary>
     public abstract class LogSinkProxy : LogSink
     {
         private readonly LogSinkCollection _sinks;
 
+        /// <summary>
+        /// Gets the nested sinks.
+        /// </summary>
+        /// <value>The sinks.</value>
         public LogSinkCollection Sinks
         {
             get { return _sinks; }
-        } 
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogSinkProxy"/> class.
+        /// </summary>
         protected LogSinkProxy()
         {
             _sinks = new LogSinkCollection();

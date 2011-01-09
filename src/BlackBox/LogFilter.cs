@@ -24,12 +24,24 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The base class for a log filter.
+    /// </summary>
     public abstract class LogFilter
     {
+        /// <summary>
+        /// Initializes the log filter.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
         protected internal virtual void Initialize(IServiceLocator locator)
         {
         }
 
+        /// <summary>
+        /// Evaluates the specified entry against the log filter.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
+        /// <returns></returns>
         protected internal abstract LogFilterResult Evaluate(ILogEntry entry);
     }
 }

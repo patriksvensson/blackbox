@@ -27,6 +27,9 @@ using System.Globalization;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log sink that write messages to a MSMQ queue.
+    /// </summary>
 	[LogSinkType("msmq")]
 	public sealed class MessageQueueSink : FormatLogSink
 	{
@@ -35,15 +38,38 @@ namespace BlackBox
 
 		#region Properties
 
+        /// <summary>
+        /// Gets or sets the name of the queue to write to.
+        /// </summary>
+        /// <value>The queue.</value>
 		public string Queue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the label of the MSMQ message.
+        /// This can be a format pattern.
+        /// </summary>
+        /// <value>The label.</value>
 		public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether MSMQ messages are recoverable.
+        /// </summary>
+        /// <value><c>true</c> if MSMQ messages are recoverable; otherwise, <c>false</c>.</value>
 		public bool Recoverable { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the MSMQ queue should be created if it do not exist.
+        /// </summary>
+        /// <value><c>true</c> if the MSMQ queue should be created if it do not exist; otherwise, <c>false</c>.</value>
 		public bool CreateIfNotExists { get; set; }
 
 		#endregion
 
 		#region Construction
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageQueueSink"/> class.
+        /// </summary>
 		public MessageQueueSink()
 			: base()
 		{
@@ -55,6 +81,10 @@ namespace BlackBox
 
 		#region Initialization
 
+        /// <summary>
+        /// Initializes the log sink.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
 		protected internal override void InitializeSink(IServiceLocator locator)
 		{
 			// Create the message queue.
@@ -96,6 +126,10 @@ namespace BlackBox
 
 		#endregion
 
+        /// <summary>
+        /// Performs the writing of the specified entry to the MSMQ queue.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
 		protected override void WriteEntry(ILogEntry entry)
 		{
 			try

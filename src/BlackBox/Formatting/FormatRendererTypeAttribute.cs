@@ -24,16 +24,27 @@ using System.Text;
 
 namespace BlackBox.Formatting
 {
+    /// <summary>
+    /// Attribute that is used to decorate format renderers.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=false)]
     public sealed class FormatRendererTypeAttribute : Attribute
     {
         private readonly string _name;
 
+        /// <summary>
+        /// Gets the name of the format renderer.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name
         {
             get { return _name; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatRendererTypeAttribute"/> class.
+        /// </summary>
+        /// <param name="name">The name of the format renderer.</param>
         public FormatRendererTypeAttribute(string name)
         {
             _name = name;

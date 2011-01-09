@@ -24,12 +24,24 @@ using System.Text;
 
 namespace BlackBox.Formatting
 {
+    /// <summary>
+    /// Represents a format renderer that is used to render a part of a format pattern.
+    /// </summary>
+    /// <typeparam name="TContext">The type of the context.</typeparam>
     public abstract class FormatRenderer<TContext>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatRenderer&lt;TContext&gt;"/> class.
+        /// </summary>
         protected FormatRenderer()
         {
         }
 
+        /// <summary>
+        /// Renders the format pattern part using the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
         public abstract string Render(TContext context);
     }
 }

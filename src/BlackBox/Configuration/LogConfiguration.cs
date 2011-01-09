@@ -28,6 +28,9 @@ using System.Xml;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Represents a log configuration.
+    /// </summary>
 	public sealed class LogConfiguration : IDisposable
 	{
 		private readonly LogSinkCollection _sinks;
@@ -37,16 +40,28 @@ namespace BlackBox
 
 		#region Properties
 
+        /// <summary>
+        /// Gets the log sinks.
+        /// </summary>
+        /// <value>The log sinks.</value>
 		public LogSinkCollection Sinks
 		{
 			get { return _sinks; }
 		}
 
+        /// <summary>
+        /// Gets the assemblies.
+        /// </summary>
+        /// <value>The assemblies.</value>
 		public AssemblyCollection Assemblies
 		{
 			get { return _assemblies; }
 		}
 
+        /// <summary>
+        /// Gets the log filters.
+        /// </summary>
+        /// <value>The log filters.</value>
 		public LogFilterCollection Filters
 		{
 			get { return _filters; }
@@ -54,6 +69,9 @@ namespace BlackBox
 
 		#endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogConfiguration"/> class.
+        /// </summary>
 		public LogConfiguration()
 		{
 			_sinks = new LogSinkCollection();
@@ -63,12 +81,19 @@ namespace BlackBox
 
 		#region IDisposable Members
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
 		public void Dispose()
 		{
 			this.Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		private void Dispose(bool disposing)
 		{
 			if (!_disposed)
@@ -83,16 +108,30 @@ namespace BlackBox
 
 		#endregion
 
+        /// <summary>
+        /// Loads a log configuration the section 'BlackBox' in App.config or Web.config.
+        /// </summary>
+        /// <returns></returns>
 		public static LogConfiguration FromConfigSection()
 		{
 			return ConfigurationManager.GetSection("BlackBox") as LogConfiguration;
 		}
 
+        /// <summary>
+        /// Loads a log configuration from the specified section in App.config or Web.config.
+        /// </summary>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
 		public static LogConfiguration FromConfigSection(string section)
 		{
 			return ConfigurationManager.GetSection(section) as LogConfiguration;
 		}
 
+        /// <summary>
+        /// Loads a log configuration from XML in a <see cref="System.String"/>.
+        /// </summary>
+        /// <param name="xml">The XML.</param>
+        /// <returns></returns>
 		public static LogConfiguration FromXml(string xml)
 		{
 			if (string.IsNullOrEmpty(xml))
@@ -105,6 +144,11 @@ namespace BlackBox
 			return deserializer.Deserialize();
 		}
 
+        /// <summary>
+        /// Loads a log configuration from a <see cref="System.Xml.XmlReader"/>.
+        /// </summary>
+        /// <param name="reader">The XML reader.</param>
+        /// <returns></returns>
 		public static LogConfiguration FromXml(XmlReader reader)
 		{
 			if (reader == null)
@@ -117,6 +161,11 @@ namespace BlackBox
 			return deserializer.Deserialize();
 		}
 
+        /// <summary>
+        /// Loads a log configuration from a <see cref="System.IO.FileInfo"/>.
+        /// </summary>
+        /// <param name="file">The XML file.</param>
+        /// <returns></returns>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
 		public static LogConfiguration FromXml(FileInfo file)
 		{

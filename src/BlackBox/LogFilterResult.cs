@@ -24,10 +24,23 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Represents a log filter result returned by a log filter.
+    /// </summary>
 	public enum LogFilterResult : int
 	{
+        /// <summary>
+        /// The log filter do not care or do not want to decide 
+        /// if the <see cref="BlackBox.ILogEntry"/> is filtered or not.
+        /// </summary>
 		Neutral = 0,
+        /// <summary>
+        /// The <see cref="BlackBox.ILogEntry"/> should be logged.
+        /// </summary>
 		Accept = 1,
+        /// <summary>
+        /// The <see cref="BlackBox.ILogEntry"/> should not be logged.
+        /// </summary>
 		Filter = 2
 	}
 }

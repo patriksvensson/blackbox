@@ -24,6 +24,10 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// A log sink proxy that buffers messages and write them
+    /// at once to all the child log sinks when the buffer size threshold have been reached.
+    /// </summary>
     [LogSinkType("buffer")]
     public sealed class BufferProxy : LogSinkProxy
     {
@@ -31,12 +35,19 @@ namespace BlackBox
         private readonly Queue<ILogEntry> _queue;
         private int _bufferSize;
 
+        /// <summary>
+        /// Gets or sets the size of the buffer.
+        /// </summary>
+        /// <value>The size of the buffer.</value>
         public int BufferSize
         {
           get { return _bufferSize; }
           set { _bufferSize = value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BufferProxy"/> class.
+        /// </summary>
         public BufferProxy()
         {
             _syncLock = new object();
@@ -44,6 +55,10 @@ namespace BlackBox
             _bufferSize = 5;
         }
 
+        /// <summary>
+        /// Performs the writing of the specified entry to the log sink.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
         protected override void WriteEntry(ILogEntry entry)
         {
             if (entry == null)
@@ -62,6 +77,10 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Performs the writing of the specified entries to the log sink.
+        /// </summary>
+        /// <param name="entries">The entries.</param>
         protected override void WriteEntries(ILogEntry[] entries)
         {
             if (entries == null)

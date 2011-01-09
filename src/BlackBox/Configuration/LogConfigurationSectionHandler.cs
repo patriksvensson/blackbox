@@ -36,7 +36,7 @@ namespace BlackBox
             // Make sure that we've got a valid configuration.
             if (section == null || string.IsNullOrEmpty(section.OuterXml))
             {
-                string message = "The BlackBox configuration section could not be found.";
+                string message = "The configuration section 'BlackBox' could not be found.";
                 throw new BlackBoxException(message);
             }
 

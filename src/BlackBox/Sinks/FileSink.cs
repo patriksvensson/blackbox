@@ -26,6 +26,9 @@ using BlackBox.Formatting;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log sink that write messages to file.
+    /// </summary>
 	[LogSinkType("file")]
 	public sealed class FileSink : FormatLogSink
 	{
@@ -38,6 +41,11 @@ namespace BlackBox
 
 		#region Properties
 
+        /// <summary>
+        /// Gets or sets the name of the file.
+        /// This can be a format pattern.
+        /// </summary>
+        /// <value>The name of the file.</value>
 		public string FileName
 		{
 			get { return _fileName; }
@@ -48,6 +56,9 @@ namespace BlackBox
 
 		#region Construction
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileSink"/> class.
+        /// </summary>
 		public FileSink()
 			: base()
 		{
@@ -61,6 +72,10 @@ namespace BlackBox
 
 		#region Initialization
 
+        /// <summary>
+        /// Initializes the sink.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
 		protected internal override void InitializeSink(IServiceLocator locator)
 		{
 			lock (_lock)
@@ -81,6 +96,10 @@ namespace BlackBox
 
 		#region IDisposable Members
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -121,6 +140,10 @@ namespace BlackBox
 
 		#endregion
 
+        /// <summary>
+        /// Performs the writing of the specified entry to file.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
 		protected override void WriteEntry(ILogEntry entry)
 		{

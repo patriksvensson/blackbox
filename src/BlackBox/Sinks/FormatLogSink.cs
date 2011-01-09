@@ -25,27 +25,46 @@ using BlackBox.Formatting;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Base class for a log sink that supports a format pattern.
+    /// </summary>
 	public abstract class FormatLogSink : LogSink
 	{
 		private FormatPattern<ILogEntry> _format;
 		private string _formatString;
 
+        /// <summary>
+        /// Gets or sets the format used in the format pattern.
+        /// </summary>
+        /// <value>The format.</value>
 		public string Format
 		{
 			get { return _formatString; }
 			set { _formatString = value; }
 		}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatLogSink"/> class.
+        /// </summary>
 		protected FormatLogSink()
 			: base()
 		{
 		}
 
+        /// <summary>
+        /// Initializes the log sink.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
 		protected internal override void InitializeSink(IServiceLocator locator)
 		{
 			_format = FormatPattern<ILogEntry>.Create(locator, _formatString);
 		}
 
+        /// <summary>
+        /// Performs formatting of the entry.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
+        /// <returns></returns>
 		protected string FormatEntry(ILogEntry entry)
 		{
 			return _format.Render(entry);

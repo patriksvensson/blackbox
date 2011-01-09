@@ -26,24 +26,44 @@ using System.Globalization;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Represent errors that occur in condition expressions.
+    /// </summary>
     [Serializable]
     public sealed class ConditionException : BlackBoxException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionException"/> class.
+        /// </summary>
         public ConditionException()
             : base()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionException"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public ConditionException(string message)
             : base(message)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionException"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="innerException">The inner exception.</param>
         public ConditionException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionException"/> class.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
         public ConditionException(string format, params object[] args)
             : base(string.Format(CultureInfo.InvariantCulture, format, args))
         {

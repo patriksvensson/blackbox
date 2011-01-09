@@ -24,16 +24,27 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Attribute that is used to decorate log sinks.
+    /// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public sealed class LogSinkTypeAttribute : Attribute
 	{
 		private readonly string _name;
 
+        /// <summary>
+        /// Gets the name of the log sink.
+        /// </summary>
+        /// <value>The name.</value>
 		public string Name
 		{
 			get { return _name; }
-		} 
+		}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogSinkTypeAttribute"/> class.
+        /// </summary>
+        /// <param name="name">The name of the log sink.</param>
 		public LogSinkTypeAttribute(string name)
 		{
 			_name = name;

@@ -25,6 +25,9 @@ using BlackBox.Formatting;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The base class for a log sink.
+    /// </summary>
     public abstract class LogSink : IDisposable
     {
         private string _name;
@@ -33,6 +36,10 @@ namespace BlackBox
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the name of the log sink.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name
         {
             get { return _name; }
@@ -48,6 +55,10 @@ namespace BlackBox
 			}
         }
 
+        /// <summary>
+        /// Gets the log filters associated with this sink.
+        /// </summary>
+        /// <value>The filters.</value>
         public LogFilterCollection Filters
         {
             get { return _filters; }
@@ -57,6 +68,9 @@ namespace BlackBox
 
         #region Construction
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogSink"/> class.
+        /// </summary>
 		protected LogSink()
 		{
 			_filters = new LogFilterCollection();
@@ -66,18 +80,29 @@ namespace BlackBox
 
         #region IDisposable Members
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
         }
 
         #endregion
 
+        /// <summary>
+        /// Initializes the log sink.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
 		protected internal void Initialize(IServiceLocator locator)
 		{
 			this.InitializeSink(locator);
@@ -85,10 +110,18 @@ namespace BlackBox
 		}
 
 
+        /// <summary>
+        /// Initializes the log sink.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
         protected internal virtual void InitializeSink(IServiceLocator locator)
         {
         }
 
+        /// <summary>
+        /// Writes the specified entry to the log sink.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
         public void Write(ILogEntry entry)
         {
             if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
@@ -97,6 +130,10 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Writes the specified entries to the log sink.
+        /// </summary>
+        /// <param name="entries">The entries.</param>
         public void Write(ILogEntry[] entries)
         {
             if (entries == null)
@@ -119,8 +156,16 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Performs the writing of the specified entry to the log sink.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
         protected abstract void WriteEntry(ILogEntry entry);
 
+        /// <summary>
+        /// Performs the writing of the specified entries to the log sink.
+        /// </summary>
+        /// <param name="entries">The entries.</param>
         protected virtual void WriteEntries(ILogEntry[] entries)
         {
             if (entries == null)

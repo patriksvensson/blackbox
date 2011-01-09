@@ -25,14 +25,17 @@ using System.Diagnostics;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log sink that writes messages to the debug output.
+    /// </summary>
 	[LogSinkType("debug")]
 	public sealed class DebugSink : FormatLogSink
 	{
-		public DebugSink()
-			: base()
-		{
-		}
-
+        /// <summary>
+        /// Writes a message to the trace listeners in 
+        /// the <see cref="System.Diagnostics.Debug.Listeners"/> collection.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
 		protected override void WriteEntry(ILogEntry entry)
 		{
 			Debug.WriteLine(this.FormatEntry(entry));

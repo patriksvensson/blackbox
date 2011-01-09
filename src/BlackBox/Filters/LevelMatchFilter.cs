@@ -24,12 +24,19 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// Log filter that matches when the log level is equal to the specified log level.
+    /// </summary>
 	[LogFilterType("levelmatch")]
 	public sealed class LevelMatchFilter : LogFilter
 	{
 		private LogLevel _level;
 		private bool _levelHasBeenSet;
 
+        /// <summary>
+        /// Gets or sets the log level.
+        /// </summary>
+        /// <value>The level.</value>
 		public LogLevel Level
 		{
 			get { return _level; }
@@ -40,6 +47,10 @@ namespace BlackBox
 			}
 		}
 
+        /// <summary>
+        /// Initializes the log filter.
+        /// </summary>
+        /// <param name="locator">The locator.</param>
 		protected internal override void Initialize(IServiceLocator locator)
 		{
 			if (!_levelHasBeenSet) 
@@ -48,6 +59,11 @@ namespace BlackBox
 			}
 		}
 
+        /// <summary>
+        /// Evaluates the specified entry against the log filter.
+        /// </summary>
+        /// <param name="entry">The entry.</param>
+        /// <returns></returns>
 		protected internal override LogFilterResult Evaluate(ILogEntry entry)
 		{
 			if (entry != null)

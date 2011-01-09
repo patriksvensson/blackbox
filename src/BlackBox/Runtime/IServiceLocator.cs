@@ -24,8 +24,16 @@ using System.Text;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// The service locator contract interface.
+    /// </summary>
     public interface IServiceLocator
     {
+        /// <summary>
+        /// Resolves a service of a specific type.
+        /// </summary>
+        /// <typeparam name="TInstance">The type of the service to resolve.</typeparam>
+        /// <returns></returns>
         TInstance Resolve<TInstance>();
     }
 }
