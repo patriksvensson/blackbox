@@ -17,6 +17,7 @@ namespace BlackBox
             _document = document;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         internal LogConfiguration Deserialize()
         {
             // Create the log configuration.
@@ -72,6 +73,7 @@ namespace BlackBox
 
         #region Assembly Deserialization
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         internal AssemblyCollection DeserializeAssemblies(XElement assembliesElement)
         {
             AssemblyCollection assemblies = new AssemblyCollection();
@@ -155,6 +157,7 @@ namespace BlackBox
 
         #region Sink Deserialization
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         private LogSinkCollection DeserializeSinks(XElement sinkRoot, LogSinkFactory sinkFactory, LogFilterFactory filterFactory)
         {
             LogSinkCollection sinks = new LogSinkCollection();
@@ -237,6 +240,7 @@ namespace BlackBox
 
         #endregion
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         private IDictionary<string, string> ParseArguments(XElement element, string[] ignoredAttributes, string[] ignoredElements)
         {
             var arguments = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
