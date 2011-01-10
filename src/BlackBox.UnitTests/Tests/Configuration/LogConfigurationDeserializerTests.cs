@@ -27,36 +27,36 @@ using System.Xml.Linq;
 namespace BlackBox.UnitTests.Tests.Configuration
 {
 	[TestFixture]
-	public class XmlConfigurationDeserializerTests
+	public class LogConfigurationDeserializerTests
 	{
 		[Test]
-		public void XmlConfigurationDeserializer_ParseEmpty()
+		public void LogConfigurationDeserializer_ParseEmpty()
 		{
 			string xml = "<BlackBox></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+			var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration.Assemblies);
 			Assert.IsNotNull(configuration.Sinks);
 			Assert.IsNotNull(configuration.Filters);
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_LoadAssembly()
+		public void LogConfigurationDeserializer_LoadAssembly()
 		{
 			string assemblyName = "System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 			string xml = "<BlackBox><Assemblies><Assembly Name=\"" + assemblyName + "\" /></Assemblies></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.AreEqual(1, configuration.Assemblies.Count);
 			Assert.AreEqual(assemblyName, configuration.Assemblies[0].FullName);
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseSink()
+		public void LogConfigurationDeserializer_ParseSink()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""Console"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.IsInstanceOf(typeof(ConsoleSink), configuration.Sinks[0]);
@@ -64,22 +64,22 @@ namespace BlackBox.UnitTests.Tests.Configuration
 
 		[Test]
 		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log sink with type name 'Unknown' has not been registered.")]
-		public void XmlConfigurationDeserializer_ParseMissingSink()
+		public void LogConfigurationDeserializer_ParseMissingSink()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""Unknown"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseProxy()
+		public void LogConfigurationDeserializer_ParseProxy()
 		{
 			string xml = @"<BlackBox><Sinks>
 				<Proxy Type=""Funnel""><Sink Type=""Console"" /><Sink Type=""Debug"" /></Proxy>
 				</Sinks></BlackBox>";
 
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.IsInstanceOf(typeof(FunnelProxy), configuration.Sinks[0]);
@@ -90,19 +90,19 @@ namespace BlackBox.UnitTests.Tests.Configuration
 
 		[Test]
 		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log sink proxy with type name 'Unknown' has not been registered.")]
-		public void XmlConfigurationDeserializer_ParseMissingProxy()
+		public void LogConfigurationDeserializer_ParseMissingProxy()
 		{
 			string xml = @"<BlackBox><Sinks><Proxy Type=""Unknown"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseSinkWithElementProperty()
+		public void LogConfigurationDeserializer_ParseSinkWithElementProperty()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""MSMQ""><Queue>$\Shared</Queue></Sink></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.IsInstanceOf(typeof(MessageQueueSink), configuration.Sinks[0]);
@@ -110,11 +110,11 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseSinkWithAttributeProperty()
+		public void LogConfigurationDeserializer_ParseSinkWithAttributeProperty()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""MSMQ"" Queue=""$\Shared"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.IsInstanceOf(typeof(MessageQueueSink), configuration.Sinks[0]);
@@ -122,11 +122,11 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseFilter()
+		public void LogConfigurationDeserializer_ParseFilter()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
@@ -134,19 +134,19 @@ namespace BlackBox.UnitTests.Tests.Configuration
 
 		[Test]
 		[ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="Log filter with type name 'Unknown' has not been registered.")]
-		public void XmlConfigurationDeserializer_ParseMissingFilter()
+		public void LogConfigurationDeserializer_ParseMissingFilter()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""Unknown"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseFiltersWithPropertiesAsAttributes()
+		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsAttributes()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" Threshold=""Fatal"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
@@ -154,22 +154,22 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseFiltersWithPropertiesAsAttributes_PropertyDoNotExist()
+		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsAttributes_PropertyDoNotExist()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" SomeProperty=""Fatal"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseFiltersWithPropertiesAsChildElements()
+		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsChildElements()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch""><Threshold>Fatal</Threshold></Filter></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
@@ -177,22 +177,22 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseFiltersWithPropertiesAsChildElements_PropertyDoNotExist()
+		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsChildElements_PropertyDoNotExist()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch""><SomeProperty>Fatal</SomeProperty></Filter></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
 		}
 
 		[Test]
-		public void XmlConfigurationDeserializer_ParseSinkWithFilter()
+		public void LogConfigurationDeserializer_ParseSinkWithFilter()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""Console""><Filters><Filter Type=""LevelMatch"" /></Filters></Sink></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = new XmlConfigurationDeserializer(document).Deserialize();
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.IsInstanceOf(typeof(ConsoleSink), configuration.Sinks[0]);

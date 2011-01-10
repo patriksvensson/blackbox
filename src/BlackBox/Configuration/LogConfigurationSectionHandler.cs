@@ -42,7 +42,7 @@ namespace BlackBox
 
             // Deserialize the XML.
             XDocument document = XDocument.Parse(section.OuterXml);
-            return new XmlConfigurationDeserializer(document).Deserialize();
+            return new LogConfigurationDeserializer(document).Deserialize();
         }
 
         #endregion

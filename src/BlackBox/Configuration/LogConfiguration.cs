@@ -140,7 +140,7 @@ namespace BlackBox
 			}
 
 			XDocument document = XDocument.Parse(xml);
-			XmlConfigurationDeserializer deserializer = new XmlConfigurationDeserializer(document);
+            LogConfigurationDeserializer deserializer = new LogConfigurationDeserializer(document);
 			return deserializer.Deserialize();
 		}
 
@@ -157,7 +157,7 @@ namespace BlackBox
 			}
 
 			XDocument document = XDocument.Load(reader);
-			XmlConfigurationDeserializer deserializer = new XmlConfigurationDeserializer(document);
+            LogConfigurationDeserializer deserializer = new LogConfigurationDeserializer(document);
 			return deserializer.Deserialize();
 		}
 
@@ -177,7 +177,7 @@ namespace BlackBox
 			using (TextReader reader = new StreamReader(file.FullName))
 			{
 				XDocument document = XDocument.Load(reader);
-				XmlConfigurationDeserializer deserializer = new XmlConfigurationDeserializer(document);
+                LogConfigurationDeserializer deserializer = new LogConfigurationDeserializer(document);
 				return deserializer.Deserialize();
 			}
 		}

@@ -61,10 +61,7 @@
     <Compile Include="Collections\EventArgs[T].cs" />
     <Compile Include="Conditions\ConditionParser.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
-    <Compile Include="Configuration\Deserialization\XmlAssemblyDeserializer.cs" />
-    <Compile Include="Configuration\Deserialization\XmlConfigurationDeserializer.cs" />
-    <Compile Include="Configuration\Deserialization\XmlFilterDeserializer.cs" />
-    <Compile Include="Configuration\Deserialization\XmlSinkDeserializer.cs" />
+    <Compile Include="Configuration\LogConfigurationDeserializer.cs" />
     <Compile Include="Configuration\LogConfigurationSectionHandler.cs" />
     <Compile Include="Exceptions\ConditionException.cs" />
     <Compile Include="Conditions\Expressions\AndExpression.cs" />

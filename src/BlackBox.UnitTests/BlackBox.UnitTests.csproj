@@ -55,7 +55,7 @@
     <Compile Include="Tests\Conditions\ConditionExpressionTests.cs" />
     <Compile Include="Tests\Conditions\ConditionParserTests.cs" />
     <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs" />
-    <Compile Include="Tests\Configuration\XmlConfigurationDeserializerTests.cs" />
+    <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs" />
     <Compile Include="Tests\Filters\LevelMatchFilterTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs" />
     <Compile Include="Tests\Extensions\AttributeExtensionsTests.cs" />
