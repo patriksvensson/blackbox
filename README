@@ -1,7 +1,7 @@
 BlackBox
 --------
 
-This is a library for performing logging in applications targeting .NET Framework 4.
+This is a library for performing logging in applications targeting .NET Framework 3.5 and above.
 
 Released under version 3 (or later where applicable) of the GNU Lesser
 Public License. See LICENCE.LESSER for further information.
