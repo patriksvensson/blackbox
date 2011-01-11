@@ -41,7 +41,7 @@ namespace BlackBox.UnitTests.Tests.Filters
         }
 
         [Test]
-        [ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="Level filter have no level set.")]
+        [ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="The log level has not been set.")]
         public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
         { 
             LevelMatchFilter filter = new LevelMatchFilter();

@@ -70,7 +70,7 @@ namespace BlackBox
 		{
 			if (!_levelHasBeenSet) 
 			{
-				throw new BlackBoxException("Level filter have no level set.");
+				throw new BlackBoxException("The log level has not been set.");
 			}
 		}
 
