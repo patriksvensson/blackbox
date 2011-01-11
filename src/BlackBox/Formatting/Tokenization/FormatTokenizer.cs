@@ -81,17 +81,13 @@ namespace BlackBox.Formatting
 							string message = string.Format(CultureInfo.InvariantCulture, "Expected parenthesis but found '{0}'.", (char)peekedValue);
 							throw new FormatPatternException(message);
 						}
-
 						return FormatToken.CreateFormatRendererBlock();
 					}
 					else
-					{						
+					{
 						// It was an escaped format renderer ($$).
-						// Create a literal of the two tokens.
-						StringBuilder accumulator = new StringBuilder();
-						accumulator.Append((symbol));
-						accumulator.Append((char)_buffer.Read());
-						return FormatToken.CreateLiteral(accumulator.ToString());
+                        _buffer.Read(); // Consume the second '$' token.
+						return FormatToken.CreateSymbol('$');
 					}
 				}
 				return FormatToken.CreateSymbol(symbol);

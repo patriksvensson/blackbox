@@ -76,7 +76,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
 			Assert.AreEqual(FormatTokenType.Whitespace, result[1].TokenType);
 			Assert.AreEqual(FormatTokenType.Literal, result[2].TokenType); // World
 			Assert.AreEqual(FormatTokenType.Whitespace, result[3].TokenType);
-			Assert.AreEqual(FormatTokenType.Literal, result[4].TokenType); // $$
+			Assert.AreEqual(FormatTokenType.Symbol, result[4].TokenType); // $
 			Assert.AreEqual(FormatTokenType.Symbol, result[5].TokenType); // (
 			Assert.AreEqual(FormatTokenType.Literal, result[6].TokenType); // time
 			Assert.AreEqual(FormatTokenType.Symbol, result[7].TokenType); // )

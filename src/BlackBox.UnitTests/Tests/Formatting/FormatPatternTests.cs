@@ -64,7 +64,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
             FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
             FormatPattern<ILogEntry> pattern = factory.Create("$$(time(format='HH:mm:ss'))");
             ILogEntry entry = new LogEntry(DateTime.Now, LogLevel.Information, "The log message.", logger, null);
-            Assert.AreEqual("$$(time(format='HH:mm:ss'))", pattern.Render(entry));
+            Assert.AreEqual("$(time(format='HH:mm:ss'))", pattern.Render(entry));
         }
 
         [Test]
