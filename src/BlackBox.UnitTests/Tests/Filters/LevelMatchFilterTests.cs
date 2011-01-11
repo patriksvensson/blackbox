@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using System.Xml.Linq;
 
 namespace BlackBox.UnitTests.Tests.Filters
 {
@@ -29,20 +30,20 @@ namespace BlackBox.UnitTests.Tests.Filters
     public class LevelMatchFilterTests
     {
         [Test]
-        public void LevelFilter_EntriesWithSameLevelReturnsMatch()
+        public void LevelMatchFilter_EntriesWithSameLevelReturnsMatch()
         {
             LevelMatchFilter filter = new LevelMatchFilter { Level = LogLevel.Information };
             Logger logger = new Logger(null, typeof(LevelMatchFilterTests));
             ILogEntry informationEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "", logger, null);
             ILogEntry errorEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Error, "", logger, null);
-            Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(informationEntry));
-            Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(errorEntry));
+            Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(informationEntry));
+            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(errorEntry));
         }
 
         [Test]
         [ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="Level filter have no level set.")]
-        public void LevelFilter_ThrowsIfLevelIsNotSetAtInitialization()
-       { 
+        public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
+        { 
             LevelMatchFilter filter = new LevelMatchFilter();
             filter.Initialize(null);
         }

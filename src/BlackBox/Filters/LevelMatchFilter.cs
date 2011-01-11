@@ -48,6 +48,21 @@ namespace BlackBox
 		}
 
         /// <summary>
+        /// Gets or sets the action that will be used if the
+        /// log entry's log level match the provided log level.
+        /// </summary>
+        /// <value>The action.</value>
+        public LogFilterResult Action { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LevelMatchFilter"/> class.
+        /// </summary>
+        public LevelMatchFilter()
+        {
+            this.Action = LogFilterResult.Filter;
+        }
+
+        /// <summary>
         /// Initializes the log filter.
         /// </summary>
         /// <param name="locator">The locator.</param>
@@ -68,9 +83,8 @@ namespace BlackBox
 		{
 			if (entry != null)
 			{
-				return entry.Level == this.Level
-					? LogFilterResult.Accept
-					: LogFilterResult.Filter;
+                return (entry.Level == this.Level)
+                    ? this.Action : LogFilterResult.Neutral;
 			}
 			else
 			{

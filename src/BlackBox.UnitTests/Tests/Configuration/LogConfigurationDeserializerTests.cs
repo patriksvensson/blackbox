@@ -144,13 +144,13 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		[Test]
 		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsAttributes()
 		{
-			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" Threshold=""Fatal"" /></Filters></BlackBox>";
+			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" Level=""Error"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
             var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
-			Assert.AreEqual(LogLevel.Fatal, ((LevelMatchFilter)configuration.Filters[0]).Level);
+			Assert.AreEqual(LogLevel.Error, ((LevelMatchFilter)configuration.Filters[0]).Level);
 		}
 
 		[Test]
@@ -164,16 +164,25 @@ namespace BlackBox.UnitTests.Tests.Configuration
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
 		}
 
+        [Test]
+        public void LogConfigurationDeserializer_LogFilterResultCanBeParsed()
+        {
+            string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch"" Action=""Accept"" /></Filters></BlackBox>";
+            XDocument document = XDocument.Parse(xml);
+            var configuration = new LogConfigurationDeserializer(document).Deserialize();
+            Assert.AreEqual(LogFilterResult.Accept, ((LevelMatchFilter)configuration.Filters[0]).Action);
+        }
+
 		[Test]
 		public void LogConfigurationDeserializer_ParseFiltersWithPropertiesAsChildElements()
 		{
-			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch""><Threshold>Fatal</Threshold></Filter></Filters></BlackBox>";
+			string xml = @"<BlackBox><Filters><Filter Type=""LevelMatch""><Level>Error</Level></Filter></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
             var configuration = new LogConfigurationDeserializer(document).Deserialize();
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Filters[0]);
-			Assert.AreEqual(LogLevel.Fatal, ((LevelMatchFilter)configuration.Filters[0]).Level);
+            Assert.AreEqual(LogLevel.Error, ((LevelMatchFilter)configuration.Filters[0]).Level);
 		}
 
 		[Test]
