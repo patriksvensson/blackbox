@@ -34,10 +34,11 @@ namespace BlackBox.UnitTests.Tests
 		{
 			LogFilterFactory factory = new LogFilterFactory();
 			Assert.IsNotNull(factory.Types);
-			Assert.AreEqual(1, factory.Types.Count);
+			Assert.AreEqual(2, factory.Types.Count);
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("levelmatch"));
+            Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
 
 			// But not the unit test sinks.
 			Assert.IsFalse(factory.Types.ContainsKey("denyall"));
@@ -49,10 +50,11 @@ namespace BlackBox.UnitTests.Tests
 			List<Assembly> assemblies = new List<Assembly> { this.GetType().Assembly };
 			LogFilterFactory factory = new LogFilterFactory(assemblies);
 			Assert.IsNotNull(factory.Types);
-			Assert.AreEqual(2, factory.Types.Count);
+			Assert.AreEqual(3, factory.Types.Count);
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("levelmatch"));
+            Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
 
 			// And also the unit test sinks.
 			Assert.IsTrue(factory.Types.ContainsKey("denyall"));
