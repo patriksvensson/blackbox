@@ -36,9 +36,15 @@ namespace BlackBox
             // Make sure that we've got a valid configuration.
             if (section == null || string.IsNullOrEmpty(section.OuterXml))
             {
-                string message = "The configuration section 'BlackBox' could not be found.";
+                string message = "The configuration section could not be found.";
                 throw new BlackBoxException(message);
             }
+
+			string rootNodeName = section.LocalName;
+			if(!rootNodeName.Equals("blackbox", StringComparison.OrdinalIgnoreCase))
+			{
+				section = section.Rename("BlackBox");
+			}
 
             // Deserialize the XML.
             XDocument document = XDocument.Parse(section.OuterXml);
