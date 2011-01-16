@@ -22,11 +22,136 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using BlackBox.Conditions;
 
 namespace BlackBox.UnitTests.Tests.Conditions
 {
     [TestFixture]
     public class ConditionExpressionTests
     {
+        #region Private Helper Methods
+
+        private bool Evaluate(string condition)
+        {
+            return this.Evaluate(condition, "", LogLevel.Information);
+        }
+
+        private bool Evaluate(string condition, string message)
+        {
+            return this.Evaluate(condition, message, LogLevel.Information);
+        }
+
+        private bool Evaluate(string condition, LogLevel level)
+        {
+            return this.Evaluate(condition, "", level);
+        }
+
+        private bool Evaluate(string condition, string message, LogLevel level)
+        {
+            ConditionExpression expression = ConditionParser.ParseCondition(condition);
+            Logger logger = new Logger(null, typeof(ConditionExpressionTests));
+            ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, null);
+            return (bool)expression.Evaluate(entry);
+        }
+
+        #endregion
+
+        [Test]
+        public void ConditionExpression_EqualsExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("1==2"));
+        }
+
+        [Test]
+        public void ConditionExpression_EqualsExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1==1"));
+        }
+
+        [Test]
+        public void ConditionExpression_GreaterThanExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("1>2"));
+        }
+
+        [Test]
+        public void ConditionExpression_GreaterThanExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("2>1"));
+        }
+
+        [Test]
+        public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("1>=2"));
+        }
+
+        [Test]
+        public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1>=1"));
+            Assert.AreEqual(true, this.Evaluate("2>=1"));
+        }
+
+        [Test]
+        public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("2<=1"));
+        }
+
+        [Test]
+        public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1<=1"));
+            Assert.AreEqual(true, this.Evaluate("1<=2"));
+        }
+
+        [Test]
+        public void ConditionExpression_LessThanExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("2<1"));
+        }
+
+        [Test]
+        public void ConditionExpression_LessThanExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1<2"));
+        }
+
+        [Test]
+        public void ConditionExpression_NotExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("!True"));
+        }
+
+        [Test]
+        public void ConditionExpression_NotExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("!False"));
+        }
+
+        [Test]
+        public void ConditionExpression_OrExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("2==1 OR 1==2"));
+        }
+
+        [Test]
+        public void ConditionExpression_OrExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1==1 OR 1==2"));
+        }
+
+        [Test]
+        public void ConditionExpression_AndExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("1==1 AND 1==2"));
+        }
+
+        [Test]
+        public void ConditionExpression_AndExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
+        }
     }
 }
