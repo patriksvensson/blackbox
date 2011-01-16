@@ -153,5 +153,41 @@ namespace BlackBox.UnitTests.Tests.Conditions
         {
             Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
         }
+
+        [Test]
+        public void ConditionExpression_MessageExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("message=='testing'", "testing"));
+        }
+
+        [Test]
+        public void ConditionExpression_MessageExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("message=='testin'", "testing"));
+        }
+
+        [Test]
+        public void ConditionExpression_LogLevelExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("level==1", LogLevel.Information));
+        }
+
+        [Test]
+        public void ConditionExpression_LogLevelExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("level==3", LogLevel.Information));
+        }
+
+        [Test]
+        public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("levelname=='Fatal'", LogLevel.Information));
+        }
+
+        [Test]
+        public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("levelname=='Information'", LogLevel.Information));
+        }
     }
 }
