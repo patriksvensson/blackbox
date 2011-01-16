@@ -58,6 +58,7 @@
     <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationTests.cs" />
+    <Compile Include="Tests\Filters\ConditionFilterTests.cs" />
     <Compile Include="Tests\Filters\LevelRangeFilterTests.cs" />
     <Compile Include="Tests\Filters\LevelMatchFilterTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs" />

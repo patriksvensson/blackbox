@@ -87,6 +87,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\XElementExtensions.cs" />
     <Compile Include="Extensions\XmlNodeExtensions.cs" />
+    <Compile Include="Filters\ConditionFilter.cs" />
     <Compile Include="Filters\LevelMatchFilter.cs" />
     <Compile Include="Filters\LevelRangeFilter.cs" />
     <Compile Include="Formatting\FormatPattern.cs" />
