@@ -28,7 +28,7 @@ namespace BlackBox.Conditions
     {
         private readonly bool _numeric;
 
-        public LogLevelExpression(bool numeric)
+        internal LogLevelExpression(bool numeric)
         {
             _numeric = numeric;
         }
