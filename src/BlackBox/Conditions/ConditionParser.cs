@@ -205,6 +205,10 @@ namespace BlackBox.Conditions
                 {
                     return new LogLevelExpression(false /* Log level name */);
                 }
+                else if (value.Equals("has-exception", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new HasExceptionExpression();
+                }
 
 				// Is the next parameter a parenthesis?
 				// This is one of our special functions.

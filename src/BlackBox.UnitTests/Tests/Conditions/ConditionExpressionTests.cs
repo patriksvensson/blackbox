@@ -33,24 +33,29 @@ namespace BlackBox.UnitTests.Tests.Conditions
 
         private bool Evaluate(string condition)
         {
-            return this.Evaluate(condition, "", LogLevel.Information);
+            return this.Evaluate(condition, "", LogLevel.Information, null);
         }
 
         private bool Evaluate(string condition, string message)
         {
-            return this.Evaluate(condition, message, LogLevel.Information);
+            return this.Evaluate(condition, message, LogLevel.Information, null);
         }
 
         private bool Evaluate(string condition, LogLevel level)
         {
-            return this.Evaluate(condition, "", level);
+            return this.Evaluate(condition, "", level, null);
         }
 
-        private bool Evaluate(string condition, string message, LogLevel level)
+        private bool Evaluate(string condition, Exception exception)
+        {
+            return this.Evaluate(condition, "", LogLevel.Information, exception);
+        }
+
+        private bool Evaluate(string condition, string message, LogLevel level, Exception exception)
         {
             ConditionExpression expression = ConditionParser.ParseCondition(condition);
             Logger logger = new Logger(null, typeof(ConditionExpressionTests));
-            ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, null);
+            ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
             return (bool)expression.Evaluate(entry);
         }
 
@@ -188,6 +193,18 @@ namespace BlackBox.UnitTests.Tests.Conditions
         public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToTrue()
         {
             Assert.AreEqual(true, this.Evaluate("levelname=='Information'", LogLevel.Information));
+        }
+
+        [Test]
+        public void ConditionExpression_HasExceptionExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("has-exception==true", (Exception)null));
+        }
+
+        [Test]
+        public void ConditionExpression_HasExceptionExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("has-exception==true", new ArgumentException()));
         }
     }
 }

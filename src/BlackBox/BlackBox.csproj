@@ -60,6 +60,7 @@
     <Compile Include="Collections\LruCache.cs" />
     <Compile Include="Collections\EventArgs[T].cs" />
     <Compile Include="Conditions\ConditionParser.cs" />
+    <Compile Include="Conditions\Expressions\HasExceptionExpression.cs" />
     <Compile Include="Conditions\Expressions\LogLevelExpression.cs" />
     <Compile Include="Conditions\Expressions\LogMessageExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />

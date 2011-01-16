@@ -123,7 +123,7 @@ namespace BlackBox.Conditions
 		{
 			StringBuilder accumulator = new StringBuilder();
 			char character = (char)_buffer.Peek();
-			while (char.IsLetter(character))
+			while (char.IsLetter(character) || character == '-')
 			{
 				accumulator.Append(character);
 				_buffer.Read();
