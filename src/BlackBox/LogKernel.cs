@@ -27,165 +27,165 @@ using System.Diagnostics;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// The BlackBox logging kernel.
-    /// </summary>
-    public sealed class LogKernel : ILogKernel, IDisposable
-    {        
-        private readonly ReaderWriterLockSlim _lock;
-        private readonly ServiceProvider _serviceProvider;
-        private readonly FormatRendererTypeMap<ILogEntry> _formatRendererTypeMap;
-        private readonly FormatPatternFactory<ILogEntry> _formatPatternFactory;
-        private readonly LoggerCollection _loggers;
-        private LogConfiguration _configuration;
-        private bool _disposed;
+	/// <summary>
+	/// The BlackBox logging kernel.
+	/// </summary>
+	public sealed class LogKernel : ILogKernel, IDisposable
+	{        
+		private readonly ReaderWriterLockSlim _lock;
+		private readonly ServiceProvider _serviceProvider;
+		private readonly FormatRendererTypeMap<ILogEntry> _formatRendererTypeMap;
+		private readonly FormatPatternFactory<ILogEntry> _formatPatternFactory;
+		private readonly LoggerCollection _loggers;
+		private LogConfiguration _configuration;
+		private bool _disposed;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogKernel"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration.</param>
-        public LogKernel(LogConfiguration configuration)
-        {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration", "Log configuration cannot be null.");
-            }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogKernel"/> class.
+		/// </summary>
+		/// <param name="configuration">The configuration.</param>
+		public LogKernel(LogConfiguration configuration)
+		{
+			if (configuration == null)
+			{
+				throw new ArgumentNullException("configuration", "Log configuration cannot be null.");
+			}
 
-            _serviceProvider = new ServiceProvider();
-            _formatRendererTypeMap = new FormatRendererTypeMap<ILogEntry>();
-            _formatPatternFactory = new FormatPatternFactory<ILogEntry>(_formatRendererTypeMap);
-            _lock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-            _loggers = new LoggerCollection();
+			_serviceProvider = new ServiceProvider();
+			_formatRendererTypeMap = new FormatRendererTypeMap<ILogEntry>();
+			_formatPatternFactory = new FormatPatternFactory<ILogEntry>(_formatRendererTypeMap);
+			_lock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+			_loggers = new LoggerCollection();
 
-            // Register services.
-            _serviceProvider.Register<FormatPatternFactory<ILogEntry>>(_formatPatternFactory);
+			// Register services.
+			_serviceProvider.Register<FormatPatternFactory<ILogEntry>>(_formatPatternFactory);
 
-            // Configure the kernel.
-            this.Configure(configuration);
-        }
+			// Configure the kernel.
+			this.Configure(configuration);
+		}
 
-        #region IDisposable Members
+		#region IDisposable Members
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        private void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _configuration.Dispose();
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+		private void Dispose(bool disposing)
+		{
+			if (!_disposed)
+			{
+				if (disposing)
+				{
+					_configuration.Dispose();
 
-                    if (_lock != null)
-                    {
-                        _lock.Dispose();
-                    }
-                }
-                _disposed = true;
-            }
-        }
+					if (_lock != null)
+					{
+						_lock.Dispose();
+					}
+				}
+				_disposed = true;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        private void Configure(LogConfiguration configuration)
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
+		private void Configure(LogConfiguration configuration)
+		{
+			if (_disposed)
+			{
+				throw new ObjectDisposedException(this.GetType().FullName);
+			}
 
-            using (_lock.AcquireWriteLock())
-            {
-                if (_configuration != null)
-                {
-                    // TODO: Dispose the configuration here.
-                    throw new NotImplementedException("Configuration should be disposed.");
-                }
-          
-                // Set the active configuration.
-                _configuration = configuration ?? new LogConfiguration();
+			using (_lock.AcquireWriteLock())
+			{
+				if (_configuration != null)
+				{
+					// TODO: Dispose the configuration here.
+					throw new NotImplementedException("Configuration should be disposed.");
+				}
+		  
+				// Set the active configuration.
+				_configuration = configuration ?? new LogConfiguration();
 
-                // Initialize all proxies and log sinks.
-                foreach (LogSink sink in _configuration.Sinks)
-                {
-                    sink.Initialize(_serviceProvider);
-                }
-            }
-        }
+				// Initialize all filters.
+				_configuration.Filters.Initialize(_serviceProvider);
 
-        /// <summary>
-        /// Gets the logger for the calling type.
-        /// </summary>
-        /// <returns></returns>
-        public ILogger GetLogger()
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
+				// Initialize all sinks.
+				_configuration.Sinks.Initialize(_serviceProvider);
+			}
+		}
 
-            // Get the type of the caller.
-            StackFrame frame = new StackFrame(1, false);
-            Type type = frame.GetMethod().DeclaringType;
-            return GetLogger(type);
-        }
+		/// <summary>
+		/// Gets the logger for the calling type.
+		/// </summary>
+		/// <returns></returns>
+		public ILogger GetLogger()
+		{
+			if (_disposed)
+			{
+				throw new ObjectDisposedException(this.GetType().FullName);
+			}
 
-        /// <summary>
-        /// Gets the logger for the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        public ILogger GetLogger(Type type)
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
+			// Get the type of the caller.
+			StackFrame frame = new StackFrame(1, false);
+			Type type = frame.GetMethod().DeclaringType;
+			return GetLogger(type);
+		}
 
-            using (_lock.AcquireWriteLock())
-            {
-                if (_loggers.Contains(type))
-                {
-                    return _loggers[type];
-                }
-                else
-                {
-                    Logger logger = new Logger(this, type);
-                    _loggers.Add(logger);
-                    return logger;
-                }
-            }
-        }
+		/// <summary>
+		/// Gets the logger for the specified type.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		public ILogger GetLogger(Type type)
+		{
+			if (_disposed)
+			{
+				throw new ObjectDisposedException(this.GetType().FullName);
+			}
 
-        internal void Write(LogLevel level, ILogger logger, Exception exception, string message)
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
-            }
+			using (_lock.AcquireWriteLock())
+			{
+				if (_loggers.Contains(type))
+				{
+					return _loggers[type];
+				}
+				else
+				{
+					Logger logger = new Logger(this, type);
+					_loggers.Add(logger);
+					return logger;
+				}
+			}
+		}
 
-            using (_lock.AcquireReadLock())
-            {
-                // Create the log entry.
-                LogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
+		internal void Write(LogLevel level, ILogger logger, Exception exception, string message)
+		{
+			if (_disposed)
+			{
+				throw new ObjectDisposedException(this.GetType().FullName);
+			}
 
-                // Write the entry to all sinks.
-                foreach (LogSink sink in _configuration.Sinks)
-                {
-                    sink.Write(entry);
-                }
-            }
-        }
-    }
+			using (_lock.AcquireReadLock())
+			{
+				// Create the log entry.
+				LogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
+
+				// Write the entry to all sinks.
+				foreach (LogSink sink in _configuration.Sinks)
+				{
+					sink.Write(entry);
+				}
+			}
+		}
+	}
 }

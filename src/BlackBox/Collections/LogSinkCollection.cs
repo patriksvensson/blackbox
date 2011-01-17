@@ -125,7 +125,21 @@ namespace BlackBox
 
 		#endregion
 
-        /// <summary>
+		#region Initialization
+
+		internal void Initialize(IServiceLocator locator)
+		{
+			// Iterate through all sinks in the collection.
+			foreach (LogSink sink in _sinks)
+			{
+				// Perform the initialization.
+				sink.PerformInitialization(locator);
+			}
+		}
+
+		#endregion
+
+		/// <summary>
         /// Adds the specified log sink to the collection.
         /// </summary>
         /// <param name="sink">The sink.</param>

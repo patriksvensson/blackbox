@@ -29,28 +29,73 @@ namespace BlackBox.UnitTests.Tests
 	public class LogKernelTests
 	{
 		#region Nested Private Test Classes
+
 		private class FakeSink : StringSink
 		{
-			private bool _isInitialized;
+			private bool _initializeMethodWasCalled;
 
-			public bool IsInitialized
+			public bool InitializeMethodWasCalled
 			{
-				get { return _isInitialized; }
+				get { return _initializeMethodWasCalled; }
 			}
 
-			protected internal override void InitializeSink(IServiceLocator locator)
+			protected internal override void Initialize(IServiceLocator locator)
 			{
-				_isInitialized = true;
+				_initializeMethodWasCalled = true;
 			}
 		}
+
+		private class FakeProxySink : LogSinkProxy
+		{
+			private bool _initializeMethodWasCalled;
+
+			public bool InitializeMethodWasCalled
+			{
+				get { return _initializeMethodWasCalled; }
+			}
+
+			protected internal override void Initialize(IServiceLocator locator)
+			{
+				_initializeMethodWasCalled = true;
+			}
+
+			protected override void WriteEntry(ILogEntry entry)
+			{
+				foreach (LogSink sink in this.Sinks)
+				{
+					sink.Write(entry);
+				}
+			}
+		}
+
+		private class FakeFilter : LogFilter
+		{
+			private bool _initializeMethodWasCalled;
+
+			public bool InitializeMethodWasCalled
+			{
+				get { return _initializeMethodWasCalled; }
+			}
+
+			protected internal override void Initialize(IServiceLocator locator)
+			{
+				_initializeMethodWasCalled = true;
+			}
+
+			protected internal override LogFilterResult Evaluate(ILogEntry entry)
+			{
+				return LogFilterResult.Accept;
+			}
+		}
+
 		#endregion
 
-        [Test]
-        [ExpectedException(ExpectedException = typeof(ArgumentNullException), UserMessage = "Log configuration cannot be null.")]
-        public void LogKernel_NullLogConfigurationCannotBePassedToConstructor_Throws()
-        {
-            LogKernel kernel = new LogKernel(null);
-        }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(ArgumentNullException), UserMessage = "Log configuration cannot be null.")]
+		public void LogKernel_NullLogConfigurationCannotBePassedToConstructor_Throws()
+		{
+			LogKernel kernel = new LogKernel(null);
+		}
 
 		[Test]
 		public void LogKernel_LogSinksAreInitializedWhenCreatingKernel()
@@ -59,8 +104,49 @@ namespace BlackBox.UnitTests.Tests
 			FakeSink sink = new FakeSink { Name = "fake" };
 			configuration.Sinks.Add(sink);
 			Assert.IsFalse(sink.IsInitialized);
+			Assert.IsFalse(sink.InitializeMethodWasCalled);
 			LogKernel kernel = new LogKernel(configuration);
 			Assert.IsTrue(sink.IsInitialized);
+			Assert.IsTrue(sink.InitializeMethodWasCalled);
+		}
+
+		[Test]
+		public void LogKernel_NestedLogSinksInProxiesAreInitializedWhenCreatingKernel()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			FakeProxySink proxy = new FakeProxySink();
+			FakeSink sink = new FakeSink();
+			proxy.Sinks.Add(sink);
+			configuration.Sinks.Add(proxy);
+			Assert.IsFalse(proxy.InitializeMethodWasCalled);
+			Assert.IsFalse(sink.InitializeMethodWasCalled);
+			LogKernel kernel = new LogKernel(configuration);
+			Assert.IsTrue(proxy.InitializeMethodWasCalled);
+			Assert.IsTrue(sink.InitializeMethodWasCalled);
+		}
+
+		[Test]
+		public void LogKernel_GlobalFiltersAreInitializedWhenCreatingKernel()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			FakeFilter filter = new FakeFilter { };
+			configuration.Filters.Add(filter);
+			Assert.IsFalse(filter.InitializeMethodWasCalled);
+			LogKernel kernel = new LogKernel(configuration);
+			Assert.IsTrue(filter.InitializeMethodWasCalled);
+		}
+
+		[Test]
+		public void LogKernel_SinkFiltersAreInitializedWhenCreatingKernel()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			FakeFilter filter = new FakeFilter { };
+			FakeSink sink = new FakeSink { };
+			sink.Filters.Add(filter);
+			configuration.Sinks.Add(sink);
+			Assert.IsFalse(filter.InitializeMethodWasCalled);
+			LogKernel kernel = new LogKernel(configuration);
+			Assert.IsTrue(filter.InitializeMethodWasCalled);
 		}
 
 		[Test]

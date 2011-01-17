@@ -87,6 +87,18 @@ namespace BlackBox
 
         #endregion
 
+		#region Initialization
+
+		internal void Initialize(IServiceLocator locator)
+		{
+			foreach (LogFilter filter in _filters)
+			{
+				filter.Initialize(locator);
+			}
+		}
+
+		#endregion
+
         /// <summary>
         /// Adds the specified filter to the collection.
         /// </summary>

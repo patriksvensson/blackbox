@@ -32,7 +32,7 @@ namespace BlackBox
     {
         private string _name;
         private readonly LogFilterCollection _filters;
-		private bool _initialized;
+		private bool _isInitialized;
 
         #region Properties
 
@@ -45,7 +45,7 @@ namespace BlackBox
             get { return _name; }
 			set 
 			{
-				if (_initialized)
+				if (_isInitialized)
 				{
 					// We want to avoid sinks getting renamed after the system have been started.
 					throw new BlackBoxException("Cannot change the name of the sink after initialization.");
@@ -62,7 +62,18 @@ namespace BlackBox
         public LogFilterCollection Filters
         {
             get { return _filters; }
-        } 
+        }
+
+		/// <summary>
+		/// Gets a value indicating whether this sink has been initialized.
+		/// </summary>
+		/// <value>
+		/// 	<c>true</c> if this sink has been initialized; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsInitialized
+		{
+			get { return _isInitialized; }
+		}
 
         #endregion
 
@@ -99,18 +110,23 @@ namespace BlackBox
 
         #endregion
 
-		internal void Initialize(IServiceLocator locator)
+		internal virtual void PerformInitialization(IServiceLocator locator)
 		{
-			this.InitializeSink(locator);
-			_initialized = true;
-		}
+			// Initalize all filters.
+			this.Filters.Initialize(locator);
 
+			// Perform custom initialization for this sink.
+			this.Initialize(locator);
+
+			// We're now properly initialized.
+			_isInitialized = true;
+		}
 
         /// <summary>
         /// Initializes the log sink.
         /// </summary>
         /// <param name="locator">The locator.</param>
-        protected internal virtual void InitializeSink(IServiceLocator locator)
+        protected internal virtual void Initialize(IServiceLocator locator)
         {
         }
 

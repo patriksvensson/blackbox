@@ -55,7 +55,7 @@ namespace BlackBox
         /// Initializes the log sink.
         /// </summary>
         /// <param name="locator">The locator.</param>
-		protected internal override void InitializeSink(IServiceLocator locator)
+		protected internal override void Initialize(IServiceLocator locator)
 		{
 			_format = FormatPattern<ILogEntry>.Create(locator, _formatString);
 		}

@@ -85,7 +85,7 @@ namespace BlackBox
         /// Initializes the log sink.
         /// </summary>
         /// <param name="locator">The locator.</param>
-		protected internal override void InitializeSink(IServiceLocator locator)
+		protected internal override void Initialize(IServiceLocator locator)
 		{
 			// Create the message queue.
 			if (!MessageQueue.Exists(this.Queue))
@@ -121,7 +121,7 @@ namespace BlackBox
 			_labelPattern = FormatPattern<ILogEntry>.Create(locator, this.Label);
 
 			// Call the base class so the format message sink gets properly initialized.
-			base.InitializeSink(locator);
+			base.Initialize(locator);
 		}
 
 		#endregion

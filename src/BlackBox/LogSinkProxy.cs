@@ -47,5 +47,14 @@ namespace BlackBox
         {
             _sinks = new LogSinkCollection();
         }
+
+		internal override void PerformInitialization(IServiceLocator locator)
+		{
+			// Initialize the child sinks.
+			this.Sinks.Initialize(locator);
+
+			// Call the base class implementation.
+			base.PerformInitialization(locator);
+		}
     }
 }
