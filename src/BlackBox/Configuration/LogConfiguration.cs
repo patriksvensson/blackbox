@@ -193,7 +193,24 @@ namespace BlackBox
 
 		#endregion
 
-		internal LogConfiguration Clone()
+        #region Log Configuration Saving
+
+        /// <summary>
+        /// Saves the log configuration to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        public void Save(Stream stream)
+        {
+            XDocument document = LogConfigurationSerializer.Serialize(this);
+            using (XmlWriter writer = XmlWriter.Create(stream))
+            {
+                document.Save(writer);
+            }
+        }
+
+        #endregion
+
+        internal LogConfiguration Clone()
 		{
 			// Serialize the configuration.
 			XDocument document = LogConfigurationSerializer.Serialize(this);
