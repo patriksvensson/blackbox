@@ -66,14 +66,14 @@ namespace BlackBox.UnitTests.Tests.Extensions
         [Test]
         public void AttributeExtensions_GetSingleAttribute_NotInherited()
         {
-            TestBaseClassAttribute attribute = typeof(TestClass).GetSingleAttribute<TestBaseClassAttribute>(false);
+            TestBaseClassAttribute attribute = typeof(TestClass).GetAttribute<TestBaseClassAttribute>(false);
             Assert.IsNull(attribute);
         }
 
         [Test]
         public void AttributeExtensions_GetSingleAttribute_Inherited()
         {
-            TestBaseClassAttribute attribute = typeof(TestClass).GetSingleAttribute<TestBaseClassAttribute>(true);
+            TestBaseClassAttribute attribute = typeof(TestClass).GetAttribute<TestBaseClassAttribute>(true);
             Assert.IsNotNull(attribute);
         }
 

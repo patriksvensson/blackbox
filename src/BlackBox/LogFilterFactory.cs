@@ -62,7 +62,7 @@ namespace BlackBox
 				{
 					if (type.IsNonAbstractClass() && type.Inherits(typeof(LogFilter)))
 					{
-						var attribute = type.GetSingleAttribute<LogFilterTypeAttribute>(false);
+						var attribute = type.GetAttribute<LogFilterTypeAttribute>(false);
 						if (attribute != null)
 						{
 							string identifier = attribute.Name;

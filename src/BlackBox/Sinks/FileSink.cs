@@ -63,9 +63,8 @@ namespace BlackBox
 			: base()
 		{
 			_fileCacheSize = 5;
-			_fileName = "$(time:format='yyyy-MM-dd').log";
+			_fileName = "$(basedir())\\$(time(format='yyyy-MM-dd')).log";
 			_lock = new object();
-
 		}
 
 		#endregion

@@ -73,8 +73,8 @@ namespace BlackBox
 		public MessageQueueSink()
 			: base()
 		{
-			this.Format = "$(time:format='HH:mm:ss.fff'): $(message)";
-			this.Label = "$(level:numeric=false)";
+			this.Format = "$(time(format='HH:mm:ss.fff')): $(message())";
+			this.Label = "$(level(numeric=false))";
 		}
 
 		#endregion

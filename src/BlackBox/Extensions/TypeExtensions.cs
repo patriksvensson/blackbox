@@ -63,6 +63,20 @@ namespace BlackBox
 				: new List<PropertyInfo>().ToArray();
 		}
 
+		internal static PropertyInfo[] GetPublicProperties(this Type type, params string[] ignoredProperties)
+		{
+			if (type != null)
+			{
+				return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+					.Where(property => !ignoredProperties.Contains(property.Name, StringComparer.OrdinalIgnoreCase))
+					.ToArray();
+			}
+			else
+			{
+				return new List<PropertyInfo>().ToArray();
+			}
+		}
+
 		internal static PropertyInfo[] GetAllProperties(this Type type)
 		{
 			HashSet<PropertyInfo> result = new HashSet<PropertyInfo>();

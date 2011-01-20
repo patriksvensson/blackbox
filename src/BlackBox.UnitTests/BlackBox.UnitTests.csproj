@@ -56,7 +56,10 @@
     <Compile Include="Tests\Conditions\ConditionExpressionTests.cs" />
     <Compile Include="Tests\Conditions\ConditionParserTests.cs" />
     <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs" />
+    <Compile Include="Tests\Extensions\LogFilterExtensionsTests.cs" />
+    <Compile Include="Tests\Extensions\LogSinkExtensionsTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs" />
+    <Compile Include="Tests\Configuration\LogConfigurationSerializerTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationTests.cs" />
     <Compile Include="Tests\Filters\ConditionFilterTests.cs" />
     <Compile Include="Tests\Filters\LevelRangeFilterTests.cs" />

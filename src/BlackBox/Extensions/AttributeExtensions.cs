@@ -34,10 +34,16 @@ namespace BlackBox
             return attributes == null || attributes.Length == 0 ? new List<T>() : attributes.Cast<T>();
         }
 
-        internal static T GetSingleAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
+        internal static T GetAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
             where T : Attribute
         {
             return AttributeExtensions.GetAttributes<T>(provider, inherit).FirstOrDefault();
         }
+
+		internal static bool HasAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
+			where T : Attribute
+		{
+			return AttributeExtensions.GetAttributes<T>(provider, inherit).FirstOrDefault() != null;
+		}
     }
 }

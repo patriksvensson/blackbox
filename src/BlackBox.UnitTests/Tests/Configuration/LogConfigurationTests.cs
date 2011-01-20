@@ -41,10 +41,18 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		[Test]
 		public void LogConfiguration_LoadConfigurationFromCustomConfigSection()
 		{
-			LogConfiguration configuration = LogConfiguration.FromConfigSection("Custom");
+			LogConfiguration configuration = LogConfiguration.FromConfigSection("CustomBlackBox");
 			Assert.IsNotNull(configuration);
 			Assert.AreEqual(1, configuration.Sinks.Count);
 			Assert.AreEqual("Custom.ConsoleSink", configuration.Sinks[0].Name);
+		}
+
+		[Test]
+		public void LogConfiguration_Clone()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			LogConfiguration clonedConfiguration = new LogConfiguration();
+			Assert.AreNotSame(configuration, clonedConfiguration);
 		}
 	}
 }

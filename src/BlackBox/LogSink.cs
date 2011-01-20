@@ -22,27 +22,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlackBox.Formatting;
+using System.Xml;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// The base class for a log sink.
-    /// </summary>
-    public abstract class LogSink : IDisposable
-    {
-        private string _name;
-        private readonly LogFilterCollection _filters;
+	/// <summary>
+	/// The base class for a log sink.
+	/// </summary>
+	public abstract class LogSink : IDisposable
+	{
+		private string _name;
+		private readonly LogFilterCollection _filters;
 		private bool _isInitialized;
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the name of the log sink.
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name
-        {
-            get { return _name; }
+		/// <summary>
+		/// Gets or sets the name of the log sink.
+		/// </summary>
+		/// <value>The name.</value>
+		[SkipSerializationAttribute]
+		public string Name
+		{
+			get { return _name; }
 			set 
 			{
 				if (_isInitialized)
@@ -53,16 +55,17 @@ namespace BlackBox
 
 				_name = value;
 			}
-        }
+		}
 
-        /// <summary>
-        /// Gets the log filters associated with this sink.
-        /// </summary>
-        /// <value>The filters.</value>
-        public LogFilterCollection Filters
-        {
-            get { return _filters; }
-        }
+		/// <summary>
+		/// Gets the log filters associated with this sink.
+		/// </summary>
+		/// <value>The filters.</value>
+		[SkipSerializationAttribute]
+		public LogFilterCollection Filters
+		{
+			get { return _filters; }
+		}
 
 		/// <summary>
 		/// Gets a value indicating whether this sink has been initialized.
@@ -70,45 +73,46 @@ namespace BlackBox
 		/// <value>
 		/// 	<c>true</c> if this sink has been initialized; otherwise, <c>false</c>.
 		/// </value>
+		[SkipSerializationAttribute]
 		public bool IsInitialized
 		{
 			get { return _isInitialized; }
 		}
 
-        #endregion
+		#endregion
 
-        #region Construction
+		#region Construction
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogSink"/> class.
-        /// </summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogSink"/> class.
+		/// </summary>
 		protected LogSink()
 		{
 			_filters = new LogFilterCollection();
 		}
 
-        #endregion
+		#endregion
 
-        #region IDisposable Members
+		#region IDisposable Members
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-        }
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+		protected virtual void Dispose(bool disposing)
+		{
+		}
 
-        #endregion
+		#endregion
 
 		internal virtual void PerformInitialization(IServiceLocator locator)
 		{
@@ -122,73 +126,73 @@ namespace BlackBox
 			_isInitialized = true;
 		}
 
-        /// <summary>
-        /// Initializes the log sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-        protected internal virtual void Initialize(IServiceLocator locator)
-        {
-        }
+		/// <summary>
+		/// Initializes the log sink.
+		/// </summary>
+		/// <param name="locator">The locator.</param>
+		protected internal virtual void Initialize(IServiceLocator locator)
+		{
+		}
 
-        /// <summary>
-        /// Writes the specified entry to the log sink.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        public void Write(ILogEntry entry)
-        {
-            if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
-            {
-                this.WriteEntry(entry);
-            }
-        }
+		/// <summary>
+		/// Writes the specified entry to the log sink.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		public void Write(ILogEntry entry)
+		{
+			if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+			{
+				this.WriteEntry(entry);
+			}
+		}
 
-        /// <summary>
-        /// Writes the specified entries to the log sink.
-        /// </summary>
-        /// <param name="entries">The entries.</param>
-        public void Write(ILogEntry[] entries)
-        {
-            if (entries == null)
-            {
-                throw new ArgumentNullException("entries");
-            }
+		/// <summary>
+		/// Writes the specified entries to the log sink.
+		/// </summary>
+		/// <param name="entries">The entries.</param>
+		public void Write(ILogEntry[] entries)
+		{
+			if (entries == null)
+			{
+				throw new ArgumentNullException("entries");
+			}
 
-            List<ILogEntry> entryList = new List<ILogEntry>();
-            foreach (ILogEntry entry in entries)
-            {
-                if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
-                {
-                    entryList.Add(entry);
-                }
-            }
+			List<ILogEntry> entryList = new List<ILogEntry>();
+			foreach (ILogEntry entry in entries)
+			{
+				if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+				{
+					entryList.Add(entry);
+				}
+			}
 
-            if (entryList.Count > 0)
-            {
-                this.WriteEntries(entryList.ToArray());
-            }
-        }
+			if (entryList.Count > 0)
+			{
+				this.WriteEntries(entryList.ToArray());
+			}
+		}
 
-        /// <summary>
-        /// Performs the writing of the specified entry to the log sink.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        protected abstract void WriteEntry(ILogEntry entry);
+		/// <summary>
+		/// Performs the writing of the specified entry to the log sink.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		protected abstract void WriteEntry(ILogEntry entry);
 
-        /// <summary>
-        /// Performs the writing of the specified entries to the log sink.
-        /// </summary>
-        /// <param name="entries">The entries.</param>
-        protected virtual void WriteEntries(ILogEntry[] entries)
-        {
-            if (entries == null)
-            {
-                throw new ArgumentNullException("entries");
-            }
+		/// <summary>
+		/// Performs the writing of the specified entries to the log sink.
+		/// </summary>
+		/// <param name="entries">The entries.</param>
+		protected virtual void WriteEntries(ILogEntry[] entries)
+		{
+			if (entries == null)
+			{
+				throw new ArgumentNullException("entries");
+			}
 
-            foreach (ILogEntry entry in entries)
-            {
-                this.Write(entry);
-            }
-        }
-    }
+			foreach (ILogEntry entry in entries)
+			{
+				this.Write(entry);
+			}
+		}
+	}
 }

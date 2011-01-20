@@ -82,6 +82,15 @@ namespace BlackBox.UnitTests.Tests.Extensions
             Assert.AreEqual(3, properties.Count());
         }
 
+		[Test]
+		public void TypeExtensions_GetPublicProperties_IgnoreSomeProperties()
+		{
+			PropertyInfo[] properties = typeof(TestClass).GetPublicProperties("IntegerValue");
+			Assert.AreEqual(2, properties.Count());
+			Assert.IsTrue(properties.Any(x => x.Name.Equals("DecimalValue")));
+			Assert.IsTrue(properties.Any(x => x.Name.Equals("StringValue")));
+		}
+
         [Test]
         public void TypeExtensions_GetAllProperties()
         {

@@ -27,18 +27,18 @@ using System.Xml;
 
 namespace BlackBox
 {
-    internal sealed class LogConfigurationSectionHandler : IConfigurationSectionHandler
-    {
-        #region IConfigurationSectionHandler Members
+	internal sealed class LogConfigurationSectionHandler : IConfigurationSectionHandler
+	{
+		#region IConfigurationSectionHandler Members
 
-        public object Create(object parent, object configContext, XmlNode section)
-        {
-            // Make sure that we've got a valid configuration.
-            if (section == null || string.IsNullOrEmpty(section.OuterXml))
-            {
-                string message = "The configuration section could not be found.";
-                throw new BlackBoxException(message);
-            }
+		public object Create(object parent, object configContext, XmlNode section)
+		{
+			// Make sure that we've got a valid configuration.
+			if (section == null || string.IsNullOrEmpty(section.OuterXml))
+			{
+				string message = "The configuration section could not be found.";
+				throw new BlackBoxException(message);
+			}
 
 			string rootNodeName = section.LocalName;
 			if(!rootNodeName.Equals("blackbox", StringComparison.OrdinalIgnoreCase))
@@ -46,11 +46,11 @@ namespace BlackBox
 				section = section.Rename("BlackBox");
 			}
 
-            // Deserialize the XML.
-            XDocument document = XDocument.Parse(section.OuterXml);
-            return new LogConfigurationDeserializer(document).Deserialize();
-        }
+			// Deserialize the XML.
+			XDocument document = XDocument.Parse(section.OuterXml);
+			return LogConfigurationDeserializer.Deserialize(document);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

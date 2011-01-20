@@ -68,7 +68,7 @@ namespace BlackBox.Formatting
                     bool isNonGenericRenderer = type.IsNonAbstractClass() && type.Inherits(rendererBaseType);
                     if (isNonGenericRenderer || isGenericRenderer)
                     {                        
-                        var attribute = type.GetSingleAttribute<FormatRendererTypeAttribute>(false);
+                        var attribute = type.GetAttribute<FormatRendererTypeAttribute>(false);
                         if (attribute != null)
                         {
                             string identifier = attribute.Name;

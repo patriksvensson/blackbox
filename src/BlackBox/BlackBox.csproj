@@ -64,8 +64,10 @@
     <Compile Include="Conditions\Expressions\LogLevelExpression.cs" />
     <Compile Include="Conditions\Expressions\LogMessageExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
+    <Compile Include="Serialization\SkipSerializationAttribute.cs" />
     <Compile Include="Configuration\LogConfigurationDeserializer.cs" />
     <Compile Include="Configuration\LogConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\LogConfigurationSerializer.cs" />
     <Compile Include="Exceptions\ConditionException.cs" />
     <Compile Include="Conditions\Expressions\AndExpression.cs" />
     <Compile Include="Conditions\Expressions\BinaryExpression.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="Exceptions\BlackBoxException.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\LockExtensions.cs" />
+    <Compile Include="Extensions\LogFilterExtensions.cs" />
+    <Compile Include="Extensions\LogSinkExtensions.cs" />
     <Compile Include="Extensions\QueueExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />

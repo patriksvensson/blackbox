@@ -35,6 +35,7 @@ namespace BlackBox
         /// Gets the nested sinks.
         /// </summary>
         /// <value>The sinks.</value>
+		[SkipSerializationAttribute]
         public LogSinkCollection Sinks
         {
             get { return _sinks; }

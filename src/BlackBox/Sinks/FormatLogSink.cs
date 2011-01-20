@@ -49,6 +49,7 @@ namespace BlackBox
 		protected FormatLogSink()
 			: base()
 		{
+			_formatString = "$(message())";
 		}
 
         /// <summary>

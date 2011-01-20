@@ -62,7 +62,7 @@ namespace BlackBox
 				{
 					if (type.IsNonAbstractClass() && type.Inherits(typeof(LogSink)))
 					{
-						var attribute = type.GetSingleAttribute<LogSinkTypeAttribute>(false);
+						var attribute = type.GetAttribute<LogSinkTypeAttribute>(false);
 						if (attribute != null)
 						{
 							string identifier = attribute.Name;
