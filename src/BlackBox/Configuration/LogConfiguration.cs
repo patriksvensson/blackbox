@@ -196,13 +196,19 @@ namespace BlackBox
         #region Log Configuration Saving
 
         /// <summary>
-        /// Saves the log configuration to the specified stream.
+        /// Saves the log configuration to the specified <see cref="System.IO.Stream"/>.
         /// </summary>
         /// <param name="stream">The stream.</param>
         public void Save(Stream stream)
         {
+			if (stream == null)
+			{
+				throw new ArgumentNullException("stream");
+			}
+
             XDocument document = LogConfigurationSerializer.Serialize(this);
-            using (XmlWriter writer = XmlWriter.Create(stream))
+			XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+            using (XmlWriter writer = XmlWriter.Create(stream, settings))
             {
                 document.Save(writer);
             }
