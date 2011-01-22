@@ -214,6 +214,20 @@ namespace BlackBox
             }
         }
 
+        /// <summary>
+        /// Saves the log configuration to the specified file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        public void Save(FileInfo file)
+        {
+            XDocument document = LogConfigurationSerializer.Serialize(this);
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+            using (XmlWriter writer = XmlWriter.Create(file.FullName, settings))
+            {
+                document.Save(writer);
+            }
+        }
+
         #endregion
 
         internal LogConfiguration Clone()
