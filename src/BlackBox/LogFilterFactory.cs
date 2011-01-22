@@ -160,7 +160,7 @@ namespace BlackBox
 
 					// Get the type converter.
 					var typeConverter = TypeDescriptor.GetConverter(propertyType);
-					if (typeConverter != null)
+					if (typeConverter != null && typeConverter.CanConvertFrom(typeof(string)))
 					{
 						object value = typeConverter.ConvertFromInvariantString(argument.Value);
 						mappings[argument.Key].SetValue(filter, value, null);
