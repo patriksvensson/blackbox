@@ -141,6 +141,7 @@
     <Compile Include="Runtime\IServiceLocator.cs" />
     <Compile Include="Runtime\ServiceProvider.cs" />
     <Compile Include="Sinks\ConsoleSink.cs" />
+    <Compile Include="Sinks\EventLogSink.cs" />
     <Compile Include="Sinks\FileSink.cs" />
     <Compile Include="Sinks\MessageQueueSink.cs" />
     <Compile Include="Sinks\Proxies\BufferProxy.cs" />
