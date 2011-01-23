@@ -218,8 +218,14 @@ namespace BlackBox
         /// Saves the log configuration to the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public void Save(FileInfo file)
         {
+            if (file == null)
+            {
+                throw new ArgumentNullException("file");
+            }
+
             XDocument document = LogConfigurationSerializer.Serialize(this);
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
             using (XmlWriter writer = XmlWriter.Create(file.FullName, settings))
