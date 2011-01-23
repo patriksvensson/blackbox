@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Tests\LogSinkTests.cs" />
     <Compile Include="Tests\Runtime\ServiceProviderTests.cs" />
+    <Compile Include="Tests\Sinks\Proxies\CircularProxyTests.cs" />
     <Compile Include="Utilities\Filters\DenyAllFilter.cs" />
     <Compile Include="Utilities\Sinks\MemorySink.cs" />
     <Compile Include="Utilities\Sinks\StringSink.cs" />

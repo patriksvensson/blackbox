@@ -145,6 +145,7 @@
     <Compile Include="Sinks\FileSink.cs" />
     <Compile Include="Sinks\MessageQueueSink.cs" />
     <Compile Include="Sinks\Proxies\BufferProxy.cs" />
+    <Compile Include="Sinks\Proxies\CircularProxy.cs" />
     <Compile Include="Sinks\Proxies\FunnelProxy.cs" />
     <Compile Include="Sinks\TraceSink.cs" />
     <Compile Include="Sinks\DebugSink.cs" />
