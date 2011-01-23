@@ -76,6 +76,10 @@ namespace BlackBox
 		public LevelRangeFilter()
 		{
 			this.Action = LogFilterResult.Filter;
+
+            // Set default values for levels.
+            _minLevel = LogLevel.Fatal;
+            _maxLevel = LogLevel.Debug;
 		}
 
 		/// <summary>

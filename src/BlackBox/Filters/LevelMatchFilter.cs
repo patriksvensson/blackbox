@@ -59,6 +59,10 @@ namespace BlackBox
         /// </summary>
         public LevelMatchFilter()
         {
+            // Set a default value for the level.
+            _level = LogLevel.Information;
+
+            // Filter log entries by default.
             this.Action = LogFilterResult.Filter;
         }
 

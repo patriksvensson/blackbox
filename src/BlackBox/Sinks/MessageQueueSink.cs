@@ -87,6 +87,11 @@ namespace BlackBox
         /// <param name="locator">The locator.</param>
 		protected internal override void Initialize(IServiceLocator locator)
 		{
+            if (string.IsNullOrEmpty(this.Queue))
+            {
+                throw new BlackBoxException("The message queue has not been set.");
+            }
+
 			// Create the message queue.
 			if (!MessageQueue.Exists(this.Queue))
 			{
