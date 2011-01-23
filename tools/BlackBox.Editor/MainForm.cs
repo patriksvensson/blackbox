@@ -85,7 +85,7 @@ namespace BlackBox.Editor
 			FunnelProxy proxy = new FunnelProxy();
 			BufferProxy bufferProxy = new BufferProxy();
             bufferProxy.Filters.Add(new ConditionFilter { Condition = "has-exception==false OR level>2", Action = LogFilterResult.Filter });
-            bufferProxy.Sinks.Add(new FileSink { FileName = @"$(basedir())\\Logs\\$(level(numeric=false)).log" });
+            bufferProxy.Sinks.Add(new FileSink());
             bufferProxy.Sinks.Add(new MessageQueueSink { CreateIfNotExists = true, Queue = @".\Private$\BlackBox", Label = "$(level(numeric=false))" });
 			proxy.Sinks.Add(bufferProxy);
             configuration.Sinks.Add(new TraceSink());

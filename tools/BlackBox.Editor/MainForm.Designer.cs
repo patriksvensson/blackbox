@@ -335,6 +335,7 @@
             this.Controls.Add(this._tabControl);
             this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this._menuStrip;
             this.Name = "MainForm";
             this.Text = "BlackBox Log Configuration Editor";
