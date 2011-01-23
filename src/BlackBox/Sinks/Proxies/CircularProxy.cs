@@ -6,10 +6,21 @@ using System.Threading;
 
 namespace BlackBox
 {
+    /// <summary>
+    /// A log sink proxy that distribute log entries in a round robin fashion.
+    /// </summary>
     [LogSinkType("circular")]
     public sealed class CircularProxy : LogSinkProxy
     {
-        private int _index = -1;
+        private int _index;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CircularProxy"/> class.
+        /// </summary>
+        public CircularProxy()
+        {
+            _index = -1;
+        }
 
         /// <summary>
         /// Performs the writing of the specified entries to 
