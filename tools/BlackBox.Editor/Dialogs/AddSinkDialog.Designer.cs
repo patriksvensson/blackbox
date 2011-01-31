@@ -39,9 +39,9 @@
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(9, 13);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(103, 13);
+			this.label1.Size = new System.Drawing.Size(36, 13);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Available Log Sinks:";
+			this.label1.Text = "Sinks:";
 			// 
 			// _buttonCancel
 			// 
@@ -65,14 +65,14 @@
 			this._buttonOK.UseVisualStyleBackColor = true;
 			this._buttonOK.Click += new System.EventHandler(this._buttonOK_Click);
 			// 
-			// comboBox1
+			// _comboTypes
 			// 
 			this._comboTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this._comboTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this._comboTypes.FormattingEnabled = true;
 			this._comboTypes.Location = new System.Drawing.Point(12, 29);
-			this._comboTypes.Name = "comboBox1";
+			this._comboTypes.Name = "_comboTypes";
 			this._comboTypes.Size = new System.Drawing.Size(232, 21);
 			this._comboTypes.TabIndex = 4;
 			// 
@@ -85,13 +85,14 @@
 			this.Controls.Add(this._buttonOK);
 			this.Controls.Add(this._buttonCancel);
 			this.Controls.Add(this.label1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AddSinkDialog";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Add Log Sink";
+			this.Text = "Add Sink";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

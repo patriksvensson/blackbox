@@ -141,8 +141,16 @@ namespace BlackBox
 				throw new ArgumentException("The BlackBox configuration XML cannot be empty.", "xml");
 			}
 
-			XDocument document = XDocument.Parse(xml);
-			return LogConfigurationDeserializer.Deserialize(document);
+			try
+			{
+				XDocument document = XDocument.Parse(xml);
+				return LogConfigurationDeserializer.Deserialize(document);
+			}
+			catch (XmlException exception)
+			{
+				string message = string.Format("Could not parse configuration XML. {0}", exception.Message);
+				throw new BlackBoxException(message, exception);
+			}
 		}
 
 		/// <summary>
@@ -186,8 +194,16 @@ namespace BlackBox
 
 			using (TextReader reader = new StreamReader(file.FullName))
 			{
-				XDocument document = XDocument.Load(reader);
-				return LogConfigurationDeserializer.Deserialize(document);
+				try
+				{
+					XDocument document = XDocument.Load(reader);
+					return LogConfigurationDeserializer.Deserialize(document);
+				}
+				catch (XmlException exception)
+				{
+					string message = string.Format("Could not parse configuration XML. {0}", exception.Message);
+					throw new BlackBoxException(message, exception);
+				}
 			}
 		}
 

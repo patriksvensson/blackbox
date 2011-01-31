@@ -60,6 +60,9 @@ namespace BlackBox.Editor
 
             // Build the hierarchy tree.
             _tree.Build();
+
+			// Clear the property editor.
+			_propertyGrid.SelectedObject = null;
         }
 
         private void NodeSelected(object sender, HierarchyNodeEventArgs e)

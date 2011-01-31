@@ -106,10 +106,10 @@ namespace BlackBox.Editor
         public void LoadConfiguration(LogConfiguration configuration)
 		{
 			_configuration = configuration ?? new LogConfiguration();
-			_hierarchyEditor.LoadConfiguration(_configuration);
+			_hierarchyEditor.LoadConfiguration(_configuration);			
 
-            this.IsDirty = false;
-            this.UpdateTitleBar();
+			this.IsDirty = false;
+			this.UpdateTitleBar();
 		}
 
         public void UpdateTitleBar()
@@ -176,16 +176,30 @@ namespace BlackBox.Editor
         {
             DialogResult result = _openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
-            {                
-                _file = new FileInfo(_openFileDialog.FileName);
-                LogConfiguration configuration = LogConfiguration.FromXml(_file);
-                this.LoadConfiguration(configuration);
+            {
+				try
+				{
+					// Get the file to load.
+					_file = new FileInfo(_openFileDialog.FileName);
 
-                // We're not dirty anymore.
-                this.IsDirty = false;
+					// Parse the configuration.
+					LogConfiguration configuration = LogConfiguration.FromXml(_file);
 
-                // Update the title.
-                this.UpdateTitleBar();
+					// Load the configuration in the editor.
+					this.LoadConfiguration(configuration);
+
+					// We're not dirty anymore.
+					this.IsDirty = false;
+
+					// Update the title.
+					this.UpdateTitleBar();
+				}
+				catch(BlackBoxException exception)
+				{
+					string title = "BlackBox Log Configuration Editor";
+					string message = string.Format("The configuration could not be loaded.\r\n\r\n{0}", exception.Message);
+					MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
             }
         }
 
@@ -226,16 +240,16 @@ namespace BlackBox.Editor
         private void OnXmlSynchronize(object sender, LogConfigurationEventArgs e)
         {
             // Load the synchronized configuration.
-            this.LoadConfiguration(e.Configuration);
+			this.LoadConfiguration(e.Configuration);
+			
+			// We're dirty.
+			this.IsDirty = true;
 
-            // We're dirty.
-            this.IsDirty = true;
+			// Update the title.
+			this.UpdateTitleBar();
 
-            // Update the title.
-            this.UpdateTitleBar();
-
-            // Switch to the hierarchy tab.
-            _tabControl.SelectedTab = _tabPageHierarchy;
+			// Switch to the hierarchy tab.
+			_tabControl.SelectedTab = _tabPageHierarchy;			
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
