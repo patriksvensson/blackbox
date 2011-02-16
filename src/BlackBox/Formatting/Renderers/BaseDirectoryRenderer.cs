@@ -35,6 +35,10 @@ namespace BlackBox.Formatting.Renderers
         {
             // Get the location of the executing assembly.
             Assembly assembly = Assembly.GetEntryAssembly();
+            if (assembly == null)
+            {
+                throw new BlackBoxException("Cannot resolve base directory.");
+            }
             _baseDirectory = Path.GetDirectoryName(assembly.Location);
         }
 
