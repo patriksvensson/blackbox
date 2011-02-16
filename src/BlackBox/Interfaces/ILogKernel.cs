@@ -21,9 +21,22 @@ using System;
 
 namespace BlackBox
 {
-    interface ILogKernel
+    /// <summary>
+    /// The log kernel contract interface.
+    /// </summary>
+    public interface ILogKernel
     {
+        /// <summary>
+        /// Gets the logger for the calling type.
+        /// </summary>
+        /// <returns></returns>
         ILogger GetLogger();
+
+        /// <summary>
+        /// Gets the logger for the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         ILogger GetLogger(Type type);
     }
 }
