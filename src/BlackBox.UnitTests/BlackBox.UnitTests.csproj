@@ -51,41 +51,104 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\Collections\IndexedLinkedListTests.cs" />
-    <Compile Include="Tests\Collections\LruCacheTests.cs" />
-    <Compile Include="Tests\Conditions\ConditionExpressionTests.cs" />
-    <Compile Include="Tests\Conditions\ConditionParserTests.cs" />
-    <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs" />
-    <Compile Include="Tests\Extensions\LogFilterExtensionsTests.cs" />
-    <Compile Include="Tests\Extensions\LogSinkExtensionsTests.cs" />
-    <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs" />
-    <Compile Include="Tests\Configuration\LogConfigurationSerializerTests.cs" />
-    <Compile Include="Tests\Configuration\LogConfigurationTests.cs" />
-    <Compile Include="Tests\Filters\ConditionFilterTests.cs" />
-    <Compile Include="Tests\Filters\LevelRangeFilterTests.cs" />
-    <Compile Include="Tests\Filters\LevelMatchFilterTests.cs" />
-    <Compile Include="Tests\LogFilterFactoryTests.cs" />
-    <Compile Include="Tests\Extensions\AttributeExtensionsTests.cs" />
-    <Compile Include="Tests\Extensions\QueueExtensionsTests.cs" />
-    <Compile Include="Tests\Extensions\StringExtensionsTests.cs" />
-    <Compile Include="Tests\Extensions\TypeExtensionsTests.cs" />
-    <Compile Include="Tests\Formatting\FormatPatternFactoryTests.cs" />
-    <Compile Include="Tests\Formatting\FormatPatternTests.cs" />
-    <Compile Include="Tests\Formatting\FormatRendererTypeMapTests.cs" />
-    <Compile Include="Tests\Formatting\Parsing\FormatParserTests.cs" />
-    <Compile Include="Tests\Collections\StringBufferTests.cs" />
-    <Compile Include="Tests\Extensions\CharExtensionsTests.cs" />
-    <Compile Include="Tests\Formatting\Tokenization\FormatTokenBufferTests.cs" />
-    <Compile Include="Tests\Formatting\Tokenization\FormatTokenizerTests.cs" />
-    <Compile Include="Tests\Formatting\Tokenization\FormatTokenTests.cs" />
-    <Compile Include="Tests\LogKernelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Collections\IndexedLinkedListTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Collections\LruCacheTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Collections\StringBufferTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Conditions\ConditionExpressionTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Conditions\ConditionParserTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Configuration\LogConfigurationSerializerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Configuration\LogConfigurationTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\AttributeExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\CharExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\LogFilterExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\LogSinkExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\QueueExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\StringExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Extensions\TypeExtensionsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Filters\ConditionFilterTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Filters\LevelMatchFilterTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Filters\LevelRangeFilterTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\FormatPatternFactoryTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\FormatPatternTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\FormatRendererTypeMapTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\Parsing\FormatParserTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenBufferTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenizerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Formatting\Tokenization\FormatTokenTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LogFilterFactoryTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LogKernelTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\LogSinkFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\LogSinkTests.cs" />
-    <Compile Include="Tests\Runtime\ServiceProviderTests.cs" />
-    <Compile Include="Tests\Sinks\Proxies\CircularProxyTests.cs" />
+    <Compile Include="Tests\LogSinkProxyTests.cs" />
+    <Compile Include="Tests\LogSinkTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Runtime\ServiceProviderTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Sinks\Proxies\CircularProxyTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utilities\Filters\DenyAllFilter.cs" />
     <Compile Include="Utilities\Sinks\MemorySink.cs" />
     <Compile Include="Utilities\Sinks\StringSink.cs" />

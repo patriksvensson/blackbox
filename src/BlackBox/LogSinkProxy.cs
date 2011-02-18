@@ -30,6 +30,7 @@ namespace BlackBox
     public abstract class LogSinkProxy : LogSink
     {
         private readonly LogSinkCollection _sinks;
+        private bool _disposed;
 
         /// <summary>
         /// Gets the nested sinks.
@@ -47,6 +48,26 @@ namespace BlackBox
         protected LogSinkProxy()
         {
             _sinks = new LogSinkCollection();
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (!_disposed)
+                {
+                    if (_sinks != null)
+                    {
+                        _sinks.Dispose();
+                    }
+                    _disposed = true;
+                }
+            }
+            base.Dispose(disposing);
         }
 
 		internal override void PerformInitialization(IServiceLocator locator)
