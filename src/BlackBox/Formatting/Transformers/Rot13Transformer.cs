@@ -40,6 +40,8 @@ namespace BlackBox.Formatting.Transformers
                 return string.Empty;
             }
 
+            // CREDITS: This algorithm was written by Sam Allen and can be found
+            // in it's original state at http://dotnetperls.com/rot13.
             char[] array = source.ToCharArray();
             for (int i = 0; i < array.Length; i++)
             {
@@ -69,6 +71,8 @@ namespace BlackBox.Formatting.Transformers
                 }
                 array[i] = (char)number;
             }
+
+            // Return the transformed source.
             return new string(array);
         }
     }
