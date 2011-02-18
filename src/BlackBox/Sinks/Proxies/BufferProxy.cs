@@ -34,6 +34,7 @@ namespace BlackBox
         private readonly object _syncLock;
         private readonly Queue<ILogEntry> _queue;
         private int _bufferSize;
+        private bool _disposed;
 
         /// <summary>
         /// Gets or sets the size of the buffer.
@@ -53,6 +54,27 @@ namespace BlackBox
             _syncLock = new object();
             _queue = new Queue<ILogEntry>();
             _bufferSize = 5;
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (!_disposed)
+                {
+                    lock (_syncLock)
+                    {
+                        // Flush the queue.
+                        this.ProcessQueue();
+                    }
+                    _disposed = true;
+                }
+            }
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -105,17 +127,20 @@ namespace BlackBox
         private void ProcessQueue()
         {
             // NOTE: This method is not thread safe on its own.
-            ILogEntry[] entries = new ILogEntry[_queue.Count];
-            int index = 0;
-            while (_queue.Count != 0)
+            if (_queue.Count > 0)
             {
-                entries[index] = _queue.Dequeue();
-                index++;
-            }
+                ILogEntry[] entries = new ILogEntry[_queue.Count];
+                int index = 0;
+                while (_queue.Count != 0)
+                {
+                    entries[index] = _queue.Dequeue();
+                    index++;
+                }
 
-            foreach (LogSink sink in this.Sinks)
-            {
-                sink.Write(entries);
+                foreach (LogSink sink in this.Sinks)
+                {
+                    sink.Write(entries);
+                }
             }
         }
     }

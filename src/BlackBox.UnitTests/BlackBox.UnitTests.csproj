@@ -146,6 +146,7 @@
     <Compile Include="Tests\Runtime\ServiceProviderTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Sinks\Proxies\BufferProxyTests.cs" />
     <Compile Include="Tests\Sinks\Proxies\CircularProxyTests.cs">
       <SubType>Code</SubType>
     </Compile>
