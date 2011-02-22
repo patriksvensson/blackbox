@@ -1,0 +1,1 @@
+call %windir%\Microsoft.NET\Framework\v3.5\msbuild src/BlackBox.sln /p:Configuration=Release /p:Platform="Any CPU"

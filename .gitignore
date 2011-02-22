@@ -12,3 +12,4 @@ obj
 ~
 TestResults
 *.vsdoc
+*.sln.cache
