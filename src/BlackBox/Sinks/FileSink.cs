@@ -71,20 +71,27 @@ namespace BlackBox
 
 		#region Initialization
 
-        /// <summary>
-        /// Initializes the sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-		protected internal override void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the log sink.
+		/// </summary>
+		/// <param name="context"></param>
+		protected internal override void Initialize(InitializationContext context)
 		{
+			#region Sanity Check
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+			#endregion
+
 			lock (_lock)
 			{
 				// Call the base class so the format message sink gets properly initialized.
-				base.Initialize(locator);
+				base.Initialize(context);
 
 				// Create the LRU file cache and the file name pattern.
 				_fileCache = new LruCache<string, TextWriter>(_fileCacheSize);
-				_fileNamePattern = FormatPattern<ILogEntry>.Create(locator, _fileName);
+				_fileNamePattern = context.FormatPatternFactory.Create(_fileName);
 
 				// Subscribe to the item removed event.
 				_fileCache.ItemRemoved += new EventHandler<EventArgs<TextWriter>>(_fileCache_ItemRemoved);

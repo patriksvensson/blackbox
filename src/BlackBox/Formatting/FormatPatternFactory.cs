@@ -28,7 +28,11 @@ using BlackBox.Formatting.Renderers;
 
 namespace BlackBox.Formatting
 {
-	internal sealed class FormatPatternFactory<TContext>
+	/// <summary>
+	/// Factory class for creating format patterns.
+	/// </summary>
+	/// <typeparam name="TContext">The type of the context.</typeparam>
+	public sealed class FormatPatternFactory<TContext>
 	{
 		private readonly FormatRendererTypeMap<TContext> _typeMap;
 
@@ -42,7 +46,12 @@ namespace BlackBox.Formatting
 			_typeMap = typeMap ?? new FormatRendererTypeMap<TContext>();
 		}
 
-		internal FormatPattern<TContext> Create(string pattern)
+		/// <summary>
+		/// Creates a format pattern from the specified string pattern.
+		/// </summary>
+		/// <param name="pattern">The pattern.</param>
+		/// <returns></returns>
+		public FormatPattern<TContext> Create(string pattern)
 		{
 			FormatPatternNode[] nodes = FormatPatternParser.Parse(pattern);
 			List<FormatRenderer<TContext>> result = new List<FormatRenderer<TContext>>();

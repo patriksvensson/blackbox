@@ -127,13 +127,13 @@ namespace BlackBox
 
 		#region Initialization
 
-		internal void Initialize(IServiceLocator locator)
+		internal void Initialize(InitializationContext context)
 		{
 			// Iterate through all sinks in the collection.
 			foreach (LogSink sink in _sinks)
 			{
 				// Perform the initialization.
-				sink.PerformInitialization(locator);
+				sink.PerformInitialization(context);
 			}
 		}
 

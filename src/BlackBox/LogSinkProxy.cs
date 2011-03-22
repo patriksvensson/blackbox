@@ -70,13 +70,13 @@ namespace BlackBox
             base.Dispose(disposing);
         }
 
-		internal override void PerformInitialization(IServiceLocator locator)
+		internal override void PerformInitialization(InitializationContext context)
 		{
 			// Initialize the child sinks.
-			this.Sinks.Initialize(locator);
+			this.Sinks.Initialize(context);
 
 			// Call the base class implementation.
-			base.PerformInitialization(locator);
+			base.PerformInitialization(context);
 		}
     }
 }

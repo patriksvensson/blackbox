@@ -81,17 +81,23 @@ namespace BlackBox
 
 		#region Initialization
 
-        /// <summary>
-        /// Initializes the log sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-		protected internal override void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the log sink.
+		/// </summary>
+		/// <param name="context"></param>
+		protected internal override void Initialize(InitializationContext context)
 		{
+			#region Sanity Check
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
             if (string.IsNullOrEmpty(this.Queue))
             {
                 throw new BlackBoxException("The message queue has not been set.");
-            }
-
+			}
+			#endregion
+			
 			// Create the message queue.
 			if (!MessageQueue.Exists(this.Queue))
 			{
@@ -123,10 +129,10 @@ namespace BlackBox
 			}
 
 			// Initialize the label pattern.
-			_labelPattern = FormatPattern<ILogEntry>.Create(locator, this.Label);
+			_labelPattern = context.FormatPatternFactory.Create(this.Label);
 
 			// Call the base class so the format message sink gets properly initialized.
-			base.Initialize(locator);
+			base.Initialize(context);
 		}
 
 		#endregion

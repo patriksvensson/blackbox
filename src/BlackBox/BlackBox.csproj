@@ -64,6 +64,7 @@
     <Compile Include="Conditions\Expressions\LogLevelExpression.cs" />
     <Compile Include="Conditions\Expressions\LogMessageExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
+    <Compile Include="InitializationContext.cs" />
     <Compile Include="Serialization\SkipSerializationAttribute.cs" />
     <Compile Include="Configuration\LogConfigurationDeserializer.cs" />
     <Compile Include="Configuration\LogConfigurationSectionHandler.cs" />
@@ -124,9 +125,9 @@
     <Compile Include="Formatting\Transformers\LowercaseTransformer.cs" />
     <Compile Include="Formatting\Transformers\Rot13Transformer.cs" />
     <Compile Include="Formatting\Transformers\UppercaseTransformer.cs" />
-    <Compile Include="Interfaces\ILogKernel.cs" />
-    <Compile Include="Interfaces\ILogEntry.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="ILogKernel.cs" />
+    <Compile Include="ILogEntry.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="LogEntry.cs" />
     <Compile Include="LogFilter.cs" />
     <Compile Include="LogFilterFactory.cs" />
@@ -138,8 +139,6 @@
     <Compile Include="LogSinkFactory.cs" />
     <Compile Include="LogSinkTypeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runtime\IServiceLocator.cs" />
-    <Compile Include="Runtime\ServiceProvider.cs" />
     <Compile Include="Sinks\ConsoleSink.cs" />
     <Compile Include="Sinks\EventLogSink.cs" />
     <Compile Include="Sinks\FileSink.cs" />

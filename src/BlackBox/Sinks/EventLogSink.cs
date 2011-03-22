@@ -40,11 +40,11 @@ namespace BlackBox
             this.Log = "Application";            
         }
 
-        /// <summary>
-        /// Initializes the log sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-        protected internal override void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the log sink.
+		/// </summary>
+		/// <param name="context"></param>
+		protected internal override void Initialize(InitializationContext context)
         {
             if (string.IsNullOrEmpty(this.Source))
             {
@@ -55,7 +55,7 @@ namespace BlackBox
                 throw new BlackBoxException("Event log name have not been set.");
             }
 
-            base.Initialize(locator);
+            base.Initialize(context);
         }
 
         /// <summary>

@@ -114,13 +114,13 @@ namespace BlackBox
 
 		#endregion
 
-		internal virtual void PerformInitialization(IServiceLocator locator)
+		internal virtual void PerformInitialization(InitializationContext context)
 		{
 			// Initalize all filters.
-			this.Filters.Initialize(locator);
+			this.Filters.Initialize(context);
 
 			// Perform custom initialization for this sink.
-			this.Initialize(locator);
+			this.Initialize(context);
 
 			// We're now properly initialized.
 			_isInitialized = true;
@@ -129,8 +129,8 @@ namespace BlackBox
 		/// <summary>
 		/// Initializes the log sink.
 		/// </summary>
-		/// <param name="locator">The locator.</param>
-		protected internal virtual void Initialize(IServiceLocator locator)
+		/// <param name="context">The context.</param>
+		protected internal virtual void Initialize(InitializationContext context)
 		{
 		}
 

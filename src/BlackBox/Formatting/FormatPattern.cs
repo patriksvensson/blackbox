@@ -59,27 +59,6 @@ namespace BlackBox.Formatting
 			_renderers = renderers;
 		}
 
-		/// <summary>
-		/// Creates a format pattern from the specified format.
-		/// </summary>
-		/// <param name="locator">The service locator.</param>
-		/// <param name="pattern">The pattern.</param>
-		/// <returns></returns>
-		internal static FormatPattern<TContext> Create(IServiceLocator locator, string pattern)
-		{
-			// Resolve the format pattern factory.
-			FormatPatternFactory<TContext> factory = locator.Resolve<FormatPatternFactory<TContext>>();
-			if (factory == null)
-			{
-				// The factory could not be resolved from the service locator.
-				string message = string.Format(CultureInfo.InvariantCulture, "Could not resolve format pattern factory for context type '{0}'.", typeof(TContext).Name);
-				throw new InvalidOperationException(message);
-			}
-
-			// Create the format pattern.
-			return factory.Create(pattern);
-		}
-
 		internal string Render(TContext context)
 		{
 			StringBuilder accumulator = new StringBuilder();

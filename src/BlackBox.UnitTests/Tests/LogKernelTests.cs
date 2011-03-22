@@ -39,7 +39,7 @@ namespace BlackBox.UnitTests.Tests
 				get { return _initializeMethodWasCalled; }
 			}
 
-			protected internal override void Initialize(IServiceLocator locator)
+			protected internal override void Initialize(InitializationContext context)
 			{
 				_initializeMethodWasCalled = true;
 			}
@@ -54,7 +54,7 @@ namespace BlackBox.UnitTests.Tests
 				get { return _initializeMethodWasCalled; }
 			}
 
-			protected internal override void Initialize(IServiceLocator locator)
+			protected internal override void Initialize(InitializationContext context)
 			{
 				_initializeMethodWasCalled = true;
 			}
@@ -77,7 +77,7 @@ namespace BlackBox.UnitTests.Tests
 				get { return _initializeMethodWasCalled; }
 			}
 
-			protected internal override void Initialize(IServiceLocator locator)
+			protected internal override void Initialize(InitializationContext context)
 			{
 				_initializeMethodWasCalled = true;
 			}

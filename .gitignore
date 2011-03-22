@@ -13,3 +13,4 @@ obj
 TestResults
 *.vsdoc
 *.sln.cache
+*.vs10x

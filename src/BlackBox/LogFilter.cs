@@ -29,11 +29,11 @@ namespace BlackBox
     /// </summary>
     public abstract class LogFilter
     {
-        /// <summary>
-        /// Initializes the log filter.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-        protected internal virtual void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the specified log filter.
+		/// </summary>
+		/// <param name="context">The context.</param>
+        protected internal virtual void Initialize(InitializationContext context)
         {
         }
 

@@ -66,11 +66,11 @@ namespace BlackBox
             this.Action = LogFilterResult.Filter;
         }
 
-        /// <summary>
-        /// Initializes the log filter.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-		protected internal override void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the log filter.
+		/// </summary>
+		/// <param name="context"></param>
+		protected internal override void Initialize(InitializationContext context)
 		{
 			if (!_levelHasBeenSet) 
 			{

@@ -89,11 +89,11 @@ namespace BlackBox
 
 		#region Initialization
 
-		internal void Initialize(IServiceLocator locator)
+		internal void Initialize(InitializationContext context)
 		{
 			foreach (LogFilter filter in _filters)
 			{
-				filter.Initialize(locator);
+				filter.Initialize(context);
 			}
 		}
 

@@ -25,6 +25,7 @@ using System.Configuration;
 using System.Xml.Linq;
 using System.IO;
 using System.Xml;
+using System.Globalization;
 
 namespace BlackBox
 {
@@ -69,6 +70,8 @@ namespace BlackBox
 
 		#endregion
 
+		#region Construction
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LogConfiguration"/> class.
 		/// </summary>
@@ -78,6 +81,8 @@ namespace BlackBox
 			_assemblies = new AssemblyCollection();
 			_filters = new LogFilterCollection();
 		}
+
+		#endregion
 
 		#region IDisposable Members
 
@@ -148,7 +153,7 @@ namespace BlackBox
 			}
 			catch (XmlException exception)
 			{
-				string message = string.Format("Could not parse configuration XML. {0}", exception.Message);
+				string message = string.Format(CultureInfo.InvariantCulture, "Could not parse configuration XML. {0}", exception.Message);
 				throw new BlackBoxException(message, exception);
 			}
 		}
@@ -201,7 +206,7 @@ namespace BlackBox
 				}
 				catch (XmlException exception)
 				{
-					string message = string.Format("Could not parse configuration XML. {0}", exception.Message);
+					string message = string.Format(CultureInfo.InvariantCulture, "Could not parse configuration XML. {0}", exception.Message);
 					throw new BlackBoxException(message, exception);
 				}
 			}
@@ -251,6 +256,12 @@ namespace BlackBox
         }
 
         #endregion
+
+		internal void Initialize(InitializationContext context)
+		{
+			_sinks.Initialize(context);
+			_filters.Initialize(context);
+		}
 
         internal LogConfiguration Clone()
 		{

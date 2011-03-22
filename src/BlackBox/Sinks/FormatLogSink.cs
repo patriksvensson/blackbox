@@ -52,13 +52,20 @@ namespace BlackBox
 			_formatString = "$(message())";
 		}
 
-        /// <summary>
-        /// Initializes the log sink.
-        /// </summary>
-        /// <param name="locator">The locator.</param>
-		protected internal override void Initialize(IServiceLocator locator)
+		/// <summary>
+		/// Initializes the log sink.
+		/// </summary>
+		/// <param name="context"></param>
+		protected internal override void Initialize(InitializationContext context)
 		{
-			_format = FormatPattern<ILogEntry>.Create(locator, _formatString);
+			#region Sanity Check
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+			#endregion
+
+			_format = context.FormatPatternFactory.Create(_formatString);
 		}
 
         /// <summary>

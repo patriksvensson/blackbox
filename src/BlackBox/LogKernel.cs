@@ -33,9 +33,6 @@ namespace BlackBox
 	public sealed class LogKernel : ILogKernel, IDisposable
 	{        
 		private readonly ReaderWriterLockSlim _lock;
-		private readonly ServiceProvider _serviceProvider;
-		private readonly FormatRendererTypeMap<ILogEntry> _formatRendererTypeMap;
-		private readonly FormatPatternFactory<ILogEntry> _formatPatternFactory;
 		private readonly LoggerCollection _loggers;
 		private LogConfiguration _configuration;
 		private bool _disposed;
@@ -51,14 +48,8 @@ namespace BlackBox
 				throw new ArgumentNullException("configuration", "Log configuration cannot be null.");
 			}
 
-			_serviceProvider = new ServiceProvider();
-			_formatRendererTypeMap = new FormatRendererTypeMap<ILogEntry>();
-			_formatPatternFactory = new FormatPatternFactory<ILogEntry>(_formatRendererTypeMap);
 			_lock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
 			_loggers = new LoggerCollection();
-
-			// Register services.
-			_serviceProvider.Register<FormatPatternFactory<ILogEntry>>(_formatPatternFactory);
 
 			// Configure the kernel.
 			this.Configure(configuration);
@@ -116,11 +107,11 @@ namespace BlackBox
 				// Set the active configuration.
 				_configuration = configuration ?? new LogConfiguration();
 
-				// Initialize all filters.
-				_configuration.Filters.Initialize(_serviceProvider);
-
-				// Initialize all sinks.
-				_configuration.Sinks.Initialize(_serviceProvider);
+				// Initialize the configuration.
+				using (var context = new InitializationContext(_configuration.Assemblies))
+				{
+					_configuration.Initialize(context);
+				}
 			}
 		}
 
