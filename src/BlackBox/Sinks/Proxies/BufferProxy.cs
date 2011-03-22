@@ -19,129 +19,127 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// A log sink proxy that buffers messages and write them
-    /// at once to all the child log sinks when the buffer size threshold have been reached.
-    /// </summary>
-    [LogSinkType("buffer")]
-    public sealed class BufferProxy : LogSinkProxy
-    {
-        private readonly object _syncLock;
-        private readonly Queue<ILogEntry> _queue;
-        private int _bufferSize;
-        private bool _disposed;
+	/// <summary>
+	/// A log sink proxy that buffers messages and write them
+	/// at once to all the child log sinks when the buffer size threshold have been reached.
+	/// </summary>
+	[LogSinkType("buffer")]
+	public sealed class BufferProxy : LogSinkProxy
+	{
+		private readonly object _syncLock;
+		private readonly Queue<ILogEntry> _queue;
+		private int _bufferSize;
+		private bool _disposed;
 
-        /// <summary>
-        /// Gets or sets the size of the buffer.
-        /// </summary>
-        /// <value>The size of the buffer.</value>
-        public int BufferSize
-        {
-          get { return _bufferSize; }
-          set { _bufferSize = value; }
-        }
+		/// <summary>
+		/// Gets or sets the size of the buffer.
+		/// </summary>
+		/// <value>The size of the buffer.</value>
+		public int BufferSize
+		{
+			get { return _bufferSize; }
+			set { _bufferSize = value; }
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BufferProxy"/> class.
-        /// </summary>
-        public BufferProxy()
-        {
-            _syncLock = new object();
-            _queue = new Queue<ILogEntry>();
-            _bufferSize = 5;
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BufferProxy"/> class.
+		/// </summary>
+		public BufferProxy()
+		{
+			_syncLock = new object();
+			_queue = new Queue<ILogEntry>();
+			_bufferSize = 5;
+		}
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (!_disposed)
-                {
-                    lock (_syncLock)
-                    {
-                        // Flush the queue.
-                        this.ProcessQueue();
-                    }
-                    _disposed = true;
-                }
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (!_disposed)
+				{
+					lock (_syncLock)
+					{
+						// Flush the queue.
+						this.ProcessQueue();
+					}
+					_disposed = true;
+				}
+			}
+			base.Dispose(disposing);
+		}
 
-        /// <summary>
-        /// Performs the writing of the specified entry to the log sink.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        protected override void WriteEntry(ILogEntry entry)
-        {
-            if (entry == null)
-            {
-                throw new ArgumentNullException("entry");
-            }
+		/// <summary>
+		/// Performs the writing of the specified entry to the log sink.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		protected override void WriteEntry(ILogEntry entry)
+		{
+			if (entry == null)
+			{
+				throw new ArgumentNullException("entry");
+			}
 
-            lock (_syncLock)
-            {
-                _queue.Enqueue(entry);
+			lock (_syncLock)
+			{
+				_queue.Enqueue(entry);
 
-                if (_queue.Count > this.BufferSize)
-                {
-                    this.ProcessQueue();
-                }
-            }
-        }
+				if (_queue.Count > this.BufferSize)
+				{
+					this.ProcessQueue();
+				}
+			}
+		}
 
-        /// <summary>
-        /// Performs the writing of the specified entries to the log sink.
-        /// </summary>
-        /// <param name="entries">The entries.</param>
-        protected override void WriteEntries(ILogEntry[] entries)
-        {
-            if (entries == null)
-            {
-                throw new ArgumentNullException("entries");
-            }
+		/// <summary>
+		/// Performs the writing of the specified entries to the log sink.
+		/// </summary>
+		/// <param name="entries">The entries.</param>
+		protected override void WriteEntries(ILogEntry[] entries)
+		{
+			if (entries == null)
+			{
+				throw new ArgumentNullException("entries");
+			}
 
-            lock (_syncLock)
-            {
-                foreach (ILogEntry entry in entries)
-                {
-                    _queue.Enqueue(entry);
-                }
+			lock (_syncLock)
+			{
+				foreach (ILogEntry entry in entries)
+				{
+					_queue.Enqueue(entry);
+				}
 
-                if (_queue.Count >= this.BufferSize)
-                {
-                    this.ProcessQueue();
-                }
-            }
-        }
+				if (_queue.Count >= this.BufferSize)
+				{
+					this.ProcessQueue();
+				}
+			}
+		}
 
-        private void ProcessQueue()
-        {
-            // NOTE: This method is not thread safe on its own.
-            if (_queue.Count > 0)
-            {
-                ILogEntry[] entries = new ILogEntry[_queue.Count];
-                int index = 0;
-                while (_queue.Count != 0)
-                {
-                    entries[index] = _queue.Dequeue();
-                    index++;
-                }
+		private void ProcessQueue()
+		{
+			// NOTE: This method is not thread safe on its own.
+			if (_queue.Count > 0)
+			{
+				ILogEntry[] entries = new ILogEntry[_queue.Count];
+				int index = 0;
+				while (_queue.Count != 0)
+				{
+					entries[index] = _queue.Dequeue();
+					index++;
+				}
 
-                foreach (LogSink sink in this.Sinks)
-                {
-                    sink.Write(entries);
-                }
-            }
-        }
-    }
+				foreach (LogSink sink in this.Sinks)
+				{
+					sink.Write(entries);
+				}
+			}
+		}
+	}
 }

@@ -17,58 +17,53 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    /// <summary>
-    /// The base class for a log sink proxy.
-    /// </summary>
-    public abstract class LogSinkProxy : LogSink
-    {
-        private readonly LogSinkCollection _sinks;
-        private bool _disposed;
+	/// <summary>
+	/// The base class for a log sink proxy.
+	/// </summary>
+	public abstract class LogSinkProxy : LogSink
+	{
+		private readonly LogSinkCollection _sinks;
+		private bool _disposed;
 
-        /// <summary>
-        /// Gets the nested sinks.
-        /// </summary>
-        /// <value>The sinks.</value>
+		/// <summary>
+		/// Gets the nested sinks.
+		/// </summary>
+		/// <value>The sinks.</value>
 		[SkipSerializationAttribute]
-        public LogSinkCollection Sinks
-        {
-            get { return _sinks; }
-        }
+		public LogSinkCollection Sinks
+		{
+			get { return _sinks; }
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogSinkProxy"/> class.
-        /// </summary>
-        protected LogSinkProxy()
-        {
-            _sinks = new LogSinkCollection();
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogSinkProxy"/> class.
+		/// </summary>
+		protected LogSinkProxy()
+		{
+			_sinks = new LogSinkCollection();
+		}
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (!_disposed)
-                {
-                    if (_sinks != null)
-                    {
-                        _sinks.Dispose();
-                    }
-                    _disposed = true;
-                }
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (!_disposed)
+				{
+					if (_sinks != null)
+					{
+						_sinks.Dispose();
+					}
+					_disposed = true;
+				}
+			}
+			base.Dispose(disposing);
+		}
 
 		internal override void PerformInitialization(InitializationContext context)
 		{
@@ -78,5 +73,5 @@ namespace BlackBox
 			// Call the base class implementation.
 			base.PerformInitialization(context);
 		}
-    }
+	}
 }

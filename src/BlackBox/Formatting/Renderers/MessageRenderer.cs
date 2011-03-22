@@ -17,23 +17,18 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting.Renderers
 {
-    [FormatRendererType("message")]
-    internal sealed class MessageRenderer : FormatRenderer
-    {
-        public override string Render(ILogEntry entry)
-        {
-            if (entry == null)
-            {
-                return string.Empty;
-            }
-            return entry.Message;
-        }
-    }
+	[FormatRendererType("message")]
+	internal sealed class MessageRenderer : FormatRenderer
+	{
+		public override string Render(ILogEntry entry)
+		{
+			if (entry == null)
+			{
+				return string.Empty;
+			}
+			return entry.Message;
+		}
+	}
 }

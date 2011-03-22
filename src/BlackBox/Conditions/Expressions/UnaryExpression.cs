@@ -17,25 +17,20 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal abstract class UnaryExpression : ConditionExpression
-    {
-        private readonly ConditionExpression _expression;
+	internal abstract class UnaryExpression : ConditionExpression
+	{
+		private readonly ConditionExpression _expression;
 
-        internal ConditionExpression Expression
-        {
-            get { return _expression; }
-        }
+		internal ConditionExpression Expression
+		{
+			get { return _expression; }
+		}
 
-        protected UnaryExpression(ConditionExpression expression)
-        {
-            _expression = expression;
-        }
-    }
+		protected UnaryExpression(ConditionExpression expression)
+		{
+			_expression = expression;
+		}
+	}
 }

@@ -18,34 +18,31 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using BlackBox.Formatting;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Base class for a log sink that supports a format pattern.
-    /// </summary>
+	/// <summary>
+	/// Base class for a log sink that supports a format pattern.
+	/// </summary>
 	public abstract class FormatLogSink : LogSink
 	{
 		private FormatPattern _format;
 		private string _formatString;
 
-        /// <summary>
-        /// Gets or sets the format used in the format pattern.
-        /// </summary>
-        /// <value>The format.</value>
+		/// <summary>
+		/// Gets or sets the format used in the format pattern.
+		/// </summary>
+		/// <value>The format.</value>
 		public string Format
 		{
 			get { return _formatString; }
 			set { _formatString = value; }
 		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatLogSink"/> class.
-        /// </summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatLogSink"/> class.
+		/// </summary>
 		protected FormatLogSink()
 			: base()
 		{
@@ -68,11 +65,11 @@ namespace BlackBox
 			_format = context.FormatPatternFactory.Create(_formatString);
 		}
 
-        /// <summary>
-        /// Performs formatting of the entry.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        /// <returns></returns>
+		/// <summary>
+		/// Performs formatting of the entry.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		/// <returns></returns>
 		protected string FormatEntry(ILogEntry entry)
 		{
 			return _format.Render(entry);

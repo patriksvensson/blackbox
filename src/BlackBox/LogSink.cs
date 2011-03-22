@@ -19,10 +19,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BlackBox.Formatting;
-using System.Xml;
 
 namespace BlackBox
 {
@@ -45,7 +41,7 @@ namespace BlackBox
 		public string Name
 		{
 			get { return _name; }
-			set 
+			set
 			{
 				if (_isInitialized)
 				{

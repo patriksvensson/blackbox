@@ -17,31 +17,26 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    /// <summary>
-    /// The base class for a log filter.
-    /// </summary>
-    public abstract class LogFilter
-    {
+	/// <summary>
+	/// The base class for a log filter.
+	/// </summary>
+	public abstract class LogFilter
+	{
 		/// <summary>
 		/// Initializes the specified log filter.
 		/// </summary>
 		/// <param name="context">The context.</param>
-        protected internal virtual void Initialize(InitializationContext context)
-        {
-        }
+		protected internal virtual void Initialize(InitializationContext context)
+		{
+		}
 
-        /// <summary>
-        /// Evaluates the specified entry against the log filter.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        /// <returns></returns>
-        protected internal abstract LogFilterResult Evaluate(ILogEntry entry);
-    }
+		/// <summary>
+		/// Evaluates the specified entry against the log filter.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		/// <returns></returns>
+		protected internal abstract LogFilterResult Evaluate(ILogEntry entry);
+	}
 }

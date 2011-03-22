@@ -17,38 +17,35 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
 
 namespace BlackBox.Formatting
 {
-    internal class FormatRendererNode : FormatPatternNode
-    {
-        private readonly string _name;
-        private readonly List<FormatArgumentNode> _arguments;
+	internal class FormatRendererNode : FormatPatternNode
+	{
+		private readonly string _name;
+		private readonly List<FormatArgumentNode> _arguments;
 
-        public string Name
-        {
-            get { return _name; }
-        } 
+		public string Name
+		{
+			get { return _name; }
+		}
 
-        internal ReadOnlyCollection<FormatArgumentNode> Arguments
-        {
-            get { return new ReadOnlyCollection<FormatArgumentNode>(_arguments); }
-        }
+		internal ReadOnlyCollection<FormatArgumentNode> Arguments
+		{
+			get { return new ReadOnlyCollection<FormatArgumentNode>(_arguments); }
+		}
 
-        public FormatRendererNode(string name)
-        {
-            _name = name;
-            _arguments = new List<FormatArgumentNode>();
-        }
+		public FormatRendererNode(string name)
+		{
+			_name = name;
+			_arguments = new List<FormatArgumentNode>();
+		}
 
-        public void SetArgument(FormatArgumentNode argument)
-        {
-            _arguments.Add(argument);
-        }
-    }
+		public void SetArgument(FormatArgumentNode argument)
+		{
+			_arguments.Add(argument);
+		}
+	}
 }

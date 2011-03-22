@@ -18,35 +18,32 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Filters
 {
-    [TestFixture]
-    public class ConditionFilterTests
-    {
-        [Test]
-        public void LevelMatchFilter_EntriesWhichEvaluatesConditionToTrueReturnsMatch()
-        {
-            string condition = "message=='Hello World!'";
-            ConditionFilter filter = new ConditionFilter { Condition = condition, Action = LogFilterResult.Filter };
-            filter.Initialize(null /* We don't need the service locator here. */);
-            Logger logger = new Logger(null, typeof(ConditionFilterTests));
-            ILogEntry trueEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Hello World!", logger, null);
-            ILogEntry falseEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Goodbye World!", logger, null);
-            Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(trueEntry));
-            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(falseEntry));
-        }
+	[TestFixture]
+	public class ConditionFilterTests
+	{
+		[Test]
+		public void LevelMatchFilter_EntriesWhichEvaluatesConditionToTrueReturnsMatch()
+		{
+			string condition = "message=='Hello World!'";
+			ConditionFilter filter = new ConditionFilter { Condition = condition, Action = LogFilterResult.Filter };
+			filter.Initialize(null /* We don't need the service locator here. */);
+			Logger logger = new Logger(null, typeof(ConditionFilterTests));
+			ILogEntry trueEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Hello World!", logger, null);
+			ILogEntry falseEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Goodbye World!", logger, null);
+			Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(trueEntry));
+			Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(falseEntry));
+		}
 
-        [Test]
-        [ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The filter condition has not been set.")]
-        public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
-        {
-            ConditionFilter filter = new ConditionFilter();
-            filter.Initialize(null);
-        }
-    }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The filter condition has not been set.")]
+		public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
+		{
+			ConditionFilter filter = new ConditionFilter();
+			filter.Initialize(null);
+		}
+	}
 }

@@ -19,11 +19,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
-using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using BlackBox.Formatting.Renderers;
 
 namespace BlackBox.Formatting
@@ -90,7 +88,7 @@ namespace BlackBox.Formatting
 
 		private FormatRenderer CreateRenderer(FormatRendererNode node)
 		{
-			if(node == null)
+			if (node == null)
 			{
 				throw new InvalidOperationException("Encountered empty renderer node.");
 			}

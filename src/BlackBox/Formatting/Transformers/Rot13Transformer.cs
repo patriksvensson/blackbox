@@ -17,63 +17,58 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting.Transformers
 {
-    [FormatRendererType("rot13")]
-    internal sealed class Rot13Transformer : FormatTransformer
-    {
-        internal Rot13Transformer(FormatRenderer renderer)
-            : base(renderer)
-        {
-        }
+	[FormatRendererType("rot13")]
+	internal sealed class Rot13Transformer : FormatTransformer
+	{
+		internal Rot13Transformer(FormatRenderer renderer)
+			: base(renderer)
+		{
+		}
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public override string Transform(string source)
-        {
-            if (source.IsNullOrEmpty())
-            {
-                return string.Empty;
-            }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+		public override string Transform(string source)
+		{
+			if (source.IsNullOrEmpty())
+			{
+				return string.Empty;
+			}
 
-            // CREDITS: This algorithm was written by Sam Allen and can be found
-            // in it's original state at http://dotnetperls.com/rot13.
-            char[] array = source.ToCharArray();
-            for (int i = 0; i < array.Length; i++)
-            {
-                int number = (int)array[i];
+			// CREDITS: This algorithm was written by Sam Allen and can be found
+			// in it's original state at http://dotnetperls.com/rot13.
+			char[] array = source.ToCharArray();
+			for (int i = 0; i < array.Length; i++)
+			{
+				int number = (int)array[i];
 
-                if (number >= 'a' && number <= 'z')
-                {
-                    if (number > 'm')
-                    {
-                        number -= 13;
-                    }
-                    else
-                    {
-                        number += 13;
-                    }
-                }
-                else if (number >= 'A' && number <= 'Z')
-                {
-                    if (number > 'M')
-                    {
-                        number -= 13;
-                    }
-                    else
-                    {
-                        number += 13;
-                    }
-                }
-                array[i] = (char)number;
-            }
+				if (number >= 'a' && number <= 'z')
+				{
+					if (number > 'm')
+					{
+						number -= 13;
+					}
+					else
+					{
+						number += 13;
+					}
+				}
+				else if (number >= 'A' && number <= 'Z')
+				{
+					if (number > 'M')
+					{
+						number -= 13;
+					}
+					else
+					{
+						number += 13;
+					}
+				}
+				array[i] = (char)number;
+			}
 
-            // Return the transformed source.
-            return new string(array);
-        }
-    }
+			// Return the transformed source.
+			return new string(array);
+		}
+	}
 }

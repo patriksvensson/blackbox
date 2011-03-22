@@ -18,26 +18,23 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox.Conditions
 {
-    internal sealed class HasExceptionExpression : ConditionExpression
-    {
-        internal override object Evaluate(ILogEntry context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
-            return context.Exception != null;
-        }
+	internal sealed class HasExceptionExpression : ConditionExpression
+	{
+		internal override object Evaluate(ILogEntry context)
+		{
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+			return context.Exception != null;
+		}
 
-        public override string ToString()
-        {
-            return "has-exception";
-        }
-    }
+		public override string ToString()
+		{
+			return "has-exception";
+		}
+	}
 }

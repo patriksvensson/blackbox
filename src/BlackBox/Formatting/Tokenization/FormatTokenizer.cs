@@ -17,11 +17,9 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
+using System.Text;
 
 namespace BlackBox.Formatting
 {
@@ -68,7 +66,7 @@ namespace BlackBox.Formatting
 			}
 			else
 			{
-				char symbol = (char)_buffer.Read();                
+				char symbol = (char)_buffer.Read();
 				if (symbol.Equals('$'))
 				{
 					// Check if this is a format renderer.
@@ -86,7 +84,7 @@ namespace BlackBox.Formatting
 					else
 					{
 						// It was an escaped format renderer ($$).
-                        _buffer.Read(); // Consume the second '$' token.
+						_buffer.Read(); // Consume the second '$' token.
 						return FormatToken.CreateSymbol('$');
 					}
 				}

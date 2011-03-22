@@ -17,21 +17,16 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.UnitTests
 {
-    [LogSinkType("string")]
-    public class StringSink : LogSink
-    {
-        public string LastEntry { get; private set; }
+	[LogSinkType("string")]
+	public class StringSink : LogSink
+	{
+		public string LastEntry { get; private set; }
 
-        protected override void WriteEntry(ILogEntry entry)
-        {
-            this.LastEntry = entry.Message;
-        }
-    }
+		protected override void WriteEntry(ILogEntry entry)
+		{
+			this.LastEntry = entry.Message;
+		}
+	}
 }

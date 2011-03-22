@@ -17,10 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Collections
@@ -111,7 +108,7 @@ namespace BlackBox.UnitTests.Tests.Collections
 			LruCache<int, string> cache = new LruCache<int, string>(1);
 			List<string> removedList = new List<string>();
 			cache.ItemRemoved += (o, s) => { removedList.Add(s.Item); };
-			cache.Put(1, "One");			
+			cache.Put(1, "One");
 			Assert.AreEqual(0, removedList.Count);
 			cache.Put(2, "Two");
 			Assert.AreEqual(1, removedList.Count);

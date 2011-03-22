@@ -18,12 +18,9 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Configuration;
-using System.Xml.Linq;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace BlackBox
 {
@@ -41,7 +38,7 @@ namespace BlackBox
 			}
 
 			string rootNodeName = section.LocalName;
-			if(!rootNodeName.Equals("blackbox", StringComparison.OrdinalIgnoreCase))
+			if (!rootNodeName.Equals("blackbox", StringComparison.OrdinalIgnoreCase))
 			{
 				section = section.Rename("BlackBox");
 			}

@@ -17,30 +17,25 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting.Transformers
 {
-    [FormatRendererType("lowercase")]
-    internal sealed class LowercaseTransformer : FormatTransformer
-    {
-        internal LowercaseTransformer(FormatRenderer renderer)
-            : base(renderer)
-        {
-        }
+	[FormatRendererType("lowercase")]
+	internal sealed class LowercaseTransformer : FormatTransformer
+	{
+		internal LowercaseTransformer(FormatRenderer renderer)
+			: base(renderer)
+		{
+		}
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public override string Transform(string source)
-        {
-            if (source.IsNullOrEmpty()) 
-            {
-                return source;
-            }
-            return source.ToLowerInvariant();
-        }
-    }
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase")]
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+		public override string Transform(string source)
+		{
+			if (source.IsNullOrEmpty())
+			{
+				return source;
+			}
+			return source.ToLowerInvariant();
+		}
+	}
 }

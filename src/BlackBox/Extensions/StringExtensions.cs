@@ -17,23 +17,18 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    internal static class StringExtensions
-    {
-        internal static bool IsNullOrEmpty(this string value)
-        {
-            return string.IsNullOrEmpty(value);
-        }
+	internal static class StringExtensions
+	{
+		internal static bool IsNullOrEmpty(this string value)
+		{
+			return string.IsNullOrEmpty(value);
+		}
 
-        internal static bool IsNotNullOrEmpty(this string value)
-        {
-            return !string.IsNullOrEmpty(value);
-        }
-    }
+		internal static bool IsNotNullOrEmpty(this string value)
+		{
+			return !string.IsNullOrEmpty(value);
+		}
+	}
 }

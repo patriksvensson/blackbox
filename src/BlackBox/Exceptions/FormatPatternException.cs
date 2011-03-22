@@ -18,60 +18,57 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Represent errors that occur in format patterns.
-    /// </summary>
-    [Serializable]
-    public sealed class FormatPatternException : BlackBoxException
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatPatternException"/> class.
-        /// </summary>
-        public FormatPatternException()
-            : base()
-        {
-        }
+	/// <summary>
+	/// Represent errors that occur in format patterns.
+	/// </summary>
+	[Serializable]
+	public sealed class FormatPatternException : BlackBoxException
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatPatternException"/> class.
+		/// </summary>
+		public FormatPatternException()
+			: base()
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatPatternException"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public FormatPatternException(string message)
-            : base(message)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatPatternException"/> class.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		public FormatPatternException(string message)
+			: base(message)
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatPatternException"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public FormatPatternException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatPatternException"/> class.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		/// <param name="innerException">The inner exception.</param>
+		public FormatPatternException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatPatternException"/> class.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public FormatPatternException(string format, params object[] args)
-            : base(string.Format(CultureInfo.InvariantCulture, format, args))
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatPatternException"/> class.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="args">The args.</param>
+		public FormatPatternException(string format, params object[] args)
+			: base(string.Format(CultureInfo.InvariantCulture, format, args))
+		{
+		}
 
-        private FormatPatternException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-    }
+		private FormatPatternException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
 }

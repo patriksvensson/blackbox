@@ -18,25 +18,22 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Log sink that write messages to the standard output stream.
-    /// </summary>
-    [LogSinkType("console")]
-    public sealed class ConsoleSink : FormatLogSink
-    {
-        /// <summary>
-        /// Performs the writing of the specified entry to the standard output stream.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        protected override void WriteEntry(ILogEntry entry)
-        {
-            Console.WriteLine(this.FormatEntry(entry));
-        }
-    }
+	/// <summary>
+	/// Log sink that write messages to the standard output stream.
+	/// </summary>
+	[LogSinkType("console")]
+	public sealed class ConsoleSink : FormatLogSink
+	{
+		/// <summary>
+		/// Performs the writing of the specified entry to the standard output stream.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		protected override void WriteEntry(ILogEntry entry)
+		{
+			Console.WriteLine(this.FormatEntry(entry));
+		}
+	}
 }

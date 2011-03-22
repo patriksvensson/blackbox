@@ -17,14 +17,11 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.Globalization;
+using System.Reflection;
 using System.Text;
 using System.Xml;
-using System.Reflection;
-using System.Globalization;
-using System.ComponentModel;
 using System.Xml.Linq;
 
 namespace BlackBox
@@ -88,7 +85,7 @@ namespace BlackBox
 			if (assemblies.Count > 0)
 			{
 				writer.WriteStartElement("Assemblies");
-				foreach(Assembly assembly in assemblies)
+				foreach (Assembly assembly in assemblies)
 				{
 					writer.WriteStartElement("Assembly");
 					writer.WriteAttributeString("Name", assembly.FullName);
@@ -188,7 +185,7 @@ namespace BlackBox
 					writer.WriteStartElement(property.Name);
 					writer.WriteString(converter.ConvertToInvariantString(property.GetValue(obj, null)));
 					writer.WriteEndElement();
-				}	
+				}
 			}
 		}
 	}

@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace BlackBox
@@ -95,11 +94,11 @@ namespace BlackBox
 				foreach (PropertyInfo property in privateProperties)
 				{
 					result.Add(property);
-				}               
+				}
 				type = type.BaseType;
 			}
 
-			return result.ToArray(); 
+			return result.ToArray();
 		}
 
 		internal static bool HasParameterlessConstructor(this Type type)

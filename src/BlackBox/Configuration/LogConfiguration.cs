@@ -18,14 +18,11 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Configuration;
-using System.Xml.Linq;
+using System.Globalization;
 using System.IO;
 using System.Xml;
-using System.Globalization;
+using System.Xml.Linq;
 
 namespace BlackBox
 {
@@ -214,48 +211,48 @@ namespace BlackBox
 
 		#endregion
 
-        #region Log Configuration Saving
+		#region Log Configuration Saving
 
-        /// <summary>
-        /// Saves the log configuration to the specified <see cref="System.IO.Stream"/>.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public void Save(Stream stream)
-        {
+		/// <summary>
+		/// Saves the log configuration to the specified <see cref="System.IO.Stream"/>.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		public void Save(Stream stream)
+		{
 			if (stream == null)
 			{
 				throw new ArgumentNullException("stream");
 			}
 
-            XDocument document = LogConfigurationSerializer.Serialize(this);
+			XDocument document = LogConfigurationSerializer.Serialize(this);
 			XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
-            using (XmlWriter writer = XmlWriter.Create(stream, settings))
-            {
-                document.Save(writer);
-            }
-        }
+			using (XmlWriter writer = XmlWriter.Create(stream, settings))
+			{
+				document.Save(writer);
+			}
+		}
 
-        /// <summary>
-        /// Saves the log configuration to the specified file.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
-        public void Save(FileInfo file)
-        {
-            if (file == null)
-            {
-                throw new ArgumentNullException("file");
-            }
+		/// <summary>
+		/// Saves the log configuration to the specified file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
+		public void Save(FileInfo file)
+		{
+			if (file == null)
+			{
+				throw new ArgumentNullException("file");
+			}
 
-            XDocument document = LogConfigurationSerializer.Serialize(this);
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
-            using (XmlWriter writer = XmlWriter.Create(file.FullName, settings))
-            {
-                document.Save(writer);
-            }
-        }
+			XDocument document = LogConfigurationSerializer.Serialize(this);
+			XmlWriterSettings settings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+			using (XmlWriter writer = XmlWriter.Create(file.FullName, settings))
+			{
+				document.Save(writer);
+			}
+		}
 
-        #endregion
+		#endregion
 
 		internal void Initialize(InitializationContext context)
 		{
@@ -263,11 +260,11 @@ namespace BlackBox
 			_filters.Initialize(context);
 		}
 
-        internal LogConfiguration Clone()
+		internal LogConfiguration Clone()
 		{
 			// Serialize the configuration.
 			XDocument document = LogConfigurationSerializer.Serialize(this);
-			if (document == null) 
+			if (document == null)
 			{
 				string message = "Could not clone log configuration.";
 				throw new BlackBoxException(message);

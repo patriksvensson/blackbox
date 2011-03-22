@@ -18,11 +18,7 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
-using BlackBox.Formatting;
 
 namespace BlackBox.Conditions
 {
@@ -102,43 +98,43 @@ namespace BlackBox.Conditions
 
 		private ConditionExpression ParseBooleanRelation()
 		{
-            // Parse the left side literal in the relation.
+			// Parse the left side literal in the relation.
 			ConditionExpression expression = this.ParseLiteralExpression();
 
-            // Still got tokens?
-            if (_tokens.Current != null)
-            {
-                // Equality?
-                if (_tokens.Current.TokenType == ConditionTokenType.EqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.EqualTo);
-                }
-                // Greater than?
-                if (_tokens.Current.TokenType == ConditionTokenType.GreaterThan)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThan);
-                }
-                // Greater than or equal to?
-                if (_tokens.Current.TokenType == ConditionTokenType.GreaterThanOrEqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThanOrEqualTo);
-                }
-                // Less than?
-                if (_tokens.Current.TokenType == ConditionTokenType.LessThan)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThan);
-                }
-                // Less than or equal to?
-                if (_tokens.Current.TokenType == ConditionTokenType.LessThanOrEqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThanOrEqualTo);
-                }
-            }
+			// Still got tokens?
+			if (_tokens.Current != null)
+			{
+				// Equality?
+				if (_tokens.Current.TokenType == ConditionTokenType.EqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.EqualTo);
+				}
+				// Greater than?
+				if (_tokens.Current.TokenType == ConditionTokenType.GreaterThan)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThan);
+				}
+				// Greater than or equal to?
+				if (_tokens.Current.TokenType == ConditionTokenType.GreaterThanOrEqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThanOrEqualTo);
+				}
+				// Less than?
+				if (_tokens.Current.TokenType == ConditionTokenType.LessThan)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThan);
+				}
+				// Less than or equal to?
+				if (_tokens.Current.TokenType == ConditionTokenType.LessThanOrEqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThanOrEqualTo);
+				}
+			}
 
 			return expression;
 		}
@@ -193,22 +189,22 @@ namespace BlackBox.Conditions
 				{
 					return new ConstantExpression(null);
 				}
-                else if (value.Equals("message", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogMessageExpression();
-                }
-                else if (value.Equals("level", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogLevelExpression(true /* Log level number */);
-                }
-                else if (value.Equals("levelname", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogLevelExpression(false /* Log level name */);
-                }
-                else if (value.Equals("has-exception", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new HasExceptionExpression();
-                }
+				else if (value.Equals("message", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogMessageExpression();
+				}
+				else if (value.Equals("level", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogLevelExpression(true /* Log level number */);
+				}
+				else if (value.Equals("levelname", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogLevelExpression(false /* Log level name */);
+				}
+				else if (value.Equals("has-exception", StringComparison.OrdinalIgnoreCase))
+				{
+					return new HasExceptionExpression();
+				}
 
 				// Is the next parameter a parenthesis?
 				// This is one of our special functions.

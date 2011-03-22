@@ -17,30 +17,27 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
-    internal static class QueueExtensions
-    {
-        internal static IEnumerable<T> DequeueAll<T>(this Queue<T> queue)
-        {
-            if (queue.Count == 0)
-            {
-                return new List<T>();
-            }
+	internal static class QueueExtensions
+	{
+		internal static IEnumerable<T> DequeueAll<T>(this Queue<T> queue)
+		{
+			if (queue.Count == 0)
+			{
+				return new List<T>();
+			}
 
-            T[] entries = new T[queue.Count];
-            int index = 0;
-            while (queue.Count != 0)
-            {
-                entries[index] = queue.Dequeue();
-                index++;
-            }
-            return entries;
-        }
-    }
+			T[] entries = new T[queue.Count];
+			int index = 0;
+			while (queue.Count != 0)
+			{
+				entries[index] = queue.Dequeue();
+				index++;
+			}
+			return entries;
+		}
+	}
 }

@@ -18,32 +18,29 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox.Formatting.Renderers
 {
-    [FormatRendererType("logger")]
-    internal sealed class LoggerRenderer : FormatRenderer
-    {
-        public bool FullName { get; set; }
+	[FormatRendererType("logger")]
+	internal sealed class LoggerRenderer : FormatRenderer
+	{
+		public bool FullName { get; set; }
 
-        internal LoggerRenderer()
-        {
-            this.FullName = false;
-        }
+		internal LoggerRenderer()
+		{
+			this.FullName = false;
+		}
 
-        public override string Render(ILogEntry context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
-            
-            return this.FullName
-                ? context.Source.FullName
-                : context.Source.Name;
-        }
-    }
+		public override string Render(ILogEntry context)
+		{
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+
+			return this.FullName
+				? context.Source.FullName
+				: context.Source.Name;
+		}
+	}
 }

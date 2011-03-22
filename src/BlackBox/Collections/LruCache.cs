@@ -18,10 +18,8 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BlackBox
 {
@@ -72,7 +70,7 @@ namespace BlackBox
 			{
 				if (disposing)
 				{
-					this.Clear();				
+					this.Clear();
 				}
 				_disposed = true;
 			}

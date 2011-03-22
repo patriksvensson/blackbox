@@ -17,19 +17,14 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal enum RelationalOperator
-    {
-        EqualTo,
-        GreaterThan,
-        GreaterThanOrEqualTo,
-        LessThan,
-        LessThanOrEqualTo,
-    }
+	internal enum RelationalOperator
+	{
+		EqualTo,
+		GreaterThan,
+		GreaterThanOrEqualTo,
+		LessThan,
+		LessThanOrEqualTo,
+	}
 }

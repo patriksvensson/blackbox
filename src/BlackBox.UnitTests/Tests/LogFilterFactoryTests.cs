@@ -17,12 +17,9 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using System.Reflection;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests
 {
@@ -38,8 +35,8 @@ namespace BlackBox.UnitTests.Tests
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("levelmatch"));
-            Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
-            Assert.IsTrue(factory.Types.ContainsKey("condition"));
+			Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
+			Assert.IsTrue(factory.Types.ContainsKey("condition"));
 
 			// But not the unit test sinks.
 			Assert.IsFalse(factory.Types.ContainsKey("denyall"));
@@ -55,8 +52,8 @@ namespace BlackBox.UnitTests.Tests
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("levelmatch"));
-            Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
-            Assert.IsTrue(factory.Types.ContainsKey("condition"));
+			Assert.IsTrue(factory.Types.ContainsKey("levelrange"));
+			Assert.IsTrue(factory.Types.ContainsKey("condition"));
 
 			// And also the unit test sinks.
 			Assert.IsTrue(factory.Types.ContainsKey("denyall"));

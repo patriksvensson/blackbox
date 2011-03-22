@@ -18,60 +18,57 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Represent errors that occur in condition expressions.
-    /// </summary>
-    [Serializable]
-    public sealed class ConditionException : BlackBoxException
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionException"/> class.
-        /// </summary>
-        public ConditionException()
-            : base()
-        {
-        }
+	/// <summary>
+	/// Represent errors that occur in condition expressions.
+	/// </summary>
+	[Serializable]
+	public sealed class ConditionException : BlackBoxException
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConditionException"/> class.
+		/// </summary>
+		public ConditionException()
+			: base()
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionException"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public ConditionException(string message)
-            : base(message)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConditionException"/> class.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		public ConditionException(string message)
+			: base(message)
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionException"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public ConditionException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConditionException"/> class.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		/// <param name="innerException">The inner exception.</param>
+		public ConditionException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionException"/> class.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public ConditionException(string format, params object[] args)
-            : base(string.Format(CultureInfo.InvariantCulture, format, args))
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConditionException"/> class.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="args">The args.</param>
+		public ConditionException(string format, params object[] args)
+			: base(string.Format(CultureInfo.InvariantCulture, format, args))
+		{
+		}
 
-        private ConditionException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-    }
+		private ConditionException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
 }

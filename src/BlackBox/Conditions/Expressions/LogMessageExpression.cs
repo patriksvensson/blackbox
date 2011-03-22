@@ -18,26 +18,23 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox.Conditions
 {
-    internal sealed class LogMessageExpression : ConditionExpression
-    {
-        internal override object Evaluate(ILogEntry context)
-        {
-            if(context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
-            return context.Message;
-        }
+	internal sealed class LogMessageExpression : ConditionExpression
+	{
+		internal override object Evaluate(ILogEntry context)
+		{
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+			return context.Message;
+		}
 
-        public override string ToString()
-        {
-            return "message";
-        }
-    }
+		public override string ToString()
+		{
+			return "message";
+		}
+	}
 }

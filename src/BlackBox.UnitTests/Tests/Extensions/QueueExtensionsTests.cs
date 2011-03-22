@@ -17,36 +17,34 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Extensions
 {
-    [TestFixture]
-    public class QueueExtensionsTests
-    {
-        [Test]
-        public void QueueExtensions_DequeueAll()
-        {
-            Queue<int> queue = new Queue<int>();
-            queue.Enqueue(1);
-            queue.Enqueue(2);
-            queue.Enqueue(3);
-            var items = queue.DequeueAll();
-            Assert.IsNotNull(items);
-            Assert.AreEqual(3, items.Count());
-        }
+	[TestFixture]
+	public class QueueExtensionsTests
+	{
+		[Test]
+		public void QueueExtensions_DequeueAll()
+		{
+			Queue<int> queue = new Queue<int>();
+			queue.Enqueue(1);
+			queue.Enqueue(2);
+			queue.Enqueue(3);
+			var items = queue.DequeueAll();
+			Assert.IsNotNull(items);
+			Assert.AreEqual(3, items.Count());
+		}
 
-        [Test]
-        public void QueueExtensions_DequeueAllReturnsEmptyListIfQueueIsEmpty()
-        {
-            Queue<int> queue = new Queue<int>();
-            var items = queue.DequeueAll();
-            Assert.IsNotNull(items);
-            Assert.AreEqual(0, items.Count());
-        }
-    }
+		[Test]
+		public void QueueExtensions_DequeueAllReturnsEmptyListIfQueueIsEmpty()
+		{
+			Queue<int> queue = new Queue<int>();
+			var items = queue.DequeueAll();
+			Assert.IsNotNull(items);
+			Assert.AreEqual(0, items.Count());
+		}
+	}
 }

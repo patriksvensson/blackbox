@@ -18,12 +18,8 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using BlackBox.Formatting;
 using System.Diagnostics;
+using System.Threading;
 
 namespace BlackBox
 {
@@ -31,7 +27,7 @@ namespace BlackBox
 	/// The BlackBox logging kernel.
 	/// </summary>
 	public sealed class LogKernel : ILogKernel, IDisposable
-	{        
+	{
 		private readonly ReaderWriterLockSlim _lock;
 		private readonly LoggerCollection _loggers;
 		private LogConfiguration _configuration;
@@ -103,7 +99,7 @@ namespace BlackBox
 					// TODO: Dispose the configuration here.
 					throw new NotImplementedException("Configuration should be disposed.");
 				}
-		  
+
 				// Set the active configuration.
 				_configuration = configuration ?? new LogConfiguration();
 
