@@ -34,7 +34,7 @@ namespace BlackBox
 	public sealed class MessageQueueSink : FormatLogSink
 	{
 		private MessageQueue _messageQueue;
-		private FormatPattern<ILogEntry> _labelPattern;
+		private FormatPattern _labelPattern;
 
 		#region Properties
 

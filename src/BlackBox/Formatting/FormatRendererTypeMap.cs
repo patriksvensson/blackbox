@@ -25,30 +25,27 @@ using System.Reflection;
 
 namespace BlackBox.Formatting
 {
-    internal sealed class FormatRendererTypeMap<TContext>
+	internal sealed class FormatRendererTypeMap
     {
         private readonly Dictionary<string, Type> _types;
 
-        public FormatRendererTypeMap()
+		internal FormatRendererTypeMap()
             : this(null)
         {
         }
 
-        public FormatRendererTypeMap(IEnumerable<Assembly> assemblies)
+		internal FormatRendererTypeMap(IEnumerable<Assembly> assemblies)
         {
             // Create the key to string look-up table.
             _types = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
             // Make sure the BlackBox assembly is present in the collection.
-            assemblies = assemblies ?? new List<Assembly>() { typeof(FormatRendererTypeMap<>).Assembly };
+            assemblies = assemblies ?? new List<Assembly>() { typeof(FormatRendererTypeMap).Assembly };
             List<Assembly> assemblyList = new List<Assembly>(assemblies);
-            if (!assemblyList.Contains(typeof(FormatRendererTypeMap<>).Assembly))
+            if (!assemblyList.Contains(typeof(FormatRendererTypeMap).Assembly))
             {
-                assemblyList.Add(typeof(FormatRendererTypeMap<>).Assembly);
+                assemblyList.Add(typeof(FormatRendererTypeMap).Assembly);
             }
-
-            // Get the type for the base class renderer.
-            Type rendererBaseType = typeof(FormatRenderer<>).MakeGenericType(typeof(TContext));
 
             // Find all types in the assembly that inherits from the base type.
             // If the type is decorated with the specified attribute, then add it to the internal look-up table.
@@ -56,17 +53,7 @@ namespace BlackBox.Formatting
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    bool isGenericRenderer = false;
-                    if (type.IsGenericType && type.ContainsGenericParameters && type.IsNonAbstractClass())
-                    {
-                        if (type.InheritsGenericType(typeof(FormatRenderer<>)))
-                        {
-                            isGenericRenderer = true;
-                        }                       
-                    }
-
-                    bool isNonGenericRenderer = type.IsNonAbstractClass() && type.Inherits(rendererBaseType);
-                    if (isNonGenericRenderer || isGenericRenderer)
+                    if (type.IsNonAbstractClass() && type.Inherits(typeof(FormatRenderer)))
                     {                        
                         var attribute = type.GetAttribute<FormatRendererTypeAttribute>(false);
                         if (attribute != null)

@@ -30,7 +30,7 @@ namespace BlackBox
     /// </summary>
 	public abstract class FormatLogSink : LogSink
 	{
-		private FormatPattern<ILogEntry> _format;
+		private FormatPattern _format;
 		private string _formatString;
 
         /// <summary>

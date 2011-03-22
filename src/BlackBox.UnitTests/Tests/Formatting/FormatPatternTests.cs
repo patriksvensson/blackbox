@@ -34,8 +34,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("Hello World!");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("Hello World!");
             ILogEntry entry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "The log message.", logger, null);
             string rendered = pattern.Render(entry);
             Assert.IsNotNullOrEmpty(rendered);
@@ -47,8 +47,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("$(time(format='HH:mm:ss'))");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("$(time(format='HH:mm:ss'))");
             DateTimeOffset currentTime = DateTimeOffset.Now;
             ILogEntry entry = new LogEntry(currentTime, LogLevel.Information, "The log message.", logger, null);
             string rendered = pattern.Render(entry);
@@ -61,8 +61,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("$$(time(format='HH:mm:ss'))");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("$$(time(format='HH:mm:ss'))");
             ILogEntry entry = new LogEntry(DateTime.Now, LogLevel.Information, "The log message.", logger, null);
             Assert.AreEqual("$(time(format='HH:mm:ss'))", pattern.Render(entry));
         }
@@ -72,8 +72,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("$(uppercase(message()))");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("$(uppercase(message()))");
             ILogEntry entry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "The log message.", logger, null);
             string rendered = pattern.Render(entry);
             Assert.IsNotNullOrEmpty(rendered);
@@ -85,8 +85,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("$(rot13(uppercase(message())))");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("$(rot13(uppercase(message())))");
             ILogEntry entry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Hello World!", logger, null);
             string rendered = pattern.Render(entry);
             Assert.IsNotNullOrEmpty(rendered);
@@ -98,8 +98,8 @@ namespace BlackBox.UnitTests.Tests.Formatting
         {
             LogKernel kernel = new LogKernel(new LogConfiguration());
             ILogger logger = kernel.GetLogger();
-            FormatPatternFactory<ILogEntry> factory = new FormatPatternFactory<ILogEntry>();
-            FormatPattern<ILogEntry> pattern = factory.Create("[$(time(format='HH:mm:ss'))] $(uppercase(rot13(message())))");
+            FormatPatternFactory factory = new FormatPatternFactory();
+            FormatPattern pattern = factory.Create("[$(time(format='HH:mm:ss'))] $(uppercase(rot13(message())))");
             DateTimeOffset currentTime = DateTimeOffset.Now;
             ILogEntry entry = new LogEntry(currentTime, LogLevel.Information, "Hello World!", logger, null);
             string rendered = pattern.Render(entry);

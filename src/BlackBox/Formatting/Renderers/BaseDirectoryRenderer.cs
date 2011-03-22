@@ -27,7 +27,7 @@ using System.IO;
 namespace BlackBox.Formatting.Renderers
 {
     [FormatRendererType("basedir")]
-    internal sealed class BaseDirectoryRenderer<TContext> : FormatRenderer<TContext>
+    internal sealed class BaseDirectoryRenderer : FormatRenderer
     {
         private readonly string _baseDirectory;
 
@@ -42,7 +42,7 @@ namespace BlackBox.Formatting.Renderers
             _baseDirectory = Path.GetDirectoryName(assembly.Location);
         }
 
-        public override string Render(TContext context)
+		public override string Render(ILogEntry context)
         {
             return _baseDirectory;
         }

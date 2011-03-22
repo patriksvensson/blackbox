@@ -30,13 +30,13 @@ namespace BlackBox
 	/// </summary>
 	public sealed class InitializationContext : IDisposable
 	{
-		private readonly FormatPatternFactory<ILogEntry> _formatPatternFactory;
+		private readonly FormatPatternFactory _formatPatternFactory;
 
 		/// <summary>
 		/// Gets the format pattern factory.
 		/// </summary>
 		/// <value>The format pattern factory.</value>
-		public FormatPatternFactory<ILogEntry> FormatPatternFactory
+		public FormatPatternFactory FormatPatternFactory
 		{
 			get { return _formatPatternFactory; }
 		}
@@ -48,8 +48,8 @@ namespace BlackBox
 		internal InitializationContext(IEnumerable<Assembly> assemblies)
 		{
 			// Create the format pattern factory.
-			_formatPatternFactory = new FormatPatternFactory<ILogEntry>(
-				new FormatRendererTypeMap<ILogEntry>(assemblies));
+			_formatPatternFactory = new FormatPatternFactory(
+				new FormatRendererTypeMap(assemblies));
 		}
 
 		#region IDisposable Members

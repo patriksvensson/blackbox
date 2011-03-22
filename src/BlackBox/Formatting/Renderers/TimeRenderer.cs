@@ -26,7 +26,7 @@ using System.Globalization;
 namespace BlackBox.Formatting.Renderers
 {
     [FormatRendererType("time")]
-    internal sealed class TimeRenderer : FormatRenderer<ILogEntry>
+    internal sealed class TimeRenderer : FormatRenderer
     {
         public string Format { get; set; }
         public CultureInfo Culture { get; set; }

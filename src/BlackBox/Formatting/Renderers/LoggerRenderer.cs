@@ -25,7 +25,7 @@ using System.Text;
 namespace BlackBox.Formatting.Renderers
 {
     [FormatRendererType("logger")]
-    internal sealed class LoggerRenderer : FormatRenderer<ILogEntry>
+    internal sealed class LoggerRenderer : FormatRenderer
     {
         public bool FullName { get; set; }
 

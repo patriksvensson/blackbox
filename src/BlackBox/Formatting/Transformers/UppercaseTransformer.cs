@@ -25,9 +25,9 @@ using System.Text;
 namespace BlackBox.Formatting.Transformers
 {
     [FormatRendererType("uppercase")]
-    internal sealed class UppercaseTransformer<TContext> : FormatTransformer<TContext>
+    internal sealed class UppercaseTransformer : FormatTransformer
     {
-        internal UppercaseTransformer(FormatRenderer<TContext> renderer)
+        internal UppercaseTransformer(FormatRenderer renderer)
             : base(renderer)
         {
         }

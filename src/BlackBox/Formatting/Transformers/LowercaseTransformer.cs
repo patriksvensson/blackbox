@@ -25,9 +25,9 @@ using System.Text;
 namespace BlackBox.Formatting.Transformers
 {
     [FormatRendererType("lowercase")]
-    internal sealed class LowercaseTransformer<TContext> : FormatTransformer<TContext>
+    internal sealed class LowercaseTransformer : FormatTransformer
     {
-        internal LowercaseTransformer(FormatRenderer<TContext> renderer)
+        internal LowercaseTransformer(FormatRenderer renderer)
             : base(renderer)
         {
         }

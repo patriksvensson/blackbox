@@ -33,7 +33,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
         [Test]
         public void FormatRendererTypeMap_BuildTimeRenderer()
         {
-            var typeMap = new FormatRendererTypeMap<ILogEntry>();
+            var typeMap = new FormatRendererTypeMap();
             Type type = typeMap.GetRendererType("time");
             Assert.IsNotNull(type);
             Assert.AreEqual(typeof(TimeRenderer), type);

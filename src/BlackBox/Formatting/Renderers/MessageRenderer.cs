@@ -25,7 +25,7 @@ using System.Text;
 namespace BlackBox.Formatting.Renderers
 {
     [FormatRendererType("message")]
-    internal sealed class MessageRenderer : FormatRenderer<ILogEntry>
+    internal sealed class MessageRenderer : FormatRenderer
     {
         public override string Render(ILogEntry entry)
         {

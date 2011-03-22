@@ -32,7 +32,7 @@ namespace BlackBox
 	[LogSinkType("file")]
 	public sealed class FileSink : FormatLogSink
 	{
-		private FormatPattern<ILogEntry> _fileNamePattern;
+		private FormatPattern _fileNamePattern;
 		private LruCache<string, TextWriter> _fileCache;
 		private readonly int _fileCacheSize;
 		private string _fileName;

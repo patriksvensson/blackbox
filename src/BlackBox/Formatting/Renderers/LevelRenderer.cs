@@ -26,7 +26,7 @@ using System.Globalization;
 namespace BlackBox.Formatting.Renderers
 {
     [FormatRendererType("level")]
-    internal sealed class LevelRenderer : FormatRenderer<ILogEntry>
+    internal sealed class LevelRenderer : FormatRenderer
     {
         internal bool Numeric { get; set; }
 

@@ -24,29 +24,28 @@ using System.Text;
 
 namespace BlackBox.Formatting
 {
-    /// <summary>
-    /// Represents a format transformer that is used to transform
-    /// the output of a <see cref="BlackBox.Formatting.FormatRenderer{TContext}"/>.
-    /// </summary>
-    /// <typeparam name="TContext">The type of the context.</typeparam>
-    public abstract class FormatTransformer<TContext> : FormatRenderer<TContext>
+	/// <summary>
+	/// Represents a format transformer that is used to transform
+	/// the output of a <see cref="BlackBox.Formatting.FormatRenderer"/>.
+	/// </summary>
+    public abstract class FormatTransformer : FormatRenderer
     {
-        private readonly FormatRenderer<TContext> _renderer;
+        private readonly FormatRenderer _renderer;
 
         /// <summary>
         /// Gets the renderer whose value we're transforming.
         /// </summary>
         /// <value>The renderer.</value>
-        internal FormatRenderer<TContext> Renderer
+        internal FormatRenderer Renderer
         {
             get { return _renderer; }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FormatTransformer&lt;TContext&gt;"/> class.
-        /// </summary>
-        /// <param name="renderer">The renderer.</param>
-        protected FormatTransformer(FormatRenderer<TContext> renderer)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FormatTransformer"/> class.
+		/// </summary>
+		/// <param name="renderer">The renderer.</param>
+        protected FormatTransformer(FormatRenderer renderer)
         {
             _renderer = renderer;
         }
@@ -56,7 +55,7 @@ namespace BlackBox.Formatting
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns></returns>
-        public sealed override string Render(TContext context)
+        public sealed override string Render(ILogEntry context)
         {
             return this.Transform(_renderer.Render(context));
         }

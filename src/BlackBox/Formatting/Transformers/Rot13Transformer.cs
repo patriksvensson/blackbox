@@ -25,9 +25,9 @@ using System.Text;
 namespace BlackBox.Formatting.Transformers
 {
     [FormatRendererType("rot13")]
-    internal sealed class Rot13Transformer<TContext> : FormatTransformer<TContext>
+    internal sealed class Rot13Transformer : FormatTransformer
     {
-        internal Rot13Transformer(FormatRenderer<TContext> renderer)
+        internal Rot13Transformer(FormatRenderer renderer)
             : base(renderer)
         {
         }

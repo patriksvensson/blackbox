@@ -24,7 +24,7 @@ using System.Text;
 
 namespace BlackBox.Formatting.Renderers
 {
-    internal sealed class LiteralRenderer<TContext> : FormatRenderer<TContext>
+    internal sealed class LiteralRenderer : FormatRenderer
     {
         private readonly string _literal;
 
@@ -38,7 +38,7 @@ namespace BlackBox.Formatting.Renderers
             _literal = literal;
         }
 
-        public override string Render(TContext context)
+		public override string Render(ILogEntry context)
         {
             return _literal;
         }
