@@ -28,7 +28,7 @@ namespace BlackBox.Formatting.Renderers
     [FormatRendererType("level")]
     internal sealed class LevelRenderer : FormatRenderer
     {
-        internal bool Numeric { get; set; }
+        public bool Numeric { get; set; }
 
         internal LevelRenderer()
         {
@@ -41,17 +41,10 @@ namespace BlackBox.Formatting.Renderers
             {
                 throw new ArgumentNullException("context");
             }
-            else
-            {
-                if (this.Numeric)
-                {
-                    return ((int)context.Level).ToString(CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    return context.Level.ToString();
-                }
-            }
+
+            return this.Numeric
+                ? ((int)context.Level).ToString(CultureInfo.InvariantCulture)
+                : context.Level.ToString();
         }
     }
 }

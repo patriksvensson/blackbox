@@ -40,17 +40,10 @@ namespace BlackBox.Formatting.Renderers
             {
                 throw new ArgumentNullException("context");
             }
-            else
-            {
-                if (this.FullName)
-                {
-                    return context.Source.FullName;
-                }
-                else
-                {
-                    return context.Source.Name;
-                }
-            }
+            
+            return this.FullName
+                ? context.Source.FullName
+                : context.Source.Name;
         }
     }
 }
