@@ -130,6 +130,7 @@
     <Compile Include="Tests\Formatting\Tokenization\FormatTokenTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\InitializationContextTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>

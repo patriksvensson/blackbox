@@ -32,7 +32,11 @@ namespace BlackBox
 	{
 		private readonly FormatPatternFactory<ILogEntry> _formatPatternFactory;
 
-		internal FormatPatternFactory<ILogEntry> FormatPatternFactory
+		/// <summary>
+		/// Gets the format pattern factory.
+		/// </summary>
+		/// <value>The format pattern factory.</value>
+		public FormatPatternFactory<ILogEntry> FormatPatternFactory
 		{
 			get { return _formatPatternFactory; }
 		}
@@ -41,7 +45,7 @@ namespace BlackBox
 		/// Initializes a new instance of the <see cref="InitializationContext"/> class.
 		/// </summary>
 		/// <param name="assemblies">The assemblies.</param>
-		public InitializationContext(IEnumerable<Assembly> assemblies)
+		internal InitializationContext(IEnumerable<Assembly> assemblies)
 		{
 			// Create the format pattern factory.
 			_formatPatternFactory = new FormatPatternFactory<ILogEntry>(
