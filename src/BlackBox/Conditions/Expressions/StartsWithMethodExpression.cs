@@ -22,9 +22,9 @@ using System;
 namespace BlackBox.Conditions
 {
     [MethodExpression("starts-with", 2)]
-    internal class StartsWithExpression : MethodExpression
+    internal class StartsWithMethodExpression : MethodExpression
     {
-        internal StartsWithExpression(ConditionExpression[] arguments)
+        internal StartsWithMethodExpression(ConditionExpression[] arguments)
             : base(arguments)
         {
         }

@@ -22,9 +22,9 @@ using System;
 namespace BlackBox.Conditions
 {
     [MethodExpression("ends-with", 2)]
-    internal class EndsWithExpression : MethodExpression
+    internal class EndsWithMethodExpression : MethodExpression
     {
-        internal EndsWithExpression(ConditionExpression[] arguments)
+        internal EndsWithMethodExpression(ConditionExpression[] arguments)
             : base(arguments)
         {
         }

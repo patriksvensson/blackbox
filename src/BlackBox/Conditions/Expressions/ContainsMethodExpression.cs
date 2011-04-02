@@ -6,9 +6,9 @@ using System.Text;
 namespace BlackBox.Conditions.Expressions
 {
     [MethodExpression("contains", 2)]
-    internal class ContainsExpression : MethodExpression
+    internal class ContainsMethodExpression : MethodExpression
     {
-        internal ContainsExpression(ConditionExpression[] arguments)
+        internal ContainsMethodExpression(ConditionExpression[] arguments)
             : base(arguments)
         {
         }
