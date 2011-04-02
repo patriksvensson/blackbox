@@ -219,13 +219,25 @@ namespace BlackBox.UnitTests.Tests.Conditions
         [Test]
         public void ConditionExpression_LengthExpressionShouldEvaluateToFalse()
         {
-            Assert.AreEqual(false, this.Evaluate("length('patrik')==5"));
+            Assert.AreEqual(false, this.Evaluate("length('hello')==4"));
         }
 
         [Test]
         public void ConditionExpression_LengthExpressionShouldEvaluateToTrue()
         {
-            Assert.AreEqual(true, this.Evaluate("length('patrik')==6"));
+            Assert.AreEqual(true, this.Evaluate("length('hello')==5"));
+        }
+
+        [Test]
+        public void ConditionExpression_StartsWithExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("starts-with('hello', 'ha')"));
+        }
+
+        [Test]
+        public void ConditionExpression_StartsWithExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("starts-with('hello', 'he')"));
         }
 	}
 }
