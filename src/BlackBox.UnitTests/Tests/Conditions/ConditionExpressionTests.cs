@@ -215,35 +215,5 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		{
 			Assert.AreEqual(true, this.Evaluate("has-exception==true", new ArgumentException()));
 		}
-
-        [Test]
-        public void ConditionExpression_LengthExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("length('hello')==4"));
-        }
-
-        [Test]
-        public void ConditionExpression_LengthExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("length('hello')==5"));
-        }
-
-        [Test]
-        public void ConditionExpression_StartsWithExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("starts-with('hello', 'ha')"));
-        }
-
-        [Test]
-        public void ConditionExpression_ContainsExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("contains('hello', 'al')"));
-        }
-
-        [Test]
-        public void ConditionExpression_ContainsExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("contains('hello', 'el')"));
-        }
 	}
 }

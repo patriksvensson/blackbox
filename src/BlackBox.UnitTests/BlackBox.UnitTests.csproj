@@ -70,6 +70,7 @@
     <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Conditions\MethodExpressionTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs">
       <SubType>Code</SubType>
     </Compile>
