@@ -60,9 +60,14 @@
     <Compile Include="Collections\LruCache.cs" />
     <Compile Include="Collections\EventArgs[T].cs" />
     <Compile Include="Conditions\ConditionParser.cs" />
+    <Compile Include="Conditions\ConditionFactory.cs" />
     <Compile Include="Conditions\Expressions\HasExceptionExpression.cs" />
     <Compile Include="Conditions\Expressions\LogLevelExpression.cs" />
     <Compile Include="Conditions\Expressions\LogMessageExpression.cs" />
+    <Compile Include="Conditions\Expressions\MethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\LengthMethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\MethodExpressionAttribute.cs" />
+    <Compile Include="Conditions\Expressions\StartsWithExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
     <Compile Include="InitializationContext.cs" />
     <Compile Include="Serialization\SkipSerializationAttribute.cs" />

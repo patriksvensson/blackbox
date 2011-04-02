@@ -26,6 +26,8 @@ namespace BlackBox.UnitTests.Tests.Conditions
 	[TestFixture]
 	public class ConditionExpressionTests
 	{
+        private ConditionFactory _factory;
+
 		#region Private Helper Methods
 
 		private bool Evaluate(string condition)
@@ -50,13 +52,23 @@ namespace BlackBox.UnitTests.Tests.Conditions
 
 		private bool Evaluate(string condition, string message, LogLevel level, Exception exception)
 		{
-			ConditionExpression expression = ConditionParser.ParseCondition(condition);
+            ConditionExpression expression = _factory.ParseCondition(condition);
 			Logger logger = new Logger(null, typeof(ConditionExpressionTests));
 			ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
 			return (bool)expression.Evaluate(entry);
 		}
 
 		#endregion
+
+        #region Test Setup
+
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            _factory = new ConditionFactory();
+        }
+
+        #endregion
 
 		[Test]
 		public void ConditionExpression_EqualsExpressionShouldEvaluateToFalse()
@@ -203,5 +215,17 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		{
 			Assert.AreEqual(true, this.Evaluate("has-exception==true", new ArgumentException()));
 		}
+
+        [Test]
+        public void ConditionExpression_LengthExpressionShouldEvaluateToFalse()
+        {
+            Assert.AreEqual(false, this.Evaluate("length('patrik')==5"));
+        }
+
+        [Test]
+        public void ConditionExpression_LengthExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("length('patrik')==6"));
+        }
 	}
 }

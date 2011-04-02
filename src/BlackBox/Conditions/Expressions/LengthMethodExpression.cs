@@ -17,27 +17,26 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+
 namespace BlackBox.Conditions
 {
-	internal sealed class ConditionToken
-	{
-		private readonly string _value;
-		private readonly ConditionTokenType _type;
+    [MethodExpression("length", 1)]
+    internal class LengthMethodExpression : MethodExpression
+    {
+        internal LengthMethodExpression(ConditionExpression[] arguments)
+            : base(arguments)
+        {
+        }
 
-		internal string Value
-		{
-            get { return _value; }
-		}
-
-		internal ConditionTokenType TokenType
-		{
-			get { return _type; }
-		}
-
-		internal ConditionToken(ConditionTokenType type, string value)
-		{
-			_type = type;
-			_value = value;
-		}
-	}
+        internal override object Evaluate(ILogEntry context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            string value = this.Arguments[0].Evaluate(context) as string;
+            return value != null ? value.Length : 0;
+        }
+    }
 }

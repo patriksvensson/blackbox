@@ -18,6 +18,7 @@
 //
 
 using BlackBox.Conditions;
+using System;
 
 namespace BlackBox
 {
@@ -56,12 +57,17 @@ namespace BlackBox
 		/// <param name="context"></param>
 		protected internal override void Initialize(InitializationContext context)
 		{
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
 			if (string.IsNullOrEmpty(this.Condition))
 			{
 				throw new BlackBoxException("The filter condition has not been set.");
 			}
 
-			_expression = ConditionParser.ParseCondition(this.Condition);
+            // Parse the expression.
+            _expression = context.ConditionFactory.ParseCondition(this.Condition);
 		}
 
 		/// <summary>

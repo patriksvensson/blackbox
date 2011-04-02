@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using BlackBox.Formatting;
+using BlackBox.Conditions;
 
 namespace BlackBox
 {
@@ -31,6 +32,7 @@ namespace BlackBox
 	public sealed class InitializationContext : IDisposable
 	{
 		private readonly FormatPatternFactory _formatPatternFactory;
+        private readonly ConditionFactory _conditionFactory;
 
 		/// <summary>
 		/// Gets the format pattern factory.
@@ -41,15 +43,22 @@ namespace BlackBox
 			get { return _formatPatternFactory; }
 		}
 
+        /// <summary>
+        /// Gets the condition factory.
+        /// </summary>
+        internal ConditionFactory ConditionFactory
+        {
+            get { return _conditionFactory; }
+        } 
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="InitializationContext"/> class.
 		/// </summary>
 		/// <param name="assemblies">The assemblies.</param>
 		internal InitializationContext(IEnumerable<Assembly> assemblies)
 		{
-			// Create the format pattern factory.
-			_formatPatternFactory = new FormatPatternFactory(
-				new FormatRendererTypeMap(assemblies));
+			_formatPatternFactory = new FormatPatternFactory(new FormatRendererTypeMap(assemblies));
+            _conditionFactory = new ConditionFactory(assemblies);
 		}
 
 		#region IDisposable Members

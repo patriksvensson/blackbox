@@ -17,27 +17,33 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 namespace BlackBox.Conditions
 {
-	internal sealed class ConditionToken
-	{
-		private readonly string _value;
-		private readonly ConditionTokenType _type;
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple=false)]
+    internal sealed class MethodExpressionAttribute : Attribute
+    {
+        private readonly string _name;
+        private readonly int _argumentCount;
 
-		internal string Value
-		{
-            get { return _value; }
-		}
+        public string Name
+        {
+            get { return _name; }
+        } 
 
-		internal ConditionTokenType TokenType
-		{
-			get { return _type; }
-		}
+        public int ArgumentCount
+        {
+            get { return _argumentCount; }
+        } 
 
-		internal ConditionToken(ConditionTokenType type, string value)
-		{
-			_type = type;
-			_value = value;
-		}
-	}
+        public MethodExpressionAttribute(string name, int argumentCount)
+        {
+            _name = name;
+            _argumentCount = argumentCount;
+        }
+    }
 }

@@ -30,7 +30,7 @@ namespace BlackBox.UnitTests.Tests.Filters
 		{
 			string condition = "message=='Hello World!'";
 			ConditionFilter filter = new ConditionFilter { Condition = condition, Action = LogFilterResult.Filter };
-			filter.Initialize(null /* We don't need the service locator here. */);
+            filter.Initialize(new InitializationContext(null));
 			Logger logger = new Logger(null, typeof(ConditionFilterTests));
 			ILogEntry trueEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Hello World!", logger, null);
 			ILogEntry falseEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "Goodbye World!", logger, null);
@@ -43,7 +43,7 @@ namespace BlackBox.UnitTests.Tests.Filters
 		public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
 		{
 			ConditionFilter filter = new ConditionFilter();
-			filter.Initialize(null);
+            filter.Initialize(new InitializationContext(null));
 		}
 	}
 }

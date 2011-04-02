@@ -29,6 +29,7 @@ namespace BlackBox.UnitTests.Tests
 		{
 			InitializationContext context = new InitializationContext(null);
 			Assert.IsNotNull(context.FormatPatternFactory);
+            Assert.IsNotNull(context.ConditionFactory);
 		}
 	}
 }
