@@ -235,9 +235,15 @@ namespace BlackBox.UnitTests.Tests.Conditions
         }
 
         [Test]
-        public void ConditionExpression_StartsWithExpressionShouldEvaluateToTrue()
+        public void ConditionExpression_ContainsExpressionShouldEvaluateToFalse()
         {
-            Assert.AreEqual(true, this.Evaluate("starts-with('hello', 'he')"));
+            Assert.AreEqual(false, this.Evaluate("contains('hello', 'al')"));
+        }
+
+        [Test]
+        public void ConditionExpression_ContainsExpressionShouldEvaluateToTrue()
+        {
+            Assert.AreEqual(true, this.Evaluate("contains('hello', 'el')"));
         }
 	}
 }

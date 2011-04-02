@@ -21,10 +21,10 @@ using System;
 
 namespace BlackBox.Conditions
 {
-    [MethodExpression("starts-with", 2)]
-    internal class StartsWithExpression : MethodExpression
+    [MethodExpression("ends-with", 2)]
+    internal class EndsWithExpression : MethodExpression
     {
-        internal StartsWithExpression(ConditionExpression[] arguments)
+        internal EndsWithExpression(ConditionExpression[] arguments)
             : base(arguments)
         {
         }
@@ -41,8 +41,8 @@ namespace BlackBox.Conditions
 
             if (actual != null && expected != null)
             {
-                // Check if the actual string starts with the expected one.
-                return actual.StartsWith(expected, StringComparison.OrdinalIgnoreCase);
+                // Check if the actual string ends with the expected one.
+                return actual.EndsWith(expected, StringComparison.OrdinalIgnoreCase);
             }
 
             return false;

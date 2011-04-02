@@ -129,7 +129,6 @@ namespace BlackBox.Conditions
 				throw new BlackBoxException(string.Format(CultureInfo.InvariantCulture, message, _types[type].FullName, type));
 			}
 
-			// Return the sink.
 			return expression;
 		}
     }
