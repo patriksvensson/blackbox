@@ -64,6 +64,7 @@
     <Compile Include="Tests\Conditions\ConditionExpressionTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Conditions\ConditionKeywordTests.cs" />
     <Compile Include="Tests\Conditions\ConditionParserTests.cs">
       <SubType>Code</SubType>
     </Compile>

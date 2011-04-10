@@ -202,6 +202,14 @@ namespace BlackBox.Conditions
 				{
 					return new HasExceptionExpression();
 				}
+				else if (value.Equals("logger", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LoggerExpression(true /* Full name of logger */);
+				}
+				else if (value.Equals("loggername", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LoggerExpression(false /* Not full name of logger */);
+				}
 
 				// Is the next parameter a parenthesis?
 				// This is one of our special functions.

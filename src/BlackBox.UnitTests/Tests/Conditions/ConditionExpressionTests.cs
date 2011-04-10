@@ -30,30 +30,35 @@ namespace BlackBox.UnitTests.Tests.Conditions
 
 		#region Private Helper Methods
 
-		private bool Evaluate(string condition)
+		protected bool Evaluate(string condition)
 		{
-			return this.Evaluate(condition, "", LogLevel.Information, null);
+			return this.Evaluate(condition, "", LogLevel.Information, null, null);
 		}
 
-		private bool Evaluate(string condition, string message)
+		protected bool Evaluate(string condition, string message)
 		{
-			return this.Evaluate(condition, message, LogLevel.Information, null);
+			return this.Evaluate(condition, message, LogLevel.Information, null, null);
 		}
 
-		private bool Evaluate(string condition, LogLevel level)
+		protected bool Evaluate(string condition, LogLevel level)
 		{
-			return this.Evaluate(condition, "", level, null);
+			return this.Evaluate(condition, "", level, null, null);
 		}
 
-		private bool Evaluate(string condition, Exception exception)
+		protected bool Evaluate(string condition, Exception exception)
 		{
-			return this.Evaluate(condition, "", LogLevel.Information, exception);
+			return this.Evaluate(condition, "", LogLevel.Information, null, exception);
 		}
 
-		private bool Evaluate(string condition, string message, LogLevel level, Exception exception)
+		protected bool Evaluate(string condition, Type loggerType)
+		{
+			return this.Evaluate(condition, "", LogLevel.Information, loggerType, null);
+		}
+
+		protected bool Evaluate(string condition, string message, LogLevel level, Type loggerType, Exception exception)
 		{
             ConditionExpression expression = _factory.ParseCondition(condition);
-			Logger logger = new Logger(null, typeof(ConditionExpressionTests));
+			Logger logger = new Logger(null, loggerType ?? typeof(ConditionExpressionTests));
 			ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
 			return (bool)expression.Evaluate(entry);
 		}
@@ -166,54 +171,6 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		public void ConditionExpression_AndExpressionShouldEvaluateToTrue()
 		{
 			Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
-		}
-
-		[Test]
-		public void ConditionExpression_MessageExpressionShouldEvaluateToTrue()
-		{
-			Assert.AreEqual(true, this.Evaluate("message=='testing'", "testing"));
-		}
-
-		[Test]
-		public void ConditionExpression_MessageExpressionShouldEvaluateToFalse()
-		{
-			Assert.AreEqual(false, this.Evaluate("message=='testin'", "testing"));
-		}
-
-		[Test]
-		public void ConditionExpression_LogLevelExpressionShouldEvaluateToFalse()
-		{
-			Assert.AreEqual(false, this.Evaluate("level==1", LogLevel.Information));
-		}
-
-		[Test]
-		public void ConditionExpression_LogLevelExpressionShouldEvaluateToTrue()
-		{
-			Assert.AreEqual(true, this.Evaluate("level==3", LogLevel.Information));
-		}
-
-		[Test]
-		public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToFalse()
-		{
-			Assert.AreEqual(false, this.Evaluate("levelname=='Fatal'", LogLevel.Information));
-		}
-
-		[Test]
-		public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToTrue()
-		{
-			Assert.AreEqual(true, this.Evaluate("levelname=='Information'", LogLevel.Information));
-		}
-
-		[Test]
-		public void ConditionExpression_HasExceptionExpressionShouldEvaluateToFalse()
-		{
-			Assert.AreEqual(false, this.Evaluate("has-exception==true", (Exception)null));
-		}
-
-		[Test]
-		public void ConditionExpression_HasExceptionExpressionShouldEvaluateToTrue()
-		{
-			Assert.AreEqual(true, this.Evaluate("has-exception==true", new ArgumentException()));
 		}
 	}
 }

@@ -61,6 +61,7 @@
     <Compile Include="Collections\EventArgs[T].cs" />
     <Compile Include="Conditions\ConditionParser.cs" />
     <Compile Include="Conditions\ConditionFactory.cs" />
+    <Compile Include="Conditions\Expressions\LoggerExpression.cs" />
     <Compile Include="Conditions\Expressions\Methods\ContainsMethodExpression.cs" />
     <Compile Include="Conditions\Expressions\Methods\EndsWithMethodExpression.cs" />
     <Compile Include="Conditions\Expressions\Methods\EqualsMethodExpression.cs" />
