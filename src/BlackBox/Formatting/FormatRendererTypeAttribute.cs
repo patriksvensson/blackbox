@@ -25,7 +25,7 @@ namespace BlackBox.Formatting
 	/// Attribute that is used to decorate format renderers.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-	internal sealed class FormatRendererTypeAttribute : Attribute
+	public sealed class FormatRendererTypeAttribute : Attribute
 	{
 		private readonly string _name;
 
