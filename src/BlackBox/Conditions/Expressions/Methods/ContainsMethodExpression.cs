@@ -19,7 +19,7 @@
 
 using System;
 
-namespace BlackBox.Conditions.Expressions
+namespace BlackBox.Conditions
 {
     [MethodExpression("contains", 2)]
     internal class ContainsMethodExpression : MethodExpression

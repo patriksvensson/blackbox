@@ -20,7 +20,7 @@
 using System;
 using System.Globalization;
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("level")]
 	internal sealed class LevelRenderer : FormatRenderer

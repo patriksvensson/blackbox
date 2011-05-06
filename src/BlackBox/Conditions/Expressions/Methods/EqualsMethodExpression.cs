@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 
-namespace BlackBox.Conditions.Expressions
+namespace BlackBox.Conditions
 {
     [MethodExpression("equals", 2)]
     internal class EqualsMethodExpression : MethodExpression

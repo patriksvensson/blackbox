@@ -20,7 +20,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("basedir")]
 	internal sealed class BaseDirectoryRenderer : FormatRenderer

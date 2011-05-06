@@ -19,7 +19,7 @@
 
 using System;
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("logger")]
 	internal sealed class LoggerRenderer : FormatRenderer

@@ -18,8 +18,6 @@
 //
 
 using BlackBox.Formatting;
-using BlackBox.Formatting.Renderers;
-using BlackBox.Formatting.Transformers;
 using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Formatting

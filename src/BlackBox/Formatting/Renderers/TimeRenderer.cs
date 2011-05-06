@@ -19,7 +19,7 @@
 
 using System.Globalization;
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("time")]
 	internal sealed class TimeRenderer : FormatRenderer

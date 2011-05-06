@@ -19,7 +19,6 @@
 
 using System;
 using BlackBox.Formatting;
-using BlackBox.Formatting.Renderers;
 using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Formatting

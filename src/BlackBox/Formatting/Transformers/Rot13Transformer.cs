@@ -17,7 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace BlackBox.Formatting.Transformers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("rot13")]
 	internal sealed class Rot13Transformer : FormatTransformer
