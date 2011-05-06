@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlackBox</RootNamespace>
     <AssemblyName>BlackBox</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
@@ -61,10 +61,20 @@
     <Compile Include="Collections\LruCache.cs" />
     <Compile Include="Collections\EventArgs[T].cs" />
     <Compile Include="Conditions\ConditionParser.cs" />
+    <Compile Include="Conditions\ConditionFactory.cs" />
+    <Compile Include="Conditions\Expressions\LoggerExpression.cs" />
+    <Compile Include="Conditions\Expressions\Methods\ContainsMethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\Methods\EndsWithMethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\Methods\EqualsMethodExpression.cs" />
     <Compile Include="Conditions\Expressions\HasExceptionExpression.cs" />
     <Compile Include="Conditions\Expressions\LogLevelExpression.cs" />
     <Compile Include="Conditions\Expressions\LogMessageExpression.cs" />
+    <Compile Include="Conditions\Expressions\MethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\Methods\LengthMethodExpression.cs" />
+    <Compile Include="Conditions\Expressions\MethodExpressionAttribute.cs" />
+    <Compile Include="Conditions\Expressions\Methods\StartsWithMethodExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
+    <Compile Include="Formatting\Transformers\TruncateTransformer.cs" />
     <Compile Include="InitializationContext.cs" />
     <Compile Include="Serialization\SkipSerializationAttribute.cs" />
     <Compile Include="Configuration\LogConfigurationDeserializer.cs" />

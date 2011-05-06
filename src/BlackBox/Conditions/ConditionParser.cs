@@ -18,32 +18,25 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
-using BlackBox.Formatting;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BlackBox.Conditions
 {
 	internal sealed class ConditionParser
 	{
 		private readonly ConditionTokenBuffer _tokens;
+        private readonly ConditionFactory _factory;
 
-		internal ConditionParser(ConditionTokenBuffer buffer)
+		internal ConditionParser(ConditionFactory factory, ConditionTokenBuffer buffer)
 		{
+            _factory = factory;
 			_tokens = buffer;
 		}
 
-		internal static ConditionExpression ParseCondition(string condition)
-		{
-			ConditionTokenBuffer buffer = ConditionTokenizer.Tokenize(condition);
-			ConditionParser parser = new ConditionParser(buffer);
-			return parser.ParseBooleanExpression();
-		}
-
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-		private ConditionExpression ParseExpression()
+		internal ConditionExpression ParseExpression()
 		{
 			ConditionExpression expression = this.ParseBooleanExpression();
 			if (_tokens.Current != null)
@@ -102,43 +95,43 @@ namespace BlackBox.Conditions
 
 		private ConditionExpression ParseBooleanRelation()
 		{
-            // Parse the left side literal in the relation.
+			// Parse the left side literal in the relation.
 			ConditionExpression expression = this.ParseLiteralExpression();
 
-            // Still got tokens?
-            if (_tokens.Current != null)
-            {
-                // Equality?
-                if (_tokens.Current.TokenType == ConditionTokenType.EqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.EqualTo);
-                }
-                // Greater than?
-                if (_tokens.Current.TokenType == ConditionTokenType.GreaterThan)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThan);
-                }
-                // Greater than or equal to?
-                if (_tokens.Current.TokenType == ConditionTokenType.GreaterThanOrEqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThanOrEqualTo);
-                }
-                // Less than?
-                if (_tokens.Current.TokenType == ConditionTokenType.LessThan)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThan);
-                }
-                // Less than or equal to?
-                if (_tokens.Current.TokenType == ConditionTokenType.LessThanOrEqualTo)
-                {
-                    _tokens.Read();
-                    return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThanOrEqualTo);
-                }
-            }
+			// Still got tokens?
+			if (_tokens.Current != null)
+			{
+				// Equality?
+				if (_tokens.Current.TokenType == ConditionTokenType.EqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.EqualTo);
+				}
+				// Greater than?
+				if (_tokens.Current.TokenType == ConditionTokenType.GreaterThan)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThan);
+				}
+				// Greater than or equal to?
+				if (_tokens.Current.TokenType == ConditionTokenType.GreaterThanOrEqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.GreaterThanOrEqualTo);
+				}
+				// Less than?
+				if (_tokens.Current.TokenType == ConditionTokenType.LessThan)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThan);
+				}
+				// Less than or equal to?
+				if (_tokens.Current.TokenType == ConditionTokenType.LessThanOrEqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.LessThanOrEqualTo);
+				}
+			}
 
 			return expression;
 		}
@@ -193,29 +186,39 @@ namespace BlackBox.Conditions
 				{
 					return new ConstantExpression(null);
 				}
-                else if (value.Equals("message", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogMessageExpression();
-                }
-                else if (value.Equals("level", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogLevelExpression(true /* Log level number */);
-                }
-                else if (value.Equals("levelname", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new LogLevelExpression(false /* Log level name */);
-                }
-                else if (value.Equals("has-exception", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new HasExceptionExpression();
-                }
+				else if (value.Equals("message", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogMessageExpression();
+				}
+				else if (value.Equals("level", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogLevelExpression(true /* Log level number */);
+				}
+				else if (value.Equals("levelname", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LogLevelExpression(false /* Log level name */);
+				}
+				else if (value.Equals("has-exception", StringComparison.OrdinalIgnoreCase))
+				{
+					return new HasExceptionExpression();
+				}
+				else if (value.Equals("logger", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LoggerExpression(true /* Full name of logger */);
+				}
+				else if (value.Equals("loggername", StringComparison.OrdinalIgnoreCase))
+				{
+					return new LoggerExpression(false /* Not full name of logger */);
+				}
 
 				// Is the next parameter a parenthesis?
 				// This is one of our special functions.
 				if (_tokens.Current != null && _tokens.Current.TokenType == ConditionTokenType.OpeningParenthesis)
 				{
-					// Parse the method!
-					throw new NotImplementedException("Methods are not supported (yet).");
+                    _tokens.ExpectToken(ConditionTokenType.OpeningParenthesis, true);
+                    ConditionExpression[] arguments = this.ParseArguments();
+                    _tokens.ExpectToken(ConditionTokenType.ClosingParenthesis, true);
+                    return _factory.BuildMethodExpression(value, arguments);
 				}
 
 				// Unknown keyword found.
@@ -226,5 +229,71 @@ namespace BlackBox.Conditions
 			// We do not know what do do with this token.
 			throw new ConditionException("Invalid token encountered when parsing literal expression.");
 		}
+
+        private ConditionExpression[] ParseArguments()
+        {
+            List<ConditionExpression> conditions = new List<ConditionExpression>();
+            while (true)
+            {
+                if (_tokens.Current == null)
+                {
+                    throw new ConditionException("Unterminated argument list.");
+                }
+                if (_tokens.Current.TokenType == ConditionTokenType.ClosingParenthesis)
+                {
+                    break;
+                }
+                conditions.Add(this.ParseArgument());
+            }
+            return conditions.ToArray();
+        }
+
+        private ConditionExpression ParseArgument()
+        {
+            StringBuilder builder = new StringBuilder();
+            int openedParenthesis = 0;
+
+            while (true)
+            {
+                if (_tokens.Current == null)
+                {
+                    throw new ConditionException("Encountered unterminated argument.");
+                }
+                if (_tokens.Current.TokenType == ConditionTokenType.OpeningParenthesis)
+                {
+                    openedParenthesis++;
+                }
+                if (_tokens.Current.TokenType == ConditionTokenType.Comma)
+                {
+                    _tokens.Read();
+                    break;
+                }
+                if (_tokens.Current.TokenType == ConditionTokenType.ClosingParenthesis)
+                {
+                    if (openedParenthesis < 1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        openedParenthesis--;
+                    }
+                }
+
+                // Get the value.
+                string value = _tokens.Current.TokenType != ConditionTokenType.String 
+                    ? _tokens.Current.Value : string.Concat("'", _tokens.Current.Value, "'");
+
+                // Append the current value.
+                builder.Append(value);
+
+                // Read the next value.
+                _tokens.Read();
+            }
+
+            // Build the condition.
+            string condition = builder.ToString();
+            return _factory.ParseCondition(condition);
+        }
 	}
 }

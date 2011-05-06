@@ -17,12 +17,8 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using System.Xml.Linq;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Configuration
 {
@@ -43,7 +39,7 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		[Test]
 		public void LogConfigurationDeserializer_LoadAssembly()
 		{
-			string assemblyName = "System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+			string assemblyName = "System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 			string xml = "<BlackBox><Assemblies><Assembly Name=\"" + assemblyName + "\" /></Assemblies></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
 			var configuration = LogConfigurationDeserializer.Deserialize(document);
@@ -133,7 +129,7 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="Log filter with type name 'Unknown' has not been registered.")]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log filter with type name 'Unknown' has not been registered.")]
 		public void LogConfigurationDeserializer_ParseMissingFilter()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""Unknown"" /></Filters></BlackBox>";

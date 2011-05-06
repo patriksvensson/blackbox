@@ -17,33 +17,29 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace BlackBox.Formatting.Renderers
 {
-    [FormatRendererType("time")]
-    internal sealed class TimeRenderer : FormatRenderer<ILogEntry>
-    {
-        public string Format { get; set; }
-        public CultureInfo Culture { get; set; }
+	[FormatRendererType("time")]
+	internal sealed class TimeRenderer : FormatRenderer
+	{
+		public string Format { get; set; }
+		public CultureInfo Culture { get; set; }
 
-        internal TimeRenderer()
-        {
-            this.Format = "HH:mm:ss.fff";
-            this.Culture = CultureInfo.InvariantCulture;
-        }
+		internal TimeRenderer()
+		{
+			this.Format = "HH:mm:ss.fff";
+			this.Culture = CultureInfo.InvariantCulture;
+		}
 
-        public override string Render(ILogEntry entry)
-        {
-            if (entry == null)
-            {
-                return string.Empty;
-            }
-            return entry.Timestamp.ToString(this.Format, this.Culture);
-        }
-    }
+		public override string Render(ILogEntry entry)
+		{
+			if (entry == null)
+			{
+				return string.Empty;
+			}
+			return entry.Timestamp.ToString(this.Format, this.Culture);
+		}
+	}
 }

@@ -17,108 +17,105 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
-    internal abstract class Buffer<T>
-        where T : class
-    {
-        #region Private Fields
+	internal abstract class Buffer<T>
+		where T : class
+	{
+		#region Private Fields
 
-        private readonly List<T> _tokens;
-        private int _position;
+		private readonly List<T> _tokens;
+		private int _position;
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        internal int Position
-        {
-            get { return _position; }
-        }
+		internal int Position
+		{
+			get { return _position; }
+		}
 
-        internal int Length
-        {
-            get { return _tokens.Count; }
-        }
+		internal int Length
+		{
+			get { return _tokens.Count; }
+		}
 
-        public T Current
-        {
-            get
-            {
-                if (_position >= this.Length)
-                {
-                    return null;
-                }
-                return _tokens[_position];
-            }
-        }
+		public T Current
+		{
+			get
+			{
+				if (_position >= this.Length)
+				{
+					return null;
+				}
+				return _tokens[_position];
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Construction
+		#region Construction
 
-        internal Buffer(IEnumerable<T> tokens)
-        {
-            _tokens = new List<T>(tokens);
-            _position = 0;
-        }
+		internal Buffer(IEnumerable<T> tokens)
+		{
+			_tokens = new List<T>(tokens);
+			_position = 0;
+		}
 
-        #endregion
+		#endregion
 
-        internal T Peek()
-        {
-            if (_position >= this.Length)
-            {
-                return null;
-            }
-            return _tokens[_position];
-        }
+		internal T Peek()
+		{
+			if (_position >= this.Length)
+			{
+				return null;
+			}
+			return _tokens[_position];
+		}
 
-        public T PeekAhead(int index)
-        {
-            int position = _position + index;
-            if (position >= this.Length)
-            {
-                return null;
-            }
-            return _tokens[position];
-        }
+		public T PeekAhead(int index)
+		{
+			int position = _position + index;
+			if (position >= this.Length)
+			{
+				return null;
+			}
+			return _tokens[position];
+		}
 
-        internal T Read()
-        {
-            if (_position >= this.Length)
-            {
-                return null;
-            }
-            var token = _tokens[_position];
-            _position++;
-            return token;
-        }
+		internal T Read()
+		{
+			if (_position >= this.Length)
+			{
+				return null;
+			}
+			var token = _tokens[_position];
+			_position++;
+			return token;
+		}
 
-        internal bool Consume(int count)
-        {
-            _position = _position + count;
-            return _position < this.Length;
-        }
+		internal bool Consume(int count)
+		{
+			_position = _position + count;
+			return _position < this.Length;
+		}
 
-        internal void Rewind()
-        {
-            _position = 0;
-        }
+		internal void Rewind()
+		{
+			_position = 0;
+		}
 
-        internal bool Seek(int position)
-        {
-            if (position < 0 || position >= this.Length)
-            {
-                return false;
-            }
-            _position = position;
-            return true;
-        }
-    }
+		internal bool Seek(int position)
+		{
+			if (position < 0 || position >= this.Length)
+			{
+				return false;
+			}
+			_position = position;
+			return true;
+		}
+	}
 }

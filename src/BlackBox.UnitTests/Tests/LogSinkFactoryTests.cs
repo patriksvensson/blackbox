@@ -17,12 +17,9 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using System.Reflection;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests
 {
@@ -44,8 +41,8 @@ namespace BlackBox.UnitTests.Tests
 			Assert.IsTrue(factory.Types.ContainsKey("file"));
 			Assert.IsTrue(factory.Types.ContainsKey("msmq"));
 			Assert.IsTrue(factory.Types.ContainsKey("trace"));
-            Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
-            Assert.IsTrue(factory.Types.ContainsKey("circular"));
+			Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
+			Assert.IsTrue(factory.Types.ContainsKey("circular"));
 
 			// But not the unit test sinks.
 			Assert.IsFalse(factory.Types.ContainsKey("memory"));
@@ -68,8 +65,8 @@ namespace BlackBox.UnitTests.Tests
 			Assert.IsTrue(factory.Types.ContainsKey("file"));
 			Assert.IsTrue(factory.Types.ContainsKey("msmq"));
 			Assert.IsTrue(factory.Types.ContainsKey("trace"));
-            Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
-            Assert.IsTrue(factory.Types.ContainsKey("circular"));
+			Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
+			Assert.IsTrue(factory.Types.ContainsKey("circular"));
 
 			// But not the unit test sinks.
 			Assert.IsTrue(factory.Types.ContainsKey("memory"));

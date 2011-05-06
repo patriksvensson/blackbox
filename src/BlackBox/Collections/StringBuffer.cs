@@ -17,92 +17,87 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    internal sealed class StringBuffer
-    {
-        #region Private Fields
+	internal sealed class StringBuffer
+	{
+		#region Private Fields
 
-        private readonly string _content;
-        private readonly int _length;
-        private int _position;
+		private readonly string _content;
+		private readonly int _length;
+		private int _position;
 
-        #endregion
+		#endregion
 
-        #region Constants
+		#region Constants
 
-        internal const int EndOfBuffer = -1;
+		internal const int EndOfBuffer = -1;
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        internal string Content
-        {
-            get { return _content; }
-        }
+		internal string Content
+		{
+			get { return _content; }
+		}
 
-        internal int Length
-        {
-            get { return _length; }
-        }
+		internal int Length
+		{
+			get { return _length; }
+		}
 
-        internal int Position
-        {
-            get { return _position; }
-        }
+		internal int Position
+		{
+			get { return _position; }
+		}
 
-        #endregion
+		#endregion
 
-        #region Construction
+		#region Construction
 
-        internal StringBuffer(string content)
-        {
-            _content = content;
-            _length = content.Length;
-            _position = 0;
-        }
+		internal StringBuffer(string content)
+		{
+			_content = content;
+			_length = content.Length;
+			_position = 0;
+		}
 
-        #endregion
+		#endregion
 
-        internal int Peek()
-        {
-            if (_position < 0 || _position >= _length)
-            {
-                return -1;
-            }
-            return _content[_position];
-        }
+		internal int Peek()
+		{
+			if (_position < 0 || _position >= _length)
+			{
+				return -1;
+			}
+			return _content[_position];
+		}
 
-        internal int Read()
-        {
-            if (_position < 0 || _position >= _length)
-            {
-                return -1;
-            }
-            int value = _content[_position];
-            _position++;
-            return value;
-        }
+		internal int Read()
+		{
+			if (_position < 0 || _position >= _length)
+			{
+				return -1;
+			}
+			int value = _content[_position];
+			_position++;
+			return value;
+		}
 
-        internal void Rewind()
-        {
-            _position = 0;
-        }
+		internal void Rewind()
+		{
+			_position = 0;
+		}
 
-        internal bool Seek(int position)
-        {
-            if (position < 0 || position >= _length)
-            {
-                return false;
-            }
-            _position = position;
-            return true;
-        }
-    }
+		internal bool Seek(int position)
+		{
+			if (position < 0 || position >= _length)
+			{
+				return false;
+			}
+			_position = position;
+			return true;
+		}
+	}
 }

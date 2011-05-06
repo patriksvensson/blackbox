@@ -17,11 +17,6 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
 	/// <summary>
@@ -77,9 +72,9 @@ namespace BlackBox
 		{
 			this.Action = LogFilterResult.Filter;
 
-            // Set default values for levels.
-            _minLevel = LogLevel.Fatal;
-            _maxLevel = LogLevel.Debug;
+			// Set default values for levels.
+			_minLevel = LogLevel.Fatal;
+			_maxLevel = LogLevel.Debug;
 		}
 
 		/// <summary>
@@ -100,7 +95,7 @@ namespace BlackBox
 			{
 				throw new BlackBoxException("The minimum log level must be less or equal to the maximum log level.");
 			}
-		} 
+		}
 
 		/// <summary>
 		/// Evaluates the specified entry against the log filter.

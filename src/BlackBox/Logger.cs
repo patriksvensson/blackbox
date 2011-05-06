@@ -18,62 +18,59 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace BlackBox
 {
-    internal sealed class Logger : ILogger
-    {
-        private readonly LogKernel _kernel;
-        private readonly Type _source;
+	internal sealed class Logger : ILogger
+	{
+		private readonly LogKernel _kernel;
+		private readonly Type _source;
 
-        public Type Source
-        {
-            get { return _source; }
-        }
+		public Type Source
+		{
+			get { return _source; }
+		}
 
-        internal Logger(LogKernel kernel, Type type)
-        {
-            _kernel = kernel;
-            _source = type;
-        }
+		internal Logger(LogKernel kernel, Type type)
+		{
+			_kernel = kernel;
+			_source = type;
+		}
 
-        public void Write(LogLevel level, string message)
-        {
-            _kernel.Write(level, this, null, message);
-        }
+		public void Write(LogLevel level, string message)
+		{
+			_kernel.Write(level, this, null, message);
+		}
 
-        public void Write(LogLevel level, string format, params object[] args)
-        {
-            _kernel.Write(level, this, null, string.Format(CultureInfo.InvariantCulture, format, args));
-        }
+		public void Write(LogLevel level, string format, params object[] args)
+		{
+			_kernel.Write(level, this, null, string.Format(CultureInfo.InvariantCulture, format, args));
+		}
 
-        public void Write(LogLevel level, IFormatProvider provider, string format, params object[] args)
-        {
-            _kernel.Write(level, this, null, string.Format(provider, format, args));
-        }
+		public void Write(LogLevel level, IFormatProvider provider, string format, params object[] args)
+		{
+			_kernel.Write(level, this, null, string.Format(provider, format, args));
+		}
 
-        public void Write(LogLevel level, Exception exception)
-        {
-            _kernel.Write(level, this, exception, string.Empty);
-        }
+		public void Write(LogLevel level, Exception exception)
+		{
+			_kernel.Write(level, this, exception, string.Empty);
+		}
 
-        public void Write(LogLevel level, Exception exception, string message)
-        {
-            _kernel.Write(level, this, exception, message);
-        }
+		public void Write(LogLevel level, Exception exception, string message)
+		{
+			_kernel.Write(level, this, exception, message);
+		}
 
-        public void Write(LogLevel level, Exception exception, IFormatProvider provider, string format, params object[] args)
-        {
-            _kernel.Write(level, this, exception, string.Format(provider, format, args));
-        }
+		public void Write(LogLevel level, Exception exception, IFormatProvider provider, string format, params object[] args)
+		{
+			_kernel.Write(level, this, exception, string.Format(provider, format, args));
+		}
 
-        public void Write(LogLevel level, Exception exception, string format, params object[] args)
-        {
-            _kernel.Write(level, this, exception, string.Format(CultureInfo.InvariantCulture, format, args));
-        }
-    }
+		public void Write(LogLevel level, Exception exception, string format, params object[] args)
+		{
+			_kernel.Write(level, this, exception, string.Format(CultureInfo.InvariantCulture, format, args));
+		}
+	}
 }

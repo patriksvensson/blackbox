@@ -17,9 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BlackBox.Formatting
@@ -50,7 +48,7 @@ namespace BlackBox.Formatting
 				FormatToken current = _buffer.Peek();
 				if (current.IsFormatRendererBlock())
 				{
-					if(_buffer.PeekAhead(1).IsSymbol('('))
+					if (_buffer.PeekAhead(1).IsSymbol('('))
 					{
 						// Valid parenthesis block here?
 						bool isValidBlock = this.IsValidParenthesisBlock(_buffer.Position + 1);
@@ -101,7 +99,7 @@ namespace BlackBox.Formatting
 			// First argument is always a literal.
 			FormatToken rendererName = _buffer.Read();
 			if (rendererName.IsLiteral())
-			{                
+			{
 				// Now we must encounter a start parenthesis.
 				FormatToken parenthesis = _buffer.Read();
 				if (parenthesis.IsSymbol('('))
@@ -280,13 +278,13 @@ namespace BlackBox.Formatting
 			{
 				// Seek to where the block starts.
 				_buffer.Seek(blockStartPosition);
-				
+
 				// Make sure the block starts correctly.
-				if (!_buffer.Peek().IsSymbol('(')) 
+				if (!_buffer.Peek().IsSymbol('('))
 				{
 					return false;
 				}
-				
+
 				_buffer.Read();
 				int blocksOpened = 1;
 				while (_buffer.Peek() != null)
@@ -300,7 +298,7 @@ namespace BlackBox.Formatting
 					{
 						blocksOpened--;
 					}
-					if (blocksOpened == 0) 
+					if (blocksOpened == 0)
 					{
 						return true;
 					}

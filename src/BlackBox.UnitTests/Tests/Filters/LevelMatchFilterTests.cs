@@ -18,34 +18,30 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using System.Xml.Linq;
 
 namespace BlackBox.UnitTests.Tests.Filters
 {
-    [TestFixture]
-    public class LevelMatchFilterTests
-    {
-        [Test]
-        public void LevelMatchFilter_EntriesWithSameLevelReturnsMatch()
-        {
-            LevelMatchFilter filter = new LevelMatchFilter { Level = LogLevel.Information };
-            Logger logger = new Logger(null, typeof(LevelMatchFilterTests));
-            ILogEntry informationEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "", logger, null);
-            ILogEntry errorEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Error, "", logger, null);
-            Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(informationEntry));
-            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(errorEntry));
-        }
+	[TestFixture]
+	public class LevelMatchFilterTests
+	{
+		[Test]
+		public void LevelMatchFilter_EntriesWithSameLevelReturnsMatch()
+		{
+			LevelMatchFilter filter = new LevelMatchFilter { Level = LogLevel.Information };
+			Logger logger = new Logger(null, typeof(LevelMatchFilterTests));
+			ILogEntry informationEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "", logger, null);
+			ILogEntry errorEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Error, "", logger, null);
+			Assert.AreEqual(LogFilterResult.Filter, filter.Evaluate(informationEntry));
+			Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(errorEntry));
+		}
 
-        [Test]
-        [ExpectedException(ExpectedException=typeof(BlackBoxException), ExpectedMessage="The log level has not been set.")]
-        public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
-        { 
-            LevelMatchFilter filter = new LevelMatchFilter();
-            filter.Initialize(null);
-        }
-    }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The log level has not been set.")]
+		public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
+		{
+			LevelMatchFilter filter = new LevelMatchFilter();
+			filter.Initialize(null);
+		}
+	}
 }

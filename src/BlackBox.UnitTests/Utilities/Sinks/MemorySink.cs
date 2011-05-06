@@ -17,10 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox.UnitTests
 {
@@ -35,9 +32,9 @@ namespace BlackBox.UnitTests
 		}
 
 		public MemorySink()
-		    : base()
+			: base()
 		{
-		    _queue = new Queue<ILogEntry>();
+			_queue = new Queue<ILogEntry>();
 		}
 
 		protected override void WriteEntry(ILogEntry entry)

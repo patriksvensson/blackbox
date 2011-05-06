@@ -19,11 +19,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
-using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using BlackBox.Formatting.Renderers;
 
 namespace BlackBox.Formatting
@@ -31,19 +29,18 @@ namespace BlackBox.Formatting
 	/// <summary>
 	/// Factory class for creating format patterns.
 	/// </summary>
-	/// <typeparam name="TContext">The type of the context.</typeparam>
-	public sealed class FormatPatternFactory<TContext>
+	public sealed class FormatPatternFactory
 	{
-		private readonly FormatRendererTypeMap<TContext> _typeMap;
+		private readonly FormatRendererTypeMap _typeMap;
 
 		internal FormatPatternFactory()
 			: this(null)
 		{
 		}
 
-		internal FormatPatternFactory(FormatRendererTypeMap<TContext> typeMap)
+		internal FormatPatternFactory(FormatRendererTypeMap typeMap)
 		{
-			_typeMap = typeMap ?? new FormatRendererTypeMap<TContext>();
+			_typeMap = typeMap ?? new FormatRendererTypeMap();
 		}
 
 		/// <summary>
@@ -51,10 +48,10 @@ namespace BlackBox.Formatting
 		/// </summary>
 		/// <param name="pattern">The pattern.</param>
 		/// <returns></returns>
-		public FormatPattern<TContext> Create(string pattern)
+		public FormatPattern Create(string pattern)
 		{
 			FormatPatternNode[] nodes = FormatPatternParser.Parse(pattern);
-			List<FormatRenderer<TContext>> result = new List<FormatRenderer<TContext>>();
+			List<FormatRenderer> result = new List<FormatRenderer>();
 			foreach (FormatPatternNode node in nodes)
 			{
 				// Is this a literal node?
@@ -80,23 +77,23 @@ namespace BlackBox.Formatting
 				// No other node types are handled at this level.
 				throw new FormatPatternException("Unhandled node type '{0}'.", node.GetType().FullName);
 			}
-			return new FormatPattern<TContext>(pattern, result.ToArray());
+			return new FormatPattern(pattern, result.ToArray());
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-		private FormatRenderer<TContext> CreateLiteral(LiteralNode node)
+		private FormatRenderer CreateLiteral(LiteralNode node)
 		{
-			return new LiteralRenderer<TContext>(node.Literal);
+			return new LiteralRenderer(node.Literal);
 		}
 
-		private FormatRenderer<TContext> CreateRenderer(FormatRendererNode node)
+		private FormatRenderer CreateRenderer(FormatRendererNode node)
 		{
-			if(node == null)
+			if (node == null)
 			{
 				throw new InvalidOperationException("Encountered empty renderer node.");
 			}
 
-			FormatRenderer<TContext> renderer;
+			FormatRenderer renderer;
 			FormatTransformerNode transformerNode = node as FormatTransformerNode;
 
 			if (transformerNode != null)
@@ -114,19 +111,20 @@ namespace BlackBox.Formatting
 				if (transformerType == null)
 				{
 					// We could not find the transformer.
-					throw new FormatPatternException("Could not find transformer '{0}' for context type '{1}'.", node.Name, typeof(TContext).FullName);
+					throw new FormatPatternException("Could not resolve transformer '{0}'.", node.Name);
 				}
 
 				// If this is a generic transformer?
 				if (transformerType.IsGenericType && transformerType.ContainsGenericParameters)
 				{
 					// Create a generic type of it with the context as argument.
-					transformerType = transformerType.MakeGenericType(typeof(TContext));
+					throw new NotImplementedException();
+					//transformerType = transformerType.MakeGenericType(typeof(TContext));					
 				}
 
 				// Create the transformer.
 				renderer = Activator.CreateInstance(transformerType, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-					null, new object[] { childRenderer }, null) as FormatRenderer<TContext>;
+					null, new object[] { childRenderer }, null) as FormatRenderer;
 			}
 			else
 			{
@@ -135,18 +133,17 @@ namespace BlackBox.Formatting
 				if (rendererType == null)
 				{
 					// We could not find the renderer.
-					throw new FormatPatternException("Could not find renderer '{0}' for context type '{1}'.", node.Name, typeof(TContext).FullName);
+					throw new FormatPatternException("Could not resolve renderer '{0}'.", node.Name);
 				}
 
-				// Is this a generic renderer?
-				if (rendererType.IsGenericType && rendererType.ContainsGenericParameters)
+				// Is this a transformer without a renderer?
+				if (rendererType.Inherits(typeof(FormatTransformer)))
 				{
-					// Make a generic type with the context.
-					rendererType = rendererType.MakeGenericType(typeof(TContext));
+					throw new FormatPatternException("Transformer '{0}' has no attached renderer.", node.Name);
 				}
 
 				// Create the renderer.
-				renderer = Activator.CreateInstance(rendererType, true) as FormatRenderer<TContext>;
+				renderer = Activator.CreateInstance(rendererType, true) as FormatRenderer;
 			}
 
 			// Map all arguments.
@@ -157,7 +154,7 @@ namespace BlackBox.Formatting
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-		private void MapArguments(FormatRenderer<TContext> renderer, IEnumerable<FormatArgumentNode> arguments)
+		private void MapArguments(FormatRenderer renderer, IEnumerable<FormatArgumentNode> arguments)
 		{
 			if (!arguments.Any())
 			{
@@ -185,7 +182,7 @@ namespace BlackBox.Formatting
 
 					// Get the type converter.
 					var typeConverter = TypeDescriptor.GetConverter(propertyType);
-					if (typeConverter != null)
+					if (typeConverter != null && typeConverter.CanConvertFrom(typeof(string)))
 					{
 						object value = typeConverter.ConvertFromInvariantString(argument.Value);
 						mappings[argument.Name].SetValue(renderer, value, null);

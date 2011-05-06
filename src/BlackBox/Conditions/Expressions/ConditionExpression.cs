@@ -17,15 +17,10 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal abstract class ConditionExpression
-    {
-        internal abstract object Evaluate(ILogEntry context);
-    }
+	internal abstract class ConditionExpression
+	{
+		internal abstract object Evaluate(ILogEntry context);
+	}
 }

@@ -17,24 +17,19 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Globalization;
 
 namespace BlackBox.Formatting
 {
 	/// <summary>
 	/// Represents a format pattern.
 	/// </summary>
-	/// <typeparam name="TContext">The type of the context.</typeparam>
-	public sealed class FormatPattern<TContext>
+	public sealed class FormatPattern
 	{
-		private readonly FormatRenderer<TContext>[] _renderers;
+		private readonly FormatRenderer[] _renderers;
 		private readonly string _format;
 
-		internal FormatRenderer<TContext>[] Renderers
+		internal FormatRenderer[] Renderers
 		{
 			get { return _renderers; }
 		}
@@ -49,20 +44,20 @@ namespace BlackBox.Formatting
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FormatPattern&lt;TContext&gt;"/> class.
+		/// Initializes a new instance of the <see cref="FormatPattern"/> class.
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="renderers">The renderers.</param>
-		internal FormatPattern(string format, FormatRenderer<TContext>[] renderers)
+		internal FormatPattern(string format, FormatRenderer[] renderers)
 		{
 			_format = format;
 			_renderers = renderers;
 		}
 
-		internal string Render(TContext context)
+		internal string Render(ILogEntry context)
 		{
 			StringBuilder accumulator = new StringBuilder();
-			foreach (FormatRenderer<TContext> renderer in _renderers)
+			foreach (FormatRenderer renderer in _renderers)
 			{
 				accumulator.Append(renderer.Render(context));
 			}

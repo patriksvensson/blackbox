@@ -17,30 +17,25 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting.Renderers
 {
-    internal sealed class LiteralRenderer<TContext> : FormatRenderer<TContext>
-    {
-        private readonly string _literal;
+	internal sealed class LiteralRenderer : FormatRenderer
+	{
+		private readonly string _literal;
 
-        internal string Literal
-        {
-            get { return _literal; }
-        }
+		internal string Literal
+		{
+			get { return _literal; }
+		}
 
-        internal LiteralRenderer(string literal)
-        {
-            _literal = literal;
-        }
+		internal LiteralRenderer(string literal)
+		{
+			_literal = literal;
+		}
 
-        public override string Render(TContext context)
-        {
-            return _literal;
-        }
-    }
+		public override string Render(ILogEntry context)
+		{
+			return _literal;
+		}
+	}
 }

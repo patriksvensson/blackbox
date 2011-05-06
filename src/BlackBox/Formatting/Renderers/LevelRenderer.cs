@@ -18,40 +18,30 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace BlackBox.Formatting.Renderers
 {
-    [FormatRendererType("level")]
-    internal sealed class LevelRenderer : FormatRenderer<ILogEntry>
-    {
-        internal bool Numeric { get; set; }
+	[FormatRendererType("level")]
+	internal sealed class LevelRenderer : FormatRenderer
+	{
+		public bool Numeric { get; set; }
 
-        internal LevelRenderer()
-        {
-            this.Numeric = false; // Default to literal log levels.
-        }
+		internal LevelRenderer()
+		{
+			this.Numeric = false; // Default to literal log levels.
+		}
 
-        public override string Render(ILogEntry context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
-            else
-            {
-                if (this.Numeric)
-                {
-                    return ((int)context.Level).ToString(CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    return context.Level.ToString();
-                }
-            }
-        }
-    }
+		public override string Render(ILogEntry context)
+		{
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
+
+			return this.Numeric
+				? ((int)context.Level).ToString(CultureInfo.InvariantCulture)
+				: context.Level.ToString();
+		}
+	}
 }

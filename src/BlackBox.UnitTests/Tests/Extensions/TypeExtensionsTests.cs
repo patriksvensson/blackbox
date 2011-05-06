@@ -18,69 +18,67 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using System.Reflection;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Extensions
 {
-    [TestFixture]
-    public class TypeExtensionsTests
-    {
-        #region Private Nested Test Classes
-        private abstract class TestBaseClass
-        {
-            public string StringValue { get; set; }
-            private float HiddenFloatValue { get; set; }
-        }
-        private class TestClass : TestBaseClass
-        {
-            public int IntegerValue { get; set; }
-            public decimal DecimalValue { get; set; }
-            private DateTime HiddenDateTimeValue { get; set; }
-        }
-        private class TestClass2 : TestBaseClass
-        {
-        }
-        private class GenericTestBaseClass<T>
-        {
-        }
-        private class GenericTestClass : GenericTestBaseClass<int>
-        {
-        }
-        #endregion
+	[TestFixture]
+	public class TypeExtensionsTests
+	{
+		#region Private Nested Test Classes
+		private abstract class TestBaseClass
+		{
+			public string StringValue { get; set; }
+			private float HiddenFloatValue { get; set; }
+		}
+		private class TestClass : TestBaseClass
+		{
+			public int IntegerValue { get; set; }
+			public decimal DecimalValue { get; set; }
+			private DateTime HiddenDateTimeValue { get; set; }
+		}
+		private class TestClass2 : TestBaseClass
+		{
+		}
+		private class GenericTestBaseClass<T>
+		{
+		}
+		private class GenericTestClass : GenericTestBaseClass<int>
+		{
+		}
+		#endregion
 
-        [Test]
-        public void TypeExtensions_IsNonAbstractClass()
-        {
-            Assert.IsTrue(typeof(TestClass).IsNonAbstractClass());
-            Assert.IsFalse(typeof(TestBaseClass).IsNonAbstractClass());
-        }
+		[Test]
+		public void TypeExtensions_IsNonAbstractClass()
+		{
+			Assert.IsTrue(typeof(TestClass).IsNonAbstractClass());
+			Assert.IsFalse(typeof(TestBaseClass).IsNonAbstractClass());
+		}
 
-        [Test]
-        public void TypeExtensions_Inherits()
-        {
-            Assert.IsTrue(typeof(TestClass).Inherits<TestBaseClass>());
-            Assert.IsTrue(typeof(TestClass).Inherits(typeof(TestBaseClass)));
-            Assert.IsFalse(typeof(TestClass2).Inherits<TestClass>());
-            Assert.IsFalse(typeof(TestClass2).Inherits(typeof(TestClass)));
-        }
+		[Test]
+		public void TypeExtensions_Inherits()
+		{
+			Assert.IsTrue(typeof(TestClass).Inherits<TestBaseClass>());
+			Assert.IsTrue(typeof(TestClass).Inherits(typeof(TestBaseClass)));
+			Assert.IsFalse(typeof(TestClass2).Inherits<TestClass>());
+			Assert.IsFalse(typeof(TestClass2).Inherits(typeof(TestClass)));
+		}
 
-        [Test]
-        public void TypeExtensions_InheritsGenericType()
-        {
-            Assert.IsTrue(typeof(GenericTestClass).InheritsGenericType(typeof(GenericTestBaseClass<>)));
-            Assert.IsFalse(typeof(TestClass).InheritsGenericType(typeof(GenericTestBaseClass<>)));
-        }
+		[Test]
+		public void TypeExtensions_InheritsGenericType()
+		{
+			Assert.IsTrue(typeof(GenericTestClass).InheritsGenericType(typeof(GenericTestBaseClass<>)));
+			Assert.IsFalse(typeof(TestClass).InheritsGenericType(typeof(GenericTestBaseClass<>)));
+		}
 
-        [Test]
-        public void TypeExtensions_GetPublicProperties()
-        {
-            PropertyInfo[] properties = typeof(TestClass).GetPublicProperties();
-            Assert.AreEqual(3, properties.Count());
-        }
+		[Test]
+		public void TypeExtensions_GetPublicProperties()
+		{
+			PropertyInfo[] properties = typeof(TestClass).GetPublicProperties();
+			Assert.AreEqual(3, properties.Count());
+		}
 
 		[Test]
 		public void TypeExtensions_GetPublicProperties_IgnoreSomeProperties()
@@ -91,11 +89,11 @@ namespace BlackBox.UnitTests.Tests.Extensions
 			Assert.IsTrue(properties.Any(x => x.Name.Equals("StringValue")));
 		}
 
-        [Test]
-        public void TypeExtensions_GetAllProperties()
-        {
-            PropertyInfo[] properties = typeof(TestClass).GetAllProperties();
-            Assert.AreEqual(5, properties.Count());
-        }
-    }
+		[Test]
+		public void TypeExtensions_GetAllProperties()
+		{
+			PropertyInfo[] properties = typeof(TestClass).GetAllProperties();
+			Assert.AreEqual(5, properties.Count());
+		}
+	}
 }

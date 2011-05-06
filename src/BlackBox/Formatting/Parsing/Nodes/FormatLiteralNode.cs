@@ -17,25 +17,20 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting
 {
-    internal sealed class LiteralNode : FormatPatternNode
-    {
-        private readonly string _literal;
+	internal sealed class LiteralNode : FormatPatternNode
+	{
+		private readonly string _literal;
 
-        public string Literal
-        {
-            get { return _literal; }
-        }
+		public string Literal
+		{
+			get { return _literal; }
+		}
 
-        public LiteralNode(string literal)
-        {
-            _literal = literal;
-        }
-    }
+		public LiteralNode(string literal)
+		{
+			_literal = literal;
+		}
+	}
 }

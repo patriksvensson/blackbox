@@ -18,41 +18,38 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox.Conditions
 {
-    internal sealed class LogLevelExpression : ConditionExpression
-    {
-        private readonly bool _numeric;
+	internal sealed class LogLevelExpression : ConditionExpression
+	{
+		private readonly bool _numeric;
 
-        internal LogLevelExpression(bool numeric)
-        {
-            _numeric = numeric;
-        }
+		internal LogLevelExpression(bool numeric)
+		{
+			_numeric = numeric;
+		}
 
-        internal override object Evaluate(ILogEntry context) 
-        {
-            if(context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
+		internal override object Evaluate(ILogEntry context)
+		{
+			if (context == null)
+			{
+				throw new ArgumentNullException("context");
+			}
 
-            if (_numeric)
-            {
-                return (int)context.Level;
-            }
-            else
-            {
-                return context.Level.ToString(); ;
-            }
-        }
+			if (_numeric)
+			{
+				return (int)context.Level;
+			}
+			else
+			{
+				return context.Level.ToString(); ;
+			}
+		}
 
-        public override string ToString()
-        {
-            return _numeric ? "level" : "levelname";
-        }
-    }
+		public override string ToString()
+		{
+			return _numeric ? "level" : "levelname";
+		}
+	}
 }

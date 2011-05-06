@@ -18,33 +18,30 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Attribute that is used to decorate log filters.
-    /// </summary>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=false)]
+	/// <summary>
+	/// Attribute that is used to decorate log filters.
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public sealed class LogFilterTypeAttribute : Attribute
 	{
 		private readonly string _name;
 
-        /// <summary>
-        /// Gets the name of the log filter.
-        /// </summary>
-        /// <value>The name.</value>
+		/// <summary>
+		/// Gets the name of the log filter.
+		/// </summary>
+		/// <value>The name.</value>
 		public string Name
 		{
 			get { return _name; }
 		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogFilterTypeAttribute"/> class.
-        /// </summary>
-        /// <param name="name">The name of the log filter.</param>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogFilterTypeAttribute"/> class.
+		/// </summary>
+		/// <param name="name">The name of the log filter.</param>
 		public LogFilterTypeAttribute(string name)
 		{
 			_name = name;

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlackBox.UnitTests</RootNamespace>
     <AssemblyName>BlackBox.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
@@ -64,12 +64,14 @@
     <Compile Include="Tests\Conditions\ConditionExpressionTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Conditions\ConditionKeywordTests.cs" />
     <Compile Include="Tests\Conditions\ConditionParserTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Conditions\ConditionTokenizerTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Conditions\MethodExpressionTests.cs" />
     <Compile Include="Tests\Configuration\LogConfigurationDeserializerTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,6 +123,8 @@
     <Compile Include="Tests\Formatting\Parsing\FormatParserTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Formatting\Renderers\LevelRendererTests.cs" />
+    <Compile Include="Tests\Formatting\Renderers\LoggerRendererTests.cs" />
     <Compile Include="Tests\Formatting\Tokenization\FormatTokenBufferTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -130,6 +134,7 @@
     <Compile Include="Tests\Formatting\Tokenization\FormatTokenTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Formatting\Transformers\TruncateTransformerTests.cs" />
     <Compile Include="Tests\InitializationContextTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs">
       <SubType>Code</SubType>

@@ -17,12 +17,8 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using BlackBox.Formatting;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Formatting
 {
@@ -141,7 +137,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
 			Assert.AreEqual(FormatTokenType.Symbol, result[15].TokenType); // )
 			Assert.AreEqual(FormatTokenType.Symbol, result[16].TokenType); // )
 			Assert.AreEqual(FormatTokenType.Symbol, result[17].TokenType); // ]
-			Assert.AreEqual(FormatTokenType.Whitespace, result[18].TokenType); 
+			Assert.AreEqual(FormatTokenType.Whitespace, result[18].TokenType);
 			Assert.AreEqual(FormatTokenType.Symbol, result[19].TokenType); // [
 			Assert.AreEqual(FormatTokenType.FormatRenderer, result[20].TokenType); // $
 			Assert.AreEqual(FormatTokenType.Symbol, result[21].TokenType); // (

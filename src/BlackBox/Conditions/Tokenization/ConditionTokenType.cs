@@ -17,31 +17,26 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal enum ConditionTokenType
-    {
-        Number,
-        String,
-        Keyword,
-        EqualTo,
-        NotEqual,
-        GreaterThan,
-        LessThan,
-        GreaterThanOrEqualTo,
-        LessThanOrEqualTo,
-        Minus,
-        Dot,
-        Comma,
-        OpeningParenthesis,
-        ClosingParenthesis,
-        Not,
-        And,
-        Or
-    }
+	internal enum ConditionTokenType
+	{
+		Number,
+		String,
+		Keyword,
+		EqualTo,
+		NotEqual,
+		GreaterThan,
+		LessThan,
+		GreaterThanOrEqualTo,
+		LessThanOrEqualTo,
+		Minus,
+		Dot,
+		Comma,
+		OpeningParenthesis,
+		ClosingParenthesis,
+		Not,
+		And,
+		Or
+	}
 }

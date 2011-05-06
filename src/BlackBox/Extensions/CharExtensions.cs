@@ -17,28 +17,23 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    internal static class CharExtensions
-    {
-        internal static bool IsWhitespace(this char value)
-        {
-            return char.IsWhiteSpace(value);
-        }
+	internal static class CharExtensions
+	{
+		internal static bool IsWhitespace(this char value)
+		{
+			return char.IsWhiteSpace(value);
+		}
 
-        internal static bool IsDigit(this char value)
-        {
-            return char.IsDigit(value);
-        }
+		internal static bool IsDigit(this char value)
+		{
+			return char.IsDigit(value);
+		}
 
-        internal static bool IsLetter(this char value)
-        {
-            return char.IsLetter(value);
-        }
-    }
+		internal static bool IsLetter(this char value)
+		{
+			return char.IsLetter(value);
+		}
+	}
 }

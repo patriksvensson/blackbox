@@ -17,28 +17,23 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal sealed class NotExpression : UnaryExpression
-    {
-        internal NotExpression(ConditionExpression expression)
-            : base(expression)
-        {
-        }
+	internal sealed class NotExpression : UnaryExpression
+	{
+		internal NotExpression(ConditionExpression expression)
+			: base(expression)
+		{
+		}
 
-        internal override object Evaluate(ILogEntry context)
-        {
-            return !(bool)this.Expression.Evaluate(context);
-        }
+		internal override object Evaluate(ILogEntry context)
+		{
+			return !(bool)this.Expression.Evaluate(context);
+		}
 
-        public override string ToString()
-        {
-            return string.Concat("NOT ", this.Expression);
-        }
-    }
+		public override string ToString()
+		{
+			return string.Concat("NOT ", this.Expression);
+		}
+	}
 }

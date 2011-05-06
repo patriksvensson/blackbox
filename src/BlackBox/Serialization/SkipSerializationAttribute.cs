@@ -18,9 +18,6 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlackBox
 {
@@ -28,7 +25,7 @@ namespace BlackBox
 	/// Attribute that is used to decorate properties that should not
 	/// be serialized by the log configuration serializer.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple=false, Inherited=true)]
+	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public sealed class SkipSerializationAttribute : Attribute
 	{
 	}

@@ -17,34 +17,30 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 
 namespace BlackBox.Formatting.Renderers
 {
-    [FormatRendererType("basedir")]
-    internal sealed class BaseDirectoryRenderer<TContext> : FormatRenderer<TContext>
-    {
-        private readonly string _baseDirectory;
+	[FormatRendererType("basedir")]
+	internal sealed class BaseDirectoryRenderer : FormatRenderer
+	{
+		private readonly string _baseDirectory;
 
-        internal BaseDirectoryRenderer()
-        {
-            // Get the location of the executing assembly.
-            Assembly assembly = Assembly.GetEntryAssembly();
-            if (assembly == null)
-            {
-                throw new BlackBoxException("Cannot resolve base directory.");
-            }
-            _baseDirectory = Path.GetDirectoryName(assembly.Location);
-        }
+		internal BaseDirectoryRenderer()
+		{
+			// Get the location of the executing assembly.
+			Assembly assembly = Assembly.GetEntryAssembly();
+			if (assembly == null)
+			{
+				throw new BlackBoxException("Cannot resolve base directory.");
+			}
+			_baseDirectory = Path.GetDirectoryName(assembly.Location);
+		}
 
-        public override string Render(TContext context)
-        {
-            return _baseDirectory;
-        }
-    }
+		public override string Render(ILogEntry context)
+		{
+			return _baseDirectory;
+		}
+	}
 }

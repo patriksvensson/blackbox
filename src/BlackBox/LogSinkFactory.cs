@@ -19,11 +19,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
 
 namespace BlackBox
 {
@@ -104,7 +102,7 @@ namespace BlackBox
 
 			// Check if the log sink type name isn't registered.
 			if (!_types.ContainsKey(type))
-			{                
+			{
 				string message = "{0} with type name '{1}' has not been registered.";
 				throw new BlackBoxException(string.Format(CultureInfo.InvariantCulture, message, sinkFlavor, type));
 			}
@@ -114,7 +112,7 @@ namespace BlackBox
 			if (sink == null)
 			{
 				string message = "Could not instantiate {0} of type '{1}' ({2}).";
-				throw new BlackBoxException(string.Format(CultureInfo.InvariantCulture, message, 
+				throw new BlackBoxException(string.Format(CultureInfo.InvariantCulture, message,
 					sinkFlavor.ToLowerInvariant(), _types[type].FullName, type));
 			}
 
@@ -160,7 +158,7 @@ namespace BlackBox
 
 					// Get the type converter.
 					var typeConverter = TypeDescriptor.GetConverter(propertyType);
-                    if (typeConverter != null && typeConverter.CanConvertFrom(typeof(string)))
+					if (typeConverter != null && typeConverter.CanConvertFrom(typeof(string)))
 					{
 						object value = typeConverter.ConvertFromInvariantString(argument.Value);
 						mappings[argument.Key].SetValue(sink, value, null);

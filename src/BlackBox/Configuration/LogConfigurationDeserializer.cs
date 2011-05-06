@@ -19,11 +19,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace BlackBox
 {
@@ -228,7 +227,7 @@ namespace BlackBox
 
 			// Parse the arguments
 			IDictionary<string, string> arguments = this.ParseArguments(sinkElement,
-				new string[] { "Type" }, new string[] { "Filters", "Sink" }); 
+				new string[] { "Type" }, new string[] { "Filters", "Sink" });
 
 			// Build the log sink.
 			LogSink sink = sinkFactory.Build(type, arguments, isProxy);

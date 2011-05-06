@@ -17,32 +17,27 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Formatting
 {
-    internal sealed class FormatArgumentNode : FormatPatternNode
-    {
-        private readonly string _name;
-        private readonly string _value;
+	internal sealed class FormatArgumentNode : FormatPatternNode
+	{
+		private readonly string _name;
+		private readonly string _value;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+		public string Name
+		{
+			get { return _name; }
+		}
 
-        public string Value
-        {
-            get { return _value; }
-        }
+		public string Value
+		{
+			get { return _value; }
+		}
 
-        public FormatArgumentNode(string name, string value)
-        {
-            _name = name;
-            _value = value;
-        }
-    }
+		public FormatArgumentNode(string name, string value)
+		{
+			_name = name;
+			_value = value;
+		}
+	}
 }

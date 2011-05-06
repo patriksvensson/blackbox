@@ -19,76 +19,61 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace BlackBox.Formatting
 {
-    internal sealed class FormatRendererTypeMap<TContext>
-    {
-        private readonly Dictionary<string, Type> _types;
+	internal sealed class FormatRendererTypeMap
+	{
+		private readonly Dictionary<string, Type> _types;
 
-        public FormatRendererTypeMap()
-            : this(null)
-        {
-        }
+		internal FormatRendererTypeMap()
+			: this(null)
+		{
+		}
 
-        public FormatRendererTypeMap(IEnumerable<Assembly> assemblies)
-        {
-            // Create the key to string look-up table.
-            _types = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+		internal FormatRendererTypeMap(IEnumerable<Assembly> assemblies)
+		{
+			// Create the key to string look-up table.
+			_types = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
-            // Make sure the BlackBox assembly is present in the collection.
-            assemblies = assemblies ?? new List<Assembly>() { typeof(FormatRendererTypeMap<>).Assembly };
-            List<Assembly> assemblyList = new List<Assembly>(assemblies);
-            if (!assemblyList.Contains(typeof(FormatRendererTypeMap<>).Assembly))
-            {
-                assemblyList.Add(typeof(FormatRendererTypeMap<>).Assembly);
-            }
+			// Make sure the BlackBox assembly is present in the collection.
+			assemblies = assemblies ?? new List<Assembly>() { typeof(FormatRendererTypeMap).Assembly };
+			List<Assembly> assemblyList = new List<Assembly>(assemblies);
+			if (!assemblyList.Contains(typeof(FormatRendererTypeMap).Assembly))
+			{
+				assemblyList.Add(typeof(FormatRendererTypeMap).Assembly);
+			}
 
-            // Get the type for the base class renderer.
-            Type rendererBaseType = typeof(FormatRenderer<>).MakeGenericType(typeof(TContext));
+			// Find all types in the assembly that inherits from the base type.
+			// If the type is decorated with the specified attribute, then add it to the internal look-up table.
+			foreach (Assembly assembly in assemblyList)
+			{
+				foreach (Type type in assembly.GetTypes())
+				{
+					if (type.IsNonAbstractClass() && type.Inherits(typeof(FormatRenderer)))
+					{
+						var attribute = type.GetAttribute<FormatRendererTypeAttribute>(false);
+						if (attribute != null)
+						{
+							string identifier = attribute.Name;
+							if (!identifier.IsNullOrEmpty() && !_types.ContainsKey(identifier))
+							{
+								_types.Add(identifier, type);
+							}
+						}
+					}
+				}
+			}
+		}
 
-            // Find all types in the assembly that inherits from the base type.
-            // If the type is decorated with the specified attribute, then add it to the internal look-up table.
-            foreach (Assembly assembly in assemblyList)
-            {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    bool isGenericRenderer = false;
-                    if (type.IsGenericType && type.ContainsGenericParameters && type.IsNonAbstractClass())
-                    {
-                        if (type.InheritsGenericType(typeof(FormatRenderer<>)))
-                        {
-                            isGenericRenderer = true;
-                        }                       
-                    }
-
-                    bool isNonGenericRenderer = type.IsNonAbstractClass() && type.Inherits(rendererBaseType);
-                    if (isNonGenericRenderer || isGenericRenderer)
-                    {                        
-                        var attribute = type.GetAttribute<FormatRendererTypeAttribute>(false);
-                        if (attribute != null)
-                        {
-                            string identifier = attribute.Name;
-                            if (!identifier.IsNullOrEmpty() && !_types.ContainsKey(identifier))
-                            {
-                                _types.Add(identifier, type);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        internal Type GetRendererType(string name)
-        {
-            if (!_types.ContainsKey(name))
-            {
-                return null;
-            }
-            return _types[name];
-        }
-    }
+		internal Type GetRendererType(string name)
+		{
+			if (!_types.ContainsKey(name))
+			{
+				return null;
+			}
+			return _types[name];
+		}
+	}
 }

@@ -17,83 +17,78 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using BlackBox.Formatting;
 
 namespace BlackBox.UnitTests.Tests.Collections
 {
-    [TestFixture]
-    public class StringBufferTests
-    {
-        [Test]
-        public void StringBuffer_Create()
-        {
-            StringBuffer buffer = new StringBuffer("Hello World");
-            Assert.AreEqual("Hello World", buffer.Content);
-            Assert.AreEqual(11, buffer.Length);
-            Assert.AreEqual(0, buffer.Position);
-        }
+	[TestFixture]
+	public class StringBufferTests
+	{
+		[Test]
+		public void StringBuffer_Create()
+		{
+			StringBuffer buffer = new StringBuffer("Hello World");
+			Assert.AreEqual("Hello World", buffer.Content);
+			Assert.AreEqual(11, buffer.Length);
+			Assert.AreEqual(0, buffer.Position);
+		}
 
-        [Test]
-        public void StringBuffer_Peek()
-        {
-            StringBuffer buffer = new StringBuffer("Hello World");
-            Assert.AreEqual(0, buffer.Position);
-            Assert.AreEqual('H', (char)buffer.Peek());
-            Assert.AreEqual(0, buffer.Position);
-        }
+		[Test]
+		public void StringBuffer_Peek()
+		{
+			StringBuffer buffer = new StringBuffer("Hello World");
+			Assert.AreEqual(0, buffer.Position);
+			Assert.AreEqual('H', (char)buffer.Peek());
+			Assert.AreEqual(0, buffer.Position);
+		}
 
-        [Test]
-        public void StringBuffer_Read()
-        {
-            StringBuffer buffer = new StringBuffer("Hello World");
-            Assert.AreEqual('H', (char)buffer.Read());
-            Assert.AreEqual('e', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('o', (char)buffer.Read());
-            Assert.AreEqual(' ', (char)buffer.Read());
-            Assert.AreEqual('W', (char)buffer.Read());
-            Assert.AreEqual('o', (char)buffer.Read());
-            Assert.AreEqual('r', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('d', (char)buffer.Read());
-            Assert.AreEqual(-1, buffer.Read());
-        }
+		[Test]
+		public void StringBuffer_Read()
+		{
+			StringBuffer buffer = new StringBuffer("Hello World");
+			Assert.AreEqual('H', (char)buffer.Read());
+			Assert.AreEqual('e', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('o', (char)buffer.Read());
+			Assert.AreEqual(' ', (char)buffer.Read());
+			Assert.AreEqual('W', (char)buffer.Read());
+			Assert.AreEqual('o', (char)buffer.Read());
+			Assert.AreEqual('r', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('d', (char)buffer.Read());
+			Assert.AreEqual(-1, buffer.Read());
+		}
 
-        [Test]
-        public void StringBuffer_Rewind()
-        {
-            StringBuffer buffer = new StringBuffer("Hello World");
-            Assert.IsTrue(buffer.Seek(6));
-            Assert.AreEqual(6, buffer.Position);
-            buffer.Rewind();
-            Assert.AreEqual(0, buffer.Position);
-        }
+		[Test]
+		public void StringBuffer_Rewind()
+		{
+			StringBuffer buffer = new StringBuffer("Hello World");
+			Assert.IsTrue(buffer.Seek(6));
+			Assert.AreEqual(6, buffer.Position);
+			buffer.Rewind();
+			Assert.AreEqual(0, buffer.Position);
+		}
 
-        [Test]
-        public void StringBuffer_Seek()
-        {
-            StringBuffer buffer = new StringBuffer("Hello World");
-            Assert.IsTrue(buffer.Seek(6));
-            Assert.AreEqual('W', (char)buffer.Read());
-            Assert.AreEqual('o', (char)buffer.Read());
-            Assert.AreEqual('r', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('d', (char)buffer.Read());
-            Assert.IsTrue(buffer.Seek(0));
-            Assert.AreEqual('H', (char)buffer.Read());
-            Assert.AreEqual('e', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('l', (char)buffer.Read());
-            Assert.AreEqual('o', (char)buffer.Read());
-            Assert.IsFalse(buffer.Seek(-1));
-            Assert.IsFalse(buffer.Seek(12));
-            Assert.IsFalse(buffer.Seek(11));
-        }
-    }
+		[Test]
+		public void StringBuffer_Seek()
+		{
+			StringBuffer buffer = new StringBuffer("Hello World");
+			Assert.IsTrue(buffer.Seek(6));
+			Assert.AreEqual('W', (char)buffer.Read());
+			Assert.AreEqual('o', (char)buffer.Read());
+			Assert.AreEqual('r', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('d', (char)buffer.Read());
+			Assert.IsTrue(buffer.Seek(0));
+			Assert.AreEqual('H', (char)buffer.Read());
+			Assert.AreEqual('e', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('l', (char)buffer.Read());
+			Assert.AreEqual('o', (char)buffer.Read());
+			Assert.IsFalse(buffer.Seek(-1));
+			Assert.IsFalse(buffer.Seek(12));
+			Assert.IsFalse(buffer.Seek(11));
+		}
+	}
 }

@@ -17,42 +17,37 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
-    internal sealed class AndExpression : BinaryExpression
-    {
-        internal AndExpression(ConditionExpression left, ConditionExpression right)
-            : base(left, right)
-        {
-        }
+	internal sealed class AndExpression : BinaryExpression
+	{
+		internal AndExpression(ConditionExpression left, ConditionExpression right)
+			: base(left, right)
+		{
+		}
 
-        internal override object Evaluate(ILogEntry context)
-        {
-            // Left side not true?
-            bool leftResult = (bool)this.Left.Evaluate(context);
-            if (!leftResult)
-            {
-                return false;
-            }
+		internal override object Evaluate(ILogEntry context)
+		{
+			// Left side not true?
+			bool leftResult = (bool)this.Left.Evaluate(context);
+			if (!leftResult)
+			{
+				return false;
+			}
 
-            // Right side not true?
-            bool rightResult = (bool)this.Right.Evaluate(context);
-            if (!rightResult)
-            {
-                return false;
-            }
+			// Right side not true?
+			bool rightResult = (bool)this.Right.Evaluate(context);
+			if (!rightResult)
+			{
+				return false;
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        public override string ToString()
-        {
-            return string.Concat("(", this.Left, " AND ", this.Right, ")");
-        }
-    }
+		public override string ToString()
+		{
+			return string.Concat("(", this.Left, " AND ", this.Right, ")");
+		}
+	}
 }

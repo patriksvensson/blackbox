@@ -17,19 +17,14 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.UnitTests
 {
-    [LogFilterType("denyall")]
-    public class DenyAllFilter : LogFilter
-    {
-        protected internal override LogFilterResult Evaluate(ILogEntry entry)
-        {
-            return LogFilterResult.Filter;
-        }
-    }
+	[LogFilterType("denyall")]
+	public class DenyAllFilter : LogFilter
+	{
+		protected internal override LogFilterResult Evaluate(ILogEntry entry)
+		{
+			return LogFilterResult.Filter;
+		}
+	}
 }

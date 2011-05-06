@@ -18,82 +18,78 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BlackBox.Formatting;
 using System.Threading;
 
 namespace BlackBox
 {
-    internal sealed class LogEntry : ILogEntry
-    {
-        private readonly DateTimeOffset _timestamp;
-        private readonly string _message;
-        private readonly Exception _exception;
-        private readonly ILogger _logger;
-        private readonly LogLevel _level;
-        private readonly int _threadId;
-        private readonly string _threadName;
-        private readonly Type _source;
+	internal sealed class LogEntry : ILogEntry
+	{
+		private readonly DateTimeOffset _timestamp;
+		private readonly string _message;
+		private readonly Exception _exception;
+		private readonly ILogger _logger;
+		private readonly LogLevel _level;
+		private readonly int _threadId;
+		private readonly string _threadName;
+		private readonly Type _source;
 
-        #region Properties
+		#region Properties
 
-        public Exception Exception
-        {
-            get { return _exception; }
-        }
+		public Exception Exception
+		{
+			get { return _exception; }
+		}
 
-        internal ILogger Logger
-        {
-            get { return _logger; }
-        }
+		internal ILogger Logger
+		{
+			get { return _logger; }
+		}
 
-        public Type Source
-        {
-            get { return _source; }
-        }
+		public Type Source
+		{
+			get { return _source; }
+		}
 
-        public LogLevel Level
-        {
-            get { return _level; }
-        } 
+		public LogLevel Level
+		{
+			get { return _level; }
+		}
 
-        public int ThreadId
-        {
-            get { return _threadId; }
-        } 
+		public int ThreadId
+		{
+			get { return _threadId; }
+		}
 
-        public string ThreadName
-        {
-            get { return _threadName; }
-        }
+		public string ThreadName
+		{
+			get { return _threadName; }
+		}
 
-        public DateTimeOffset Timestamp
-        {
-            get { return _timestamp; }
-        }
+		public DateTimeOffset Timestamp
+		{
+			get { return _timestamp; }
+		}
 
-        public string Message
-        {
-            get { return _message; }
-        }
+		public string Message
+		{
+			get { return _message; }
+		}
 
-        #endregion
+		#endregion
 
-        internal LogEntry(DateTimeOffset timestamp, LogLevel logLevel, string message, ILogger logger, Exception exception)
-        {
-            _timestamp = timestamp;
-            _level = logLevel;
-            _message = message;
-            _logger = logger;
-            _exception = exception;
-            _source = logger.Source;
+		internal LogEntry(DateTimeOffset timestamp, LogLevel logLevel, string message, ILogger logger, Exception exception)
+		{
+			_timestamp = timestamp;
+			_level = logLevel;
+			_message = message;
+			_logger = logger;
+			_exception = exception;
+			_source = logger.Source;
 
-            // Get thread information.
-            Thread currentThread = Thread.CurrentThread;
-            _threadName = currentThread.Name;
-            _threadId = currentThread.ManagedThreadId;
-        }
-    }
+			// Get thread information.
+			Thread currentThread = Thread.CurrentThread;
+			_threadName = currentThread.Name;
+			_threadId = currentThread.ManagedThreadId;
+		}
+	}
 }

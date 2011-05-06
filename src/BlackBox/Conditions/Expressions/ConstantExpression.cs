@@ -17,11 +17,6 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox.Conditions
 {
 	internal sealed class ConstantExpression : ConditionExpression
@@ -45,7 +40,7 @@ namespace BlackBox.Conditions
 
 		public override string ToString()
 		{
-			if(_value == null)
+			if (_value == null)
 			{
 				return "null";
 			}

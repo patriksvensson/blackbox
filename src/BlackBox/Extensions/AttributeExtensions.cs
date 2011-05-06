@@ -20,30 +20,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace BlackBox
 {
-    internal static class AttributeExtensions
-    {
-        internal static IEnumerable<T> GetAttributes<T>(this ICustomAttributeProvider provider, bool inherit)
-            where T : Attribute
-        {
-            var attributes = provider.GetCustomAttributes(typeof(T), inherit);
-            return attributes == null || attributes.Length == 0 ? new List<T>() : attributes.Cast<T>();
-        }
+	internal static class AttributeExtensions
+	{
+		internal static IEnumerable<T> GetAttributes<T>(this ICustomAttributeProvider provider, bool inherit)
+			where T : Attribute
+		{
+			var attributes = provider.GetCustomAttributes(typeof(T), inherit);
+			return attributes == null || attributes.Length == 0 ? new List<T>() : attributes.Cast<T>();
+		}
 
-        internal static T GetAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
-            where T : Attribute
-        {
-            return AttributeExtensions.GetAttributes<T>(provider, inherit).FirstOrDefault();
-        }
+		internal static T GetAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
+			where T : Attribute
+		{
+			return AttributeExtensions.GetAttributes<T>(provider, inherit).FirstOrDefault();
+		}
 
 		internal static bool HasAttribute<T>(this ICustomAttributeProvider provider, bool inherit)
 			where T : Attribute
 		{
 			return AttributeExtensions.GetAttributes<T>(provider, inherit).FirstOrDefault() != null;
 		}
-    }
+	}
 }

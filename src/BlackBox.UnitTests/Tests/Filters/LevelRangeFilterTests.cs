@@ -18,58 +18,54 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using System.Xml.Linq;
 
 namespace BlackBox.UnitTests.Tests.Filters
 {
-    [TestFixture]
-    public class LevelRangeFilterTests
-    {
-        [Test]
-        public void LevelRangeFilter_EntriesWithinRangeReturnsMatch()
-        {
-            LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Information, MaxLevel = LogLevel.Debug, Action=LogFilterResult.Accept };
-            Logger logger = new Logger(null, typeof(LevelRangeFilterTests));
-            ILogEntry informationEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "", logger, null);
-            ILogEntry verboseEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Verbose, "", logger, null);
-            ILogEntry debugEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Debug, "", logger, null);
-            ILogEntry errorEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Error, "", logger, null);
-            ILogEntry fatalEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Fatal, "", logger, null);
-            ILogEntry warningEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Warning, "", logger, null);
-            Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(informationEntry));
-            Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(verboseEntry));
-            Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(debugEntry));
-            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(errorEntry));
-            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(fatalEntry));
-            Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(warningEntry));
-        }
+	[TestFixture]
+	public class LevelRangeFilterTests
+	{
+		[Test]
+		public void LevelRangeFilter_EntriesWithinRangeReturnsMatch()
+		{
+			LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Information, MaxLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
+			Logger logger = new Logger(null, typeof(LevelRangeFilterTests));
+			ILogEntry informationEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Information, "", logger, null);
+			ILogEntry verboseEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Verbose, "", logger, null);
+			ILogEntry debugEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Debug, "", logger, null);
+			ILogEntry errorEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Error, "", logger, null);
+			ILogEntry fatalEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Fatal, "", logger, null);
+			ILogEntry warningEntry = new LogEntry(DateTimeOffset.Now, LogLevel.Warning, "", logger, null);
+			Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(informationEntry));
+			Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(verboseEntry));
+			Assert.AreEqual(LogFilterResult.Accept, filter.Evaluate(debugEntry));
+			Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(errorEntry));
+			Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(fatalEntry));
+			Assert.AreEqual(LogFilterResult.Neutral, filter.Evaluate(warningEntry));
+		}
 
-        [Test]
-        [ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level has not been set.")]
-        public void LevelRangeFilter_ThrowsIfMinLevelIsNotSetAtInitialization()
-        {
-            LevelRangeFilter filter = new LevelRangeFilter { MaxLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
-            filter.Initialize(null);
-        }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level has not been set.")]
+		public void LevelRangeFilter_ThrowsIfMinLevelIsNotSetAtInitialization()
+		{
+			LevelRangeFilter filter = new LevelRangeFilter { MaxLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
+			filter.Initialize(null);
+		}
 
-        [Test]
-        [ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The maximum log level has not been set.")]
-        public void LevelRangeFilter_ThrowsIfMaxLevelIsNotSetAtInitialization()
-        {
-            LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
-            filter.Initialize(null);
-        }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The maximum log level has not been set.")]
+		public void LevelRangeFilter_ThrowsIfMaxLevelIsNotSetAtInitialization()
+		{
+			LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
+			filter.Initialize(null);
+		}
 
-        [Test]
-        [ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level must be less or equal to the maximum log level.")]
-        public void LevelRangeFilter_ThrowsIfMinimumLevelIsGreaterThanMaximumLevelAtInitialization()
-        {
-            LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, MaxLevel = LogLevel.Verbose, Action = LogFilterResult.Accept };
-            filter.Initialize(null);
-        }
-    }
+		[Test]
+		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level must be less or equal to the maximum log level.")]
+		public void LevelRangeFilter_ThrowsIfMinimumLevelIsGreaterThanMaximumLevelAtInitialization()
+		{
+			LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, MaxLevel = LogLevel.Verbose, Action = LogFilterResult.Accept };
+			filter.Initialize(null);
+		}
+	}
 }

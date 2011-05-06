@@ -17,41 +17,36 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace BlackBox
 {
-    /// <summary>
-    /// Represents the available log levels.
-    /// </summary>
-    public enum LogLevel : int
-    {
-        /// <summary>
-        /// Fatal log level.
-        /// </summary>
-        Fatal = 0,
-        /// <summary>
-        /// Error log level. 
-        /// </summary>
-        Error = 1,
-        /// <summary>
-        /// Warning log level.
-        /// </summary>
-        Warning = 2,
-        /// <summary>
-        /// Information log level.
-        /// </summary>
-        Information = 3,
-        /// <summary>
-        /// Verbose log level.
-        /// </summary>
-        Verbose = 4,
-        /// <summary>
-        /// Debug log level.
-        /// </summary>
-        Debug = 5
-    }
+	/// <summary>
+	/// Represents the available log levels.
+	/// </summary>
+	public enum LogLevel : int
+	{
+		/// <summary>
+		/// Fatal log level.
+		/// </summary>
+		Fatal = 0,
+		/// <summary>
+		/// Error log level. 
+		/// </summary>
+		Error = 1,
+		/// <summary>
+		/// Warning log level.
+		/// </summary>
+		Warning = 2,
+		/// <summary>
+		/// Information log level.
+		/// </summary>
+		Information = 3,
+		/// <summary>
+		/// Verbose log level.
+		/// </summary>
+		Verbose = 4,
+		/// <summary>
+		/// Debug log level.
+		/// </summary>
+		Debug = 5
+	}
 }

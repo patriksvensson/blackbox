@@ -18,25 +18,22 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using BlackBox.Formatting;
 using BlackBox.Formatting.Renderers;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Formatting
 {
-    [TestFixture]
-    public class FormatRendererTypeMapTests
-    {
-        [Test]
-        public void FormatRendererTypeMap_BuildTimeRenderer()
-        {
-            var typeMap = new FormatRendererTypeMap<ILogEntry>();
-            Type type = typeMap.GetRendererType("time");
-            Assert.IsNotNull(type);
-            Assert.AreEqual(typeof(TimeRenderer), type);
-        }
-    }
+	[TestFixture]
+	public class FormatRendererTypeMapTests
+	{
+		[Test]
+		public void FormatRendererTypeMap_BuildTimeRenderer()
+		{
+			var typeMap = new FormatRendererTypeMap();
+			Type type = typeMap.GetRendererType("time");
+			Assert.IsNotNull(type);
+			Assert.AreEqual(typeof(TimeRenderer), type);
+		}
+	}
 }

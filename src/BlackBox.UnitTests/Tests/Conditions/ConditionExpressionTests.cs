@@ -18,193 +18,159 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using BlackBox.Conditions;
+using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests.Conditions
 {
-    [TestFixture]
-    public class ConditionExpressionTests
-    {
-        #region Private Helper Methods
+	[TestFixture]
+	public class ConditionExpressionTests
+	{
+        private ConditionFactory _factory;
 
-        private bool Evaluate(string condition)
-        {
-            return this.Evaluate(condition, "", LogLevel.Information, null);
-        }
+		#region Private Helper Methods
 
-        private bool Evaluate(string condition, string message)
-        {
-            return this.Evaluate(condition, message, LogLevel.Information, null);
-        }
+		protected bool Evaluate(string condition)
+		{
+			return this.Evaluate(condition, "", LogLevel.Information, null, null);
+		}
 
-        private bool Evaluate(string condition, LogLevel level)
-        {
-            return this.Evaluate(condition, "", level, null);
-        }
+		protected bool Evaluate(string condition, string message)
+		{
+			return this.Evaluate(condition, message, LogLevel.Information, null, null);
+		}
 
-        private bool Evaluate(string condition, Exception exception)
-        {
-            return this.Evaluate(condition, "", LogLevel.Information, exception);
-        }
+		protected bool Evaluate(string condition, LogLevel level)
+		{
+			return this.Evaluate(condition, "", level, null, null);
+		}
 
-        private bool Evaluate(string condition, string message, LogLevel level, Exception exception)
+		protected bool Evaluate(string condition, Exception exception)
+		{
+			return this.Evaluate(condition, "", LogLevel.Information, null, exception);
+		}
+
+		protected bool Evaluate(string condition, Type loggerType)
+		{
+			return this.Evaluate(condition, "", LogLevel.Information, loggerType, null);
+		}
+
+		protected bool Evaluate(string condition, string message, LogLevel level, Type loggerType, Exception exception)
+		{
+            ConditionExpression expression = _factory.ParseCondition(condition);
+			Logger logger = new Logger(null, loggerType ?? typeof(ConditionExpressionTests));
+			ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
+			return (bool)expression.Evaluate(entry);
+		}
+
+		#endregion
+
+        #region Test Setup
+
+        [TestFixtureSetUp]
+        public void Setup()
         {
-            ConditionExpression expression = ConditionParser.ParseCondition(condition);
-            Logger logger = new Logger(null, typeof(ConditionExpressionTests));
-            ILogEntry entry = new LogEntry(DateTimeOffset.Now, level, message, logger, exception);
-            return (bool)expression.Evaluate(entry);
+            _factory = new ConditionFactory();
         }
 
         #endregion
 
-        [Test]
-        public void ConditionExpression_EqualsExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("1==2"));
-        }
+		[Test]
+		public void ConditionExpression_EqualsExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("1==2"));
+		}
 
-        [Test]
-        public void ConditionExpression_EqualsExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1==1"));
-        }
+		[Test]
+		public void ConditionExpression_EqualsExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1==1"));
+		}
 
-        [Test]
-        public void ConditionExpression_GreaterThanExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("1>2"));
-        }
+		[Test]
+		public void ConditionExpression_GreaterThanExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("1>2"));
+		}
 
-        [Test]
-        public void ConditionExpression_GreaterThanExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("2>1"));
-        }
+		[Test]
+		public void ConditionExpression_GreaterThanExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("2>1"));
+		}
 
-        [Test]
-        public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("1>=2"));
-        }
+		[Test]
+		public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("1>=2"));
+		}
 
-        [Test]
-        public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1>=1"));
-            Assert.AreEqual(true, this.Evaluate("2>=1"));
-        }
+		[Test]
+		public void ConditionExpression_GreaterThanOrEqualsExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1>=1"));
+			Assert.AreEqual(true, this.Evaluate("2>=1"));
+		}
 
-        [Test]
-        public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("2<=1"));
-        }
+		[Test]
+		public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("2<=1"));
+		}
 
-        [Test]
-        public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1<=1"));
-            Assert.AreEqual(true, this.Evaluate("1<=2"));
-        }
+		[Test]
+		public void ConditionExpression_LessThanOrEqualsExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1<=1"));
+			Assert.AreEqual(true, this.Evaluate("1<=2"));
+		}
 
-        [Test]
-        public void ConditionExpression_LessThanExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("2<1"));
-        }
+		[Test]
+		public void ConditionExpression_LessThanExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("2<1"));
+		}
 
-        [Test]
-        public void ConditionExpression_LessThanExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1<2"));
-        }
+		[Test]
+		public void ConditionExpression_LessThanExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1<2"));
+		}
 
-        [Test]
-        public void ConditionExpression_NotExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("!True"));
-        }
+		[Test]
+		public void ConditionExpression_NotExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("!True"));
+		}
 
-        [Test]
-        public void ConditionExpression_NotExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("!False"));
-        }
+		[Test]
+		public void ConditionExpression_NotExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("!False"));
+		}
 
-        [Test]
-        public void ConditionExpression_OrExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("2==1 OR 1==2"));
-        }
+		[Test]
+		public void ConditionExpression_OrExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("2==1 OR 1==2"));
+		}
 
-        [Test]
-        public void ConditionExpression_OrExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1==1 OR 1==2"));
-        }
+		[Test]
+		public void ConditionExpression_OrExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1==1 OR 1==2"));
+		}
 
-        [Test]
-        public void ConditionExpression_AndExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("1==1 AND 1==2"));
-        }
+		[Test]
+		public void ConditionExpression_AndExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("1==1 AND 1==2"));
+		}
 
-        [Test]
-        public void ConditionExpression_AndExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
-        }
-
-        [Test]
-        public void ConditionExpression_MessageExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("message=='testing'", "testing"));
-        }
-
-        [Test]
-        public void ConditionExpression_MessageExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("message=='testin'", "testing"));
-        }
-
-        [Test]
-        public void ConditionExpression_LogLevelExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("level==1", LogLevel.Information));
-        }
-
-        [Test]
-        public void ConditionExpression_LogLevelExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("level==3", LogLevel.Information));
-        }
-
-        [Test]
-        public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("levelname=='Fatal'", LogLevel.Information));
-        }
-
-        [Test]
-        public void ConditionExpression_LogLevelNameExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("levelname=='Information'", LogLevel.Information));
-        }
-
-        [Test]
-        public void ConditionExpression_HasExceptionExpressionShouldEvaluateToFalse()
-        {
-            Assert.AreEqual(false, this.Evaluate("has-exception==true", (Exception)null));
-        }
-
-        [Test]
-        public void ConditionExpression_HasExceptionExpressionShouldEvaluateToTrue()
-        {
-            Assert.AreEqual(true, this.Evaluate("has-exception==true", new ArgumentException()));
-        }
-    }
+		[Test]
+		public void ConditionExpression_AndExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
+		}
+	}
 }

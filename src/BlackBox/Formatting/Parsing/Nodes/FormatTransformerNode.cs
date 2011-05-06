@@ -17,27 +17,21 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-
 namespace BlackBox.Formatting
 {
-    internal sealed class FormatTransformerNode : FormatRendererNode
-    {
-        private readonly FormatRendererNode _renderer;
+	internal sealed class FormatTransformerNode : FormatRendererNode
+	{
+		private readonly FormatRendererNode _renderer;
 
-        internal FormatRendererNode Renderer
-        {
-            get { return _renderer; }
-        }
+		internal FormatRendererNode Renderer
+		{
+			get { return _renderer; }
+		}
 
-        public FormatTransformerNode(string name, FormatRendererNode renderer)
-            : base(name)
-        {
-            _renderer = renderer;
-        }
-    }
+		public FormatTransformerNode(string name, FormatRendererNode renderer)
+			: base(name)
+		{
+			_renderer = renderer;
+		}
+	}
 }

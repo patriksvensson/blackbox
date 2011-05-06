@@ -17,66 +17,68 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using BlackBox.Conditions;
+using System;
 
 namespace BlackBox
 {
-    /// <summary>
-    /// Log filter that matches when the specified condition evaluates to true.
-    /// </summary>
-    [LogFilterType("condition")]
-    public sealed class ConditionFilter : LogFilter
-    {
-        private ConditionExpression _expression;
+	/// <summary>
+	/// Log filter that matches when the specified condition evaluates to true.
+	/// </summary>
+	[LogFilterType("condition")]
+	public sealed class ConditionFilter : LogFilter
+	{
+		private ConditionExpression _expression;
 
-        /// <summary>
-        /// Gets or sets the condition that will be used by the filter.
-        /// </summary>
-        /// <value>The condition.</value>
-        public string Condition { get; set; }
+		/// <summary>
+		/// Gets or sets the condition that will be used by the filter.
+		/// </summary>
+		/// <value>The condition.</value>
+		public string Condition { get; set; }
 
-        /// <summary>
-        /// Gets or sets the action that will be used if the
-        /// condition evaluates to true.
-        /// </summary>
-        /// <value>The action.</value>
-        public LogFilterResult Action { get; set; }
+		/// <summary>
+		/// Gets or sets the action that will be used if the
+		/// condition evaluates to true.
+		/// </summary>
+		/// <value>The action.</value>
+		public LogFilterResult Action { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionFilter"/> class.
-        /// </summary>
-        public ConditionFilter()
-        {
-            this.Action = LogFilterResult.Filter;
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConditionFilter"/> class.
+		/// </summary>
+		public ConditionFilter()
+		{
+			this.Action = LogFilterResult.Filter;
+		}
 
 		/// <summary>
 		/// Initializes the log filter.
 		/// </summary>
 		/// <param name="context"></param>
-        protected internal override void Initialize(InitializationContext context)
-        {
-            if (string.IsNullOrEmpty(this.Condition))
+		protected internal override void Initialize(InitializationContext context)
+		{
+            if (context == null)
             {
-                throw new BlackBoxException("The filter condition has not been set.");
+                throw new ArgumentNullException("context");
             }
+			if (string.IsNullOrEmpty(this.Condition))
+			{
+				throw new BlackBoxException("The filter condition has not been set.");
+			}
 
-            _expression = ConditionParser.ParseCondition(this.Condition);
-        }
+            // Parse the expression.
+            _expression = context.ConditionFactory.ParseCondition(this.Condition);
+		}
 
-        /// <summary>
-        /// Evaluates the specified entry against the log filter.
-        /// </summary>
-        /// <param name="entry">The entry.</param>
-        /// <returns></returns>
-        protected internal override LogFilterResult Evaluate(ILogEntry entry)
-        {
-            return (bool)_expression.Evaluate(entry) 
-                ? this.Action : LogFilterResult.Neutral;
-        }
-    }
+		/// <summary>
+		/// Evaluates the specified entry against the log filter.
+		/// </summary>
+		/// <param name="entry">The entry.</param>
+		/// <returns></returns>
+		protected internal override LogFilterResult Evaluate(ILogEntry entry)
+		{
+			return (bool)_expression.Evaluate(entry)
+				? this.Action : LogFilterResult.Neutral;
+		}
+	}
 }

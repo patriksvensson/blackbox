@@ -17,122 +17,119 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BlackBox
 {
-    internal sealed class IndexedLinkedList<T> : IEnumerable<T>
-    {
-        private readonly LinkedList<T> _linkedList;
-        private readonly Dictionary<T, LinkedListNode<T>> _index;
+	internal sealed class IndexedLinkedList<T> : IEnumerable<T>
+	{
+		private readonly LinkedList<T> _linkedList;
+		private readonly Dictionary<T, LinkedListNode<T>> _index;
 
-        #region Properties
+		#region Properties
 
-        internal int Count
-        {
-            get { return _linkedList.Count; }
-        }
+		internal int Count
+		{
+			get { return _linkedList.Count; }
+		}
 
-        internal T First
-        {
-            get
-            {
-                return this.Count > 0
-                    ? _linkedList.First.Value
-                    : default(T);
-            }
-        }
+		internal T First
+		{
+			get
+			{
+				return this.Count > 0
+					? _linkedList.First.Value
+					: default(T);
+			}
+		}
 
-        internal T Last
-        {
-            get
-            {
-                return this.Count > 0
-                    ? _linkedList.Last.Value
-                    : default(T);
-            }
-        }
+		internal T Last
+		{
+			get
+			{
+				return this.Count > 0
+					? _linkedList.Last.Value
+					: default(T);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Construction
+		#region Construction
 
-        internal IndexedLinkedList()
-        {
-            _linkedList = new LinkedList<T>();
-            _index = new Dictionary<T, LinkedListNode<T>>();
-        }
+		internal IndexedLinkedList()
+		{
+			_linkedList = new LinkedList<T>();
+			_index = new Dictionary<T, LinkedListNode<T>>();
+		}
 
-        #endregion
+		#endregion
 
-        internal void AddFirst(T item)
-        {
-            _index[item] = _linkedList.AddFirst(item);
-        }
+		internal void AddFirst(T item)
+		{
+			_index[item] = _linkedList.AddFirst(item);
+		}
 
-        internal void AddLast(T item)
-        {
-            _index[item] = _linkedList.AddLast(item);
-        }
+		internal void AddLast(T item)
+		{
+			_index[item] = _linkedList.AddLast(item);
+		}
 
-        internal void Remove(T item)
-        {
-            LinkedListNode<T> node;
-            if (_index.TryGetValue(item, out node))
-            {
-                _linkedList.Remove(node);
-                _index.Remove(item);
-            }
-        }
+		internal void Remove(T item)
+		{
+			LinkedListNode<T> node;
+			if (_index.TryGetValue(item, out node))
+			{
+				_linkedList.Remove(node);
+				_index.Remove(item);
+			}
+		}
 
-        internal void RemoveFirst()
-        {
-            _index.Remove(_linkedList.First.Value);
-            _linkedList.RemoveFirst();
-        }
+		internal void RemoveFirst()
+		{
+			_index.Remove(_linkedList.First.Value);
+			_linkedList.RemoveFirst();
+		}
 
-        internal void RemoveLast()
-        {
-            _index.Remove(_linkedList.Last.Value);
-            _linkedList.RemoveLast();
-        }
+		internal void RemoveLast()
+		{
+			_index.Remove(_linkedList.Last.Value);
+			_linkedList.RemoveLast();
+		}
 
-        internal void Clear()
-        {
-            _linkedList.Clear();
-            _index.Clear();
-        }
+		internal void Clear()
+		{
+			_linkedList.Clear();
+			_index.Clear();
+		}
 
-        #region IEnumerable<T> Members
+		#region IEnumerable<T> Members
 
-        /// <summary>
-        /// Gets the enumerator.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _linkedList.GetEnumerator();
-        }
+		/// <summary>
+		/// Gets the enumerator.
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerator<T> GetEnumerator()
+		{
+			return _linkedList.GetEnumerator();
+		}
 
-        #endregion
+		#endregion
 
-        #region IEnumerable Members
+		#region IEnumerable Members
 
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
-        /// </returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+		/// <summary>
+		/// Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		/// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return this.GetEnumerator();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -18,25 +18,22 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
 
 namespace BlackBox
 {
-    internal sealed class LoggerCollection : KeyedCollection<Type, Logger>
-    {
-        protected override Type GetKeyForItem(Logger item)
-        {
-            #region Guard Statements
-            if (item == null)
-            {
-                throw new InvalidOperationException("item");
-            }
-            #endregion
+	internal sealed class LoggerCollection : KeyedCollection<Type, Logger>
+	{
+		protected override Type GetKeyForItem(Logger item)
+		{
+			#region Guard Statements
+			if (item == null)
+			{
+				throw new InvalidOperationException("item");
+			}
+			#endregion
 
-            return item.Source;
-        }
-    }
+			return item.Source;
+		}
+	}
 }
