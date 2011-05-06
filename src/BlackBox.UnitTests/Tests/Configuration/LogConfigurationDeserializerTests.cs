@@ -39,7 +39,7 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		[Test]
 		public void LogConfigurationDeserializer_LoadAssembly()
 		{
-			string assemblyName = "System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+			string assemblyName = "System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 			string xml = "<BlackBox><Assemblies><Assembly Name=\"" + assemblyName + "\" /></Assemblies></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
 			var configuration = LogConfigurationDeserializer.Deserialize(document);
