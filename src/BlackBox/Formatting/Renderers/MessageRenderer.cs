@@ -17,7 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("message")]
 	internal sealed class MessageRenderer : FormatRenderer

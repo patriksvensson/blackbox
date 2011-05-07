@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BlackBox.Formatting.Transformers
+namespace BlackBox.Formatting
 {
 	[FormatRendererType("truncate")]
 	internal sealed class TruncateTransformer : FormatTransformer

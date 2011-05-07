@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<package> 
+  <metadata> 
+    <id>blackbox</id> 
+    <version>1.0.1</version> 
+    <authors>Patrik Svensson</authors> 
+    <owners>Patrik Svensson</owners>
+    <description>A logging library inspired by log4net, targeting .NET Framework 4.</description> 
+    <projectUrl>http://blackbox-project.org</projectUrl>
+    <licenseUrl>https://github.com/patriksvensson/blackbox/blob/develop/LICENSE.LESSER</licenseUrl>
+    <tags>logging log .net40</tags>
+    <language>en-US</language> 
+  </metadata> 
+</package>

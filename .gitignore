@@ -14,3 +14,5 @@ TestResults
 *.vsdoc
 *.sln.cache
 *.vs10x
+*.nupkg
+blackbox.*.*.*

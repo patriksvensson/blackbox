@@ -1,1 +1,1 @@
-call %windir%\Microsoft.NET\Framework\v3.5\msbuild src/BlackBox.sln /p:Configuration=Release /p:Platform="Any CPU"
+call %windir%\Microsoft.NET\Framework\v4.0.30319\msbuild src/BlackBox.sln /p:Configuration=Release /p:Platform="Any CPU"

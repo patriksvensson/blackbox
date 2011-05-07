@@ -17,7 +17,7 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace BlackBox.Formatting.Renderers
+namespace BlackBox.Formatting
 {
 	internal sealed class LiteralRenderer : FormatRenderer
 	{
