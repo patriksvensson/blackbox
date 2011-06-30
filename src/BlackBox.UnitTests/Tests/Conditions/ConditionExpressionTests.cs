@@ -172,5 +172,11 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		{
 			Assert.AreEqual(true, this.Evaluate("1==1 AND 2==2"));
 		}
+
+		[Test]
+		public void ConditionExpression_NegatedExpressionWithParenthesis()
+		{
+			Assert.AreEqual(true, this.Evaluate("!(False)"));
+		}
 	}
 }

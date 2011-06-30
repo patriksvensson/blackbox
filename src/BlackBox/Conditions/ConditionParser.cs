@@ -148,7 +148,7 @@ namespace BlackBox.Conditions
 			{
 				_tokens.Read();
 				ConditionExpression expression = this.ParseBooleanExpression();
-				_tokens.ExpectToken(ConditionTokenType.ClosingParenthesis);
+				_tokens.ExpectToken(ConditionTokenType.ClosingParenthesis, true /* Consume the closing parenthesis */);
 				return expression;
 			}
 
