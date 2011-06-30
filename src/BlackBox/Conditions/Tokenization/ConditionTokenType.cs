@@ -25,7 +25,7 @@ namespace BlackBox.Conditions
 		String,
 		Keyword,
 		EqualTo,
-		NotEqual,
+		NotEqualTo,
 		GreaterThan,
 		LessThan,
 		GreaterThanOrEqualTo,

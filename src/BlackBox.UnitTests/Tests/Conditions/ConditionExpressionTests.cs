@@ -178,5 +178,17 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		{
 			Assert.AreEqual(true, this.Evaluate("!(False)"));
 		}
+
+		[Test]
+		public void ConditionExpression_NotEqualExpressionShouldEvaluateToTrue()
+		{
+			Assert.AreEqual(true, this.Evaluate("1!=2"));
+		}
+
+		[Test]
+		public void ConditionExpression_NotEqualExpressionShouldEvaluateToFalse()
+		{
+			Assert.AreEqual(false, this.Evaluate("1!=1"));
+		}
 	}
 }

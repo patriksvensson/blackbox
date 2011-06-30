@@ -22,6 +22,7 @@ namespace BlackBox.Conditions
 	internal enum RelationalOperator
 	{
 		EqualTo,
+		NotEqualTo,
 		GreaterThan,
 		GreaterThanOrEqualTo,
 		LessThan,

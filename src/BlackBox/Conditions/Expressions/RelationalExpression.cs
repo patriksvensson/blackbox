@@ -48,6 +48,10 @@ namespace BlackBox.Conditions
 			{
 				return comparer.Compare(leftResult, rightResult) == 0;
 			}
+			else if (_operator == RelationalOperator.NotEqualTo)
+			{
+				return comparer.Compare(leftResult, rightResult) != 0;
+			}
 			else if (_operator == RelationalOperator.GreaterThan)
 			{
 				return comparer.Compare(leftResult, rightResult) > 0;
