@@ -80,6 +80,7 @@ namespace BlackBox.Conditions
 			switch (_operator)
 			{
 				case RelationalOperator.EqualTo: operatorName = "=="; break;
+				case RelationalOperator.NotEqualTo: operatorName = "!="; break;
 				case RelationalOperator.GreaterThan: operatorName = ">"; break;
 				case RelationalOperator.GreaterThanOrEqualTo: operatorName = ">="; break;
 				case RelationalOperator.LessThan: operatorName = "<"; break;
