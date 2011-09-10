@@ -32,7 +32,7 @@ namespace SimpleConfigExample
             // Create the configuration that resides in App.Config.
             LogConfiguration configuration = LogConfiguration.FromConfigSection("BlackBox");
 
-            // Create the log kernel and create a logger.
+			// Create the log kernel and create a logger.
             LogKernel kernel = new LogKernel(configuration);
             ILogger logger = kernel.GetLogger();
 

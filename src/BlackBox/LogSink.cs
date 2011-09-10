@@ -29,7 +29,9 @@ namespace BlackBox
 	{
 		private string _name;
 		private readonly LogFilterCollection _filters;
-		private bool _isInitialized;
+		private IInternalLogger _internalLogger;
+		private bool _isInitialized;		
+		private bool _disposed;
 
 		#region Properties
 
@@ -75,6 +77,15 @@ namespace BlackBox
 			get { return _isInitialized; }
 		}
 
+		/// <summary>
+		/// Gets the internal logger.
+		/// </summary>
+		[SkipSerializationAttribute]
+		protected internal IInternalLogger InternalLogger
+		{
+			get { return _internalLogger; }
+		}
+
 		#endregion
 
 		#region Construction
@@ -106,12 +117,23 @@ namespace BlackBox
 		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool disposing)
 		{
+			if (disposing)
+			{
+				if (!_disposed)
+				{
+					_disposed = true;
+					_internalLogger = null;
+				}
+			}
 		}
 
 		#endregion
 
 		internal virtual void PerformInitialization(InitializationContext context)
 		{
+			// Get the internal logger.
+			_internalLogger = context.InternalLogger;
+
 			// Initalize all filters.
 			this.Filters.Initialize(context);
 

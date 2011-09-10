@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Tests\Formatting\Transformers\TruncateTransformerTests.cs" />
     <Compile Include="Tests\InitializationContextTests.cs" />
+    <Compile Include="Tests\InternalLoggerTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -156,6 +157,8 @@
     <Compile Include="Utilities\Filters\DenyAllFilter.cs" />
     <Compile Include="Utilities\Sinks\MemorySink.cs" />
     <Compile Include="Utilities\Sinks\StringSink.cs" />
+    <Compile Include="Utilities\StringTraceListener.cs" />
+    <Compile Include="Utilities\StringTraceListenerScope.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

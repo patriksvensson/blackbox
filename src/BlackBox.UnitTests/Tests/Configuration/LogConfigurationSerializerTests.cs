@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using NUnit.Framework;
+using System.IO;
 
 namespace BlackBox.UnitTests.Tests.Configuration
 {
@@ -153,6 +154,19 @@ namespace BlackBox.UnitTests.Tests.Configuration
 			Assert.IsTrue(this.HasInstanceOf<LogFilter, LevelMatchFilter>(funnel.Filters));
 			Assert.AreEqual(LogLevel.Warning, this.GetFirst<LogFilter, LevelMatchFilter>(funnel.Filters).Level);
 			Assert.AreEqual(LogFilterResult.Accept, this.GetFirst<LogFilter, LevelMatchFilter>(funnel.Filters).Action);
+		}
+
+		[Test]
+		public void LogConfigurationSerializer_SerializeInternalLoggerSettings()
+		{
+			LogConfiguration config = new LogConfiguration();
+			config.InternalLogger.Enabled = true;
+			config.InternalLogger.Threshold = LogLevel.Warning;
+			LogConfiguration clonedConfig = config.Clone();
+
+			// Make sure it's the same.
+			Assert.IsTrue(config.InternalLogger.Enabled);
+			Assert.AreEqual(LogLevel.Warning, config.InternalLogger.Threshold);
 		}
 	}
 }

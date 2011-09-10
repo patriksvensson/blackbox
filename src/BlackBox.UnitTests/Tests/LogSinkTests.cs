@@ -24,9 +24,31 @@ namespace BlackBox.UnitTests.Tests
 	[TestFixture]
 	public class LogSinkTests
 	{
+		#region Nested Private Test Classes
+		private class TestSink : LogSink
+		{
+			private bool _disposed;
+
+			public bool IsDisposed
+			{
+				get { return _disposed; }
+			}
+
+			protected override void Dispose(bool disposing)
+			{
+				_disposed = true;
+			}
+
+			protected override void WriteEntry(ILogEntry entry)
+			{
+				this.InternalLogger.Write(LogLevel.Information, entry.Message);
+			}
+		}
+		#endregion
+
 		[Test]
 		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Cannot change the name of the sink after initialization.")]
-		public void LogKernel_LogSinkNamesCanNotChangeAfterKernelInstantiation()
+		public void LogSink_LogSinkNamesCanNotChangeAfterKernelInstantiation()
 		{
 			LogConfiguration configuration = new LogConfiguration();
 			StringSink sink = new StringSink { Name = "fake" };
@@ -36,6 +58,45 @@ namespace BlackBox.UnitTests.Tests
 			Assert.AreEqual("fake3", sink.Name);
 			LogKernel kernel = new LogKernel(configuration);
 			sink.Name = "fake4";
+		}
+
+		[Test]
+		public void LogSink_LogSinkHasInternalLogger()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			StringSink sink = new StringSink { Name = "fake" };
+			configuration.Sinks.Add(sink);
+			LogKernel kernel = new LogKernel(configuration);
+			Assert.IsNotNull(sink.InternalLogger);
+		}
+
+		[Test]
+		public void LogSink_InternalLoggerIsRemovedFromSinkWhenDisposed()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			StringSink sink = new StringSink { Name = "fake" };
+			configuration.Sinks.Add(sink);
+			LogKernel kernel = new LogKernel(configuration);
+			Assert.IsNotNull(sink.InternalLogger);
+			kernel.Dispose();
+			Assert.IsNull(sink.InternalLogger);
+		}
+
+		public void LogSink_LogSinkCanWriteToInternalLogger()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			configuration.InternalLogger.Enabled = true;
+			configuration.Sinks.Add(new TestSink());
+			LogKernel kernel = new LogKernel(configuration);
+			ILogger logger = kernel.GetLogger();
+
+			using (StringTraceListenerScope scope = new StringTraceListenerScope())
+			{
+				Assert.AreEqual(0, scope.Listener.Messages.Count);
+				logger.Write(LogLevel.Information, "TestMessage");
+				Assert.AreEqual(1, scope.Listener.Messages.Count);
+				Assert.AreEqual("TestMessage", scope.Listener.Messages[0]);
+			}
 		}
 	}
 }

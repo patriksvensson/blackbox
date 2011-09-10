@@ -93,7 +93,11 @@ namespace BlackBox
 				PropertyInfo[] privateProperties = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
 				foreach (PropertyInfo property in privateProperties)
 				{
-					result.Add(property);
+					// Make sure not to add properties that's already been added.
+					if (!result.Any(x => x.Name.Equals(property.Name, StringComparison.Ordinal)))
+					{
+						result.Add(property);
+					}
 				}
 				type = type.BaseType;
 			}

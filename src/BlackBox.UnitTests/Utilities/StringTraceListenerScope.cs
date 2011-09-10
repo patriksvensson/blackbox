@@ -17,19 +17,39 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using NUnit.Framework;
+using System;
+using System.Diagnostics;
 
-namespace BlackBox.UnitTests.Tests
+namespace BlackBox.UnitTests
 {
-	[TestFixture]
-	public class InitializationContextTests
+	public class StringTraceListenerScope : IDisposable
 	{
-		[Test]
-		public void InitializationContext_CreateNewContext()
+		private bool _disposed;
+		private StringTraceListener _listener;
+
+		public StringTraceListener Listener
 		{
-			InitializationContext context = new InitializationContext(null, null);
-			Assert.IsNotNull(context.FormatPatternFactory);
-            Assert.IsNotNull(context.ConditionFactory);
+			get { return _listener; }
+		}
+
+		public StringTraceListenerScope()
+		{
+			_listener = new StringTraceListener();
+			Trace.Listeners.Add(_listener);
+		}
+
+		public void Dispose()
+		{
+			if (!_disposed)
+			{
+				_disposed = true;
+
+				// Remove the trace listener.
+				Trace.Listeners.Remove(_listener);
+			}
+
+			// Suppress the finalizer.
+			GC.SuppressFinalize(this);
 		}
 	}
 }

@@ -25,6 +25,13 @@ namespace BlackBox.UnitTests.Tests.Configuration
 	public class LogConfigurationTests
 	{
 		[Test]
+		public void InternalLogger_ConfigurationHasInternalLogger()
+		{
+			LogConfiguration configuration = new LogConfiguration();
+			Assert.IsNotNull(configuration.InternalLogger, "The internal logger should not be null.");
+		}
+
+		[Test]
 		public void LogConfiguration_LoadConfigurationFromDefaultConfigSection()
 		{
 			LogConfiguration configuration = LogConfiguration.FromConfigSection();

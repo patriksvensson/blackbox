@@ -204,5 +204,25 @@ namespace BlackBox.UnitTests.Tests.Configuration
 			Assert.AreEqual(1, configuration.Sinks[0].Filters.Count);
 			Assert.IsInstanceOf(typeof(LevelMatchFilter), configuration.Sinks[0].Filters[0]);
 		}
+
+		[Test]
+		public void LogConfigurationSerializer_InternalLoggerSettingsCanBeDeserialized()
+		{
+			string xml = @"<BlackBox><InternalLogger><Enabled>True</Enabled><Threshold>Warning</Threshold></InternalLogger></BlackBox>";
+			XDocument document = XDocument.Parse(xml);
+			var configuration = LogConfigurationDeserializer.Deserialize(document);
+			Assert.IsTrue(configuration.InternalLogger.Enabled);
+			Assert.AreEqual(LogLevel.Warning, configuration.InternalLogger.Threshold);
+		}
+
+		[Test]
+		public void LogConfigurationSerializer_InternalLoggerSettingsAsAttributesCanBeDeserialized()
+		{
+			string xml = @"<BlackBox><InternalLogger Enabled=""True"" Threshold=""Warning""></InternalLogger></BlackBox>";
+			XDocument document = XDocument.Parse(xml);
+			var configuration = LogConfigurationDeserializer.Deserialize(document);
+			Assert.IsTrue(configuration.InternalLogger.Enabled);
+			Assert.AreEqual(LogLevel.Warning, configuration.InternalLogger.Threshold);
+		}
 	}
 }

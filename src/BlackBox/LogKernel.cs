@@ -20,6 +20,8 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace BlackBox
 {
@@ -104,7 +106,9 @@ namespace BlackBox
 				_configuration = configuration ?? new LogConfiguration();
 
 				// Initialize the configuration.
-				using (var context = new InitializationContext(_configuration.Assemblies))
+				IEnumerable<Assembly> assemblies = _configuration.Assemblies;
+				IInternalLogger internalLogger = _configuration.InternalLogger;
+				using (var context = new InitializationContext(assemblies, internalLogger))
 				{
 					_configuration.Initialize(context);
 				}

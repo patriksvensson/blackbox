@@ -17,19 +17,33 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using NUnit.Framework;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace BlackBox.UnitTests.Tests
+namespace BlackBox.UnitTests
 {
-	[TestFixture]
-	public class InitializationContextTests
+	public class StringTraceListener : TraceListener
 	{
-		[Test]
-		public void InitializationContext_CreateNewContext()
+		private List<string> _messages;
+
+		public List<string> Messages
 		{
-			InitializationContext context = new InitializationContext(null, null);
-			Assert.IsNotNull(context.FormatPatternFactory);
-            Assert.IsNotNull(context.ConditionFactory);
+			get { return _messages; }
+		}
+
+		public StringTraceListener()
+		{
+			_messages = new List<string>();
+		}
+
+		public override void Write(string message)
+		{
+			_messages.Add(message);
+		}
+
+		public override void WriteLine(string message)
+		{
+			_messages.Add(message);
 		}
 	}
 }
