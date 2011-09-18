@@ -74,6 +74,7 @@
     <Compile Include="Conditions\Expressions\MethodExpressionAttribute.cs" />
     <Compile Include="Conditions\Expressions\Methods\StartsWithMethodExpression.cs" />
     <Compile Include="Conditions\Tokenization\ConditionTokenBuffer.cs" />
+    <Compile Include="Extensions\LoggerExtensions.cs" />
     <Compile Include="Formatting\Transformers\TruncateTransformer.cs" />
     <Compile Include="IInternalLogger.cs" />
     <Compile Include="InitializationContext.cs" />

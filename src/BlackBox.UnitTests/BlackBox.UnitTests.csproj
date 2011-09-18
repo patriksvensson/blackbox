@@ -90,6 +90,7 @@
     <Compile Include="Tests\Extensions\LogFilterExtensionsTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Extensions\LoggerExtensionsTests.cs" />
     <Compile Include="Tests\Extensions\LogSinkExtensionsTests.cs">
       <SubType>Code</SubType>
     </Compile>
