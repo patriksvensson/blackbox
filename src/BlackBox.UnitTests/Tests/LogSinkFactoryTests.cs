@@ -31,7 +31,7 @@ namespace BlackBox.UnitTests.Tests
 		{
 			LogSinkFactory factory = new LogSinkFactory();
 			Assert.IsNotNull(factory.Types);
-			Assert.AreEqual(9, factory.Types.Count);
+			Assert.AreEqual(10, factory.Types.Count);
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("funnel"));
@@ -43,10 +43,11 @@ namespace BlackBox.UnitTests.Tests
 			Assert.IsTrue(factory.Types.ContainsKey("trace"));
 			Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
 			Assert.IsTrue(factory.Types.ContainsKey("circular"));
+			Assert.IsFalse(factory.Types.ContainsKey("true"));
 
 			// But not the unit test sinks.
 			Assert.IsFalse(factory.Types.ContainsKey("memory"));
-			Assert.IsFalse(factory.Types.ContainsKey("string"));
+			Assert.IsFalse(factory.Types.ContainsKey("string"));			
 		}
 
 		[Test]
@@ -55,7 +56,7 @@ namespace BlackBox.UnitTests.Tests
 			List<Assembly> assemblies = new List<Assembly> { this.GetType().Assembly };
 			LogSinkFactory factory = new LogSinkFactory(assemblies);
 			Assert.IsNotNull(factory.Types);
-			Assert.AreEqual(11, factory.Types.Count);
+			Assert.AreEqual(12, factory.Types.Count);
 
 			// The standard sinks should be available.
 			Assert.IsTrue(factory.Types.ContainsKey("funnel"));
@@ -67,10 +68,11 @@ namespace BlackBox.UnitTests.Tests
 			Assert.IsTrue(factory.Types.ContainsKey("trace"));
 			Assert.IsTrue(factory.Types.ContainsKey("eventlog"));
 			Assert.IsTrue(factory.Types.ContainsKey("circular"));
+			Assert.IsTrue(factory.Types.ContainsKey("async"));
 
 			// But not the unit test sinks.
 			Assert.IsTrue(factory.Types.ContainsKey("memory"));
-			Assert.IsTrue(factory.Types.ContainsKey("string"));
+			Assert.IsTrue(factory.Types.ContainsKey("string"));			
 		}
 
 		[Test]
