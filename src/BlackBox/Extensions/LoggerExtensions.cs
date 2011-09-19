@@ -36,7 +36,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Fatal(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Fatal, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Fatal, message);
+			}
         }
 
         /// <summary>
@@ -47,7 +50,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Fatal(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Fatal, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Fatal, format, args);
+			}
         }
 
         /// <summary>
@@ -57,7 +63,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Error(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Error, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Error, message);
+			}
         }
 
         /// <summary>
@@ -68,7 +77,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Error(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Error, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Error, format, args);
+			}
         }
 
         /// <summary>
@@ -78,7 +90,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Warning(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Warning, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Warning, message);
+			}
         }
 
         /// <summary>
@@ -89,7 +104,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Warning(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Warning, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Warning, format, args);
+			}
         }
 
         /// <summary>
@@ -99,7 +117,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Information(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Information, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Information, message);
+			}
         }
 
         /// <summary>
@@ -110,7 +131,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Information(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Information, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Information, format, args);
+			}
         }
 
         /// <summary>
@@ -120,7 +144,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Verbose(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Verbose, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Verbose, message);
+			}
         }
 
         /// <summary>
@@ -131,7 +158,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Verbose(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Verbose, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Verbose, format, args);
+			}
         }
 
         /// <summary>
@@ -141,7 +171,10 @@ namespace BlackBox
         /// <param name="message"></param>
         public static void Debug(this ILogger logger, string message)
         {
-            logger.Write(LogLevel.Debug, message);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Debug, message);
+			}
         }
 
         /// <summary>
@@ -152,7 +185,10 @@ namespace BlackBox
         /// <param name="args"></param>
         public static void Debug(this ILogger logger, string format, params object[] args)
         {
-            logger.Write(LogLevel.Debug, format, args);
+			if (logger != null)
+			{
+				logger.Write(LogLevel.Debug, format, args);
+			}
         }
     }
 }
