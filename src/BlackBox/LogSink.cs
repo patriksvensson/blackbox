@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BlackBox
 {
@@ -29,7 +30,9 @@ namespace BlackBox
 	{
 		private string _name;
 		private readonly LogFilterCollection _filters;
-		private bool _isInitialized;
+		private IInternalLogger _internalLogger;
+		private bool _isInitialized;		
+		private bool _disposed;
 
 		#region Properties
 
@@ -75,6 +78,15 @@ namespace BlackBox
 			get { return _isInitialized; }
 		}
 
+		/// <summary>
+		/// Gets the internal logger.
+		/// </summary>
+		[SkipSerializationAttribute]
+		protected internal IInternalLogger InternalLogger
+		{
+			get { return _internalLogger; }
+		}
+
 		#endregion
 
 		#region Construction
@@ -106,12 +118,23 @@ namespace BlackBox
 		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool disposing)
 		{
+			if (disposing)
+			{
+				if (!_disposed)
+				{
+					_disposed = true;
+					_internalLogger = null;
+				}
+			}
 		}
 
 		#endregion
 
 		internal virtual void PerformInitialization(InitializationContext context)
 		{
+			// Get the internal logger.
+			_internalLogger = context.InternalLogger;
+
 			// Initalize all filters.
 			this.Filters.Initialize(context);
 
@@ -134,11 +157,21 @@ namespace BlackBox
 		/// Writes the specified entry to the log sink.
 		/// </summary>
 		/// <param name="entry">The entry.</param>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification="We want to catch ALL exceptions, since we don't want this method to ever fail.")]
 		public void Write(ILogEntry entry)
 		{
-			if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+			try
 			{
-				this.WriteEntry(entry);
+				if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+				{
+					this.WriteEntry(entry);
+				}
+			}
+			catch(Exception ex)
+			{
+				// Catching general exception types like this is normally bad practice,
+				// but we really don't want something like logging to throw exceptions.
+				this.WriteExceptionToInternalLog(ex);			
 			}
 		}
 
@@ -146,25 +179,35 @@ namespace BlackBox
 		/// Writes the specified entries to the log sink.
 		/// </summary>
 		/// <param name="entries">The entries.</param>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to catch ALL exceptions, since we don't want this method to ever fail.")]
 		public void Write(ILogEntry[] entries)
 		{
 			if (entries == null)
 			{
-				throw new ArgumentNullException("entries");
+				return;
 			}
 
-			List<ILogEntry> entryList = new List<ILogEntry>();
-			foreach (ILogEntry entry in entries)
+			try
 			{
-				if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+				List<ILogEntry> entryList = new List<ILogEntry>();
+				foreach (ILogEntry entry in entries)
 				{
-					entryList.Add(entry);
+					if (this.Filters.Evaluate(entry) != LogFilterResult.Filter)
+					{
+						entryList.Add(entry);
+					}
+				}
+
+				if (entryList.Count > 0)
+				{
+					this.WriteEntries(entryList.ToArray());
 				}
 			}
-
-			if (entryList.Count > 0)
+			catch(Exception ex)
 			{
-				this.WriteEntries(entryList.ToArray());
+				// Catching general exception types like this is normally bad practice,
+				// but we really don't want something like logging to throw exceptions.
+				this.WriteExceptionToInternalLog(ex);
 			}
 		}
 
@@ -189,6 +232,27 @@ namespace BlackBox
 			{
 				this.Write(entry);
 			}
+		}
+
+		private void WriteExceptionToInternalLog(Exception ex)
+		{
+			// Create the message.
+			string message = string.Empty;
+			if (string.IsNullOrEmpty(this.Name))
+			{
+				// The sink got no name.
+				message = "An unnamed sink of type '{0}' threw an exception. {1}";
+				message = string.Format(CultureInfo.InvariantCulture, message, this.GetType().FullName, ex.Message);
+			}
+			else
+			{
+				// The sink got a name.
+				message = "The sink '{0}' ({1}) threw an exception. {2}";
+				message = string.Format(CultureInfo.InvariantCulture, message, this.Name, this.GetType().FullName, ex.Message);
+			}
+
+			// Write the message to the internal log.
+			this.InternalLogger.Write(LogLevel.Error, message);
 		}
 	}
 }

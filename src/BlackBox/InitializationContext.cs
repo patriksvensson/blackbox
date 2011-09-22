@@ -33,6 +33,8 @@ namespace BlackBox
 	{
 		private readonly FormatPatternFactory _formatPatternFactory;
         private readonly ConditionFactory _conditionFactory;
+		private IInternalLogger _internalLogger;
+		private bool _disposed;
 
 		/// <summary>
 		/// Gets the format pattern factory.
@@ -49,16 +51,21 @@ namespace BlackBox
         internal ConditionFactory ConditionFactory
         {
             get { return _conditionFactory; }
-        } 
+        }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InitializationContext"/> class.
+		/// Gets the internal logger.
 		/// </summary>
-		/// <param name="assemblies">The assemblies.</param>
-		internal InitializationContext(IEnumerable<Assembly> assemblies)
+		public IInternalLogger InternalLogger
+		{
+			get { return _internalLogger; }
+		}
+
+		internal InitializationContext(IEnumerable<Assembly> assemblies, IInternalLogger internalLogger)
 		{
 			_formatPatternFactory = new FormatPatternFactory(new FormatRendererTypeMap(assemblies));
             _conditionFactory = new ConditionFactory(assemblies);
+			_internalLogger = internalLogger;
 		}
 
 		#region IDisposable Members
@@ -68,6 +75,20 @@ namespace BlackBox
 		/// </summary>
 		public void Dispose()
 		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (!_disposed)
+				{
+					_disposed = true;
+					_internalLogger = null;					
+				}
+			}
 		}
 
 		#endregion

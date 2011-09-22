@@ -34,6 +34,7 @@ namespace BlackBox
 		private readonly LogSinkCollection _sinks;
 		private readonly AssemblyCollection _assemblies;
 		private readonly LogFilterCollection _filters;
+		private readonly InternalLogger _internalLogger;
 		private bool _disposed;
 
 		#region Properties
@@ -65,6 +66,14 @@ namespace BlackBox
 			get { return _filters; }
 		}
 
+		/// <summary>
+		/// Gets the internal logger.
+		/// </summary>
+		public IInternalLogger InternalLogger
+		{
+			get { return _internalLogger; }
+		}
+
 		#endregion
 
 		#region Construction
@@ -77,6 +86,7 @@ namespace BlackBox
 			_sinks = new LogSinkCollection();
 			_assemblies = new AssemblyCollection();
 			_filters = new LogFilterCollection();
+			_internalLogger = new InternalLogger();
 		}
 
 		#endregion

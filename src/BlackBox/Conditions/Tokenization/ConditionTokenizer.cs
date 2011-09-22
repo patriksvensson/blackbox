@@ -160,7 +160,7 @@ namespace BlackBox.Conditions
 				if (character == '!' && nextCharacter == '=')
 				{
 					_buffer.Read();
-					return new ConditionToken(ConditionTokenType.NotEqual, "!=");
+					return new ConditionToken(ConditionTokenType.NotEqualTo, "!=");
 				}
 				else if (character == '&' && nextCharacter == '&')
 				{

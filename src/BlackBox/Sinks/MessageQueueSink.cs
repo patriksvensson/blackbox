@@ -153,10 +153,12 @@ namespace BlackBox
 					_messageQueue.Send(message);
 				}
 			}
-			catch (MessageQueueException)
+			catch (MessageQueueException ex)
 			{
 				// There was an error sending the message.
-				// TODO: Write to internal logger.
+				// Write an error message to the internal log.
+				string message = string.Format(CultureInfo.InvariantCulture, "An exception occured while sending MSMQ message. {0}", ex.Message);
+				this.InternalLogger.Write(LogLevel.Error, message);
 			}
 		}
 	}

@@ -90,6 +90,7 @@
     <Compile Include="Tests\Extensions\LogFilterExtensionsTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Extensions\LoggerExtensionsTests.cs" />
     <Compile Include="Tests\Extensions\LogSinkExtensionsTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +137,7 @@
     </Compile>
     <Compile Include="Tests\Formatting\Transformers\TruncateTransformerTests.cs" />
     <Compile Include="Tests\InitializationContextTests.cs" />
+    <Compile Include="Tests\InternalLoggerTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -149,6 +151,7 @@
     <Compile Include="Tests\LogSinkTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Sinks\Proxies\AsyncProxyTests.cs" />
     <Compile Include="Tests\Sinks\Proxies\BufferProxyTests.cs" />
     <Compile Include="Tests\Sinks\Proxies\CircularProxyTests.cs">
       <SubType>Code</SubType>
@@ -156,6 +159,8 @@
     <Compile Include="Utilities\Filters\DenyAllFilter.cs" />
     <Compile Include="Utilities\Sinks\MemorySink.cs" />
     <Compile Include="Utilities\Sinks\StringSink.cs" />
+    <Compile Include="Utilities\StringTraceListener.cs" />
+    <Compile Include="Utilities\StringTraceListenerScope.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

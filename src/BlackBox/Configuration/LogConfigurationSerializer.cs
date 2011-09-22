@@ -52,6 +52,11 @@ namespace BlackBox
 				writer.WriteStartDocument();
 				writer.WriteStartElement("BlackBox");
 
+				if (_configuration.InternalLogger.Enabled)
+				{
+					this.SerializeInternalLogger(writer, _configuration.InternalLogger);
+				}
+
 				if (_configuration.Assemblies.Count > 0)
 				{
 					this.SerializeAssemblies(writer, _configuration.Assemblies);
@@ -77,6 +82,16 @@ namespace BlackBox
 
 			// Return the XML as an XDocument.
 			return XDocument.Parse(builder.ToString());
+		}
+
+		private void SerializeInternalLogger(XmlWriter writer, IInternalLogger internalLogger)
+		{
+			if (internalLogger.Enabled)
+			{
+				writer.WriteStartElement("InternalLogger");
+				this.SerializeProperties(writer, internalLogger);
+				writer.WriteEndElement();
+			}
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]

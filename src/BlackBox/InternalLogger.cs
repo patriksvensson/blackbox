@@ -17,19 +17,27 @@
 // along with BlackBox. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using NUnit.Framework;
+using System.Diagnostics;
 
-namespace BlackBox.UnitTests.Tests
+namespace BlackBox
 {
-	[TestFixture]
-	public class InitializationContextTests
+	internal sealed class InternalLogger : IInternalLogger
 	{
-		[Test]
-		public void InitializationContext_CreateNewContext()
+		public bool Enabled { get; set; }
+		public LogLevel Threshold { get; set; }
+
+		public InternalLogger()
 		{
-			InitializationContext context = new InitializationContext(null, null);
-			Assert.IsNotNull(context.FormatPatternFactory);
-            Assert.IsNotNull(context.ConditionFactory);
+			this.Enabled = false;
+			this.Threshold = LogLevel.Verbose;
+		}
+
+		public void Write(LogLevel level, string message)
+		{
+			if (this.Enabled && this.Threshold >= level)
+			{
+				Trace.WriteLine(string.Concat("[BLACKBOX] ", message));
+			}
 		}
 	}
 }

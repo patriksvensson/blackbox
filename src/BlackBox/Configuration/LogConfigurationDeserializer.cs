@@ -23,6 +23,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using System.ComponentModel;
 
 namespace BlackBox
 {
@@ -53,6 +54,13 @@ namespace BlackBox
 			{
 				string message = "Could not find start element 'BlackBox' in configuration.";
 				throw new BlackBoxException(message);
+			}
+
+			// Parse the internal logger settings in the configuration file.
+			XElement internalLoggerRoot = rootElement.Element("InternalLogger");
+			if (internalLoggerRoot != null)
+			{
+				this.DeserializeInternalLoggerSettings(internalLoggerRoot, configuration);
 			}
 
 			// Parse the assemblies in the configuration file.
@@ -93,6 +101,17 @@ namespace BlackBox
 
 			// Return the configuration.
 			return configuration;
+		}
+
+		private void DeserializeInternalLoggerSettings(XElement internalLoggerRoot, LogConfiguration configuration)
+		{
+			// Parse any arguments.
+			IDictionary<string, string> arguments = this.ParseArguments(internalLoggerRoot);
+			if (arguments != null)
+			{
+				// Map the arguments to the logger.
+				this.MapArguments(configuration.InternalLogger, arguments);
+			}
 		}
 
 		#region Assembly Deserialization
@@ -261,8 +280,11 @@ namespace BlackBox
 		#endregion
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-		private IDictionary<string, string> ParseArguments(XElement element, string[] ignoredAttributes, string[] ignoredElements)
+		private IDictionary<string, string> ParseArguments(XElement element, string[] ignoredAttributes = null, string[] ignoredElements = null)
 		{
+			ignoredAttributes = ignoredAttributes ?? new string[0];
+			ignoredElements = ignoredElements ?? new string[0];
+
 			var arguments = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
 			// Iterate through all attributes.
@@ -290,6 +312,48 @@ namespace BlackBox
 			}
 
 			return arguments;
+		}
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+		private void MapArguments<T>(T obj, IDictionary<string, string> arguments)
+			where T : class
+		{
+			#region Guard Statements
+			if (obj == null)
+			{
+				throw new ArgumentNullException("obj");
+			}
+			if (arguments == null)
+			{
+				throw new ArgumentNullException("arguments");
+			}
+			#endregion
+
+			// Get identifier to property mappings.
+			var mappings = new Dictionary<string, PropertyInfo>(StringComparer.OrdinalIgnoreCase);
+			foreach (PropertyInfo property in obj.GetType().GetAllProperties())
+			{
+				mappings.Add(property.Name, property);
+			}
+
+			// Iterate through all keys in the argument dictionary.
+			foreach (KeyValuePair<string, string> argument in arguments)
+			{
+				// Got a property mapping?
+				if (mappings.ContainsKey(argument.Key))
+				{
+					// Get the property's type.
+					Type propertyType = mappings[argument.Key].PropertyType;
+
+					// Get the type converter.
+					var typeConverter = TypeDescriptor.GetConverter(propertyType);
+					if (typeConverter != null && typeConverter.CanConvertFrom(typeof(string)))
+					{
+						object value = typeConverter.ConvertFromInvariantString(argument.Value);
+						mappings[argument.Key].SetValue(obj, value, null);
+					}
+				}
+			}
 		}
 	}
 }

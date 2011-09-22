@@ -101,11 +101,17 @@ namespace BlackBox.Conditions
 			// Still got tokens?
 			if (_tokens.Current != null)
 			{
-				// Equality?
+				// Equal to?
 				if (_tokens.Current.TokenType == ConditionTokenType.EqualTo)
 				{
 					_tokens.Read();
 					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.EqualTo);
+				}
+				// Not equal to?
+				if (_tokens.Current.TokenType == ConditionTokenType.NotEqualTo)
+				{
+					_tokens.Read();
+					return new RelationalExpression(expression, this.ParseLiteralExpression(), RelationalOperator.NotEqualTo);
 				}
 				// Greater than?
 				if (_tokens.Current.TokenType == ConditionTokenType.GreaterThan)
@@ -148,7 +154,7 @@ namespace BlackBox.Conditions
 			{
 				_tokens.Read();
 				ConditionExpression expression = this.ParseBooleanExpression();
-				_tokens.ExpectToken(ConditionTokenType.ClosingParenthesis);
+				_tokens.ExpectToken(ConditionTokenType.ClosingParenthesis, true /* Consume the closing parenthesis */);
 				return expression;
 			}
 
