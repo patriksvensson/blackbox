@@ -43,18 +43,18 @@ namespace BlackBox.Formatting
 			get { return _format; }
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FormatPattern"/> class.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="renderers">The renderers.</param>
 		internal FormatPattern(string format, FormatRenderer[] renderers)
 		{
 			_format = format;
 			_renderers = renderers;
 		}
 
-		internal string Render(ILogEntry context)
+		/// <summary>
+		/// Renders the format pattern using the specified context.
+		/// </summary>
+		/// <param name="context">The context.</param>
+		/// <returns></returns>
+		public string Render(ILogEntry context)
 		{
 			StringBuilder accumulator = new StringBuilder();
 			foreach (FormatRenderer renderer in _renderers)
