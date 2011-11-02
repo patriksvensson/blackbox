@@ -104,6 +104,7 @@ namespace BlackBox.UnitTests.Tests
 			Assert.IsNull(sink.InternalLogger);
 		}
 
+		[Test]
 		public void LogSink_LogSinkCanWriteToInternalLogger()
 		{
 			LogConfiguration configuration = new LogConfiguration();
@@ -117,7 +118,7 @@ namespace BlackBox.UnitTests.Tests
 				Assert.AreEqual(0, scope.Listener.Messages.Count);
 				logger.Write(LogLevel.Information, "TestMessage");
 				Assert.AreEqual(1, scope.Listener.Messages.Count);
-				Assert.AreEqual("TestMessage", scope.Listener.Messages[0]);
+				Assert.AreEqual("[BLACKBOX] TestMessage", scope.Listener.Messages[0]);
 			}
 		}
 
