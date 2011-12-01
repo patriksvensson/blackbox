@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BlackBox
 {
@@ -119,6 +120,7 @@ namespace BlackBox
 		/// Gets the logger for the calling type.
 		/// </summary>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.NoInlining)]
 		public ILogger GetLogger()
 		{
 			if (_disposed)
