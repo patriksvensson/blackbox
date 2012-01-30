@@ -138,6 +138,7 @@
     <Compile Include="Tests\Formatting\Transformers\TruncateTransformerTests.cs" />
     <Compile Include="Tests\InitializationContextTests.cs" />
     <Compile Include="Tests\InternalLoggerTests.cs" />
+    <Compile Include="Tests\LogFacadeTests.cs" />
     <Compile Include="Tests\LogFilterFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>

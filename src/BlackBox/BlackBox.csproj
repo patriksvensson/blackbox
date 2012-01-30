@@ -79,6 +79,7 @@
     <Compile Include="IInternalLogger.cs" />
     <Compile Include="InitializationContext.cs" />
     <Compile Include="InternalLogger.cs" />
+    <Compile Include="LogFacade.cs" />
     <Compile Include="Serialization\SkipSerializationAttribute.cs" />
     <Compile Include="Configuration\LogConfigurationDeserializer.cs" />
     <Compile Include="Configuration\LogConfigurationSectionHandler.cs" />
