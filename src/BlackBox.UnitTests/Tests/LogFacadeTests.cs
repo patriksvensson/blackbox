@@ -25,60 +25,66 @@ using NUnit.Framework;
 
 namespace BlackBox.UnitTests.Tests
 {
-	[TestFixture]
-	public class LogFacadeTests
-	{
-		[Test]
-		public void LogFacade_Configure_Accepts_Valid_Configuration()
-		{
-			LogFacade facade = new LogFacade();
-			LogConfiguration configuration = new LogConfiguration();
-			facade.Configure(configuration);
-		}
+    [TestFixture]
+    public class LogFacadeTests
+    {
+        [Test]
+        public void LogFacade_Configure_Accepts_Valid_Configuration()
+        {
+            LogFacade facade = new LogFacade();
+            LogConfiguration configuration = new LogConfiguration();
+            facade.Configure(configuration);
+        }
 
-		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentNullException))]
-		public void LogFacade_Configure_Throws_If_Configuration_Is_Null()
-		{
-			LogFacade facade = new LogFacade();
-			facade.Configure((LogConfiguration)null);
-		}
+        [Test]
+        public void LogFacade_Configure_Throws_If_Configuration_Is_Null()
+        {
+            LogFacade facade = new LogFacade();
+            Assert.That(() => facade.Configure((LogConfiguration)null),
+                Throws.Exception.TypeOf<ArgumentNullException>()
+                .With.Property("Message").EqualTo("Value cannot be null.\r\nParameter name: configuration")
+                .And.Property("ParamName").EqualTo("configuration"));
+        }
 
-		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The log facade has not been configured.")]
-		public void LogFacade_GetLogger_Throws_If_Kernel_Has_Not_Been_Configured()
-		{
-			LogFacade facade = new LogFacade();
-			facade.GetLogger();
-		}
+        [Test]
+        public void LogFacade_GetLogger_Throws_If_Kernel_Has_Not_Been_Configured()
+        {
+            LogFacade facade = new LogFacade();           
+            Assert.That(() => facade.GetLogger(),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message")
+                .EqualTo("The log facade has not been configured."));
+        }
 
-		[Test]
-		[ExpectedException(ExpectedException=typeof(ArgumentNullException))]
-		public void LogFacade_GetLogger_Throws_If_Logger_Type_Is_Null()
-		{
-			LogFacade facade = new LogFacade();
-			LogConfiguration configuration = new LogConfiguration();
-			facade.GetLogger((Type)null);
-		}
+        [Test]
+        public void LogFacade_GetLogger_Throws_If_Logger_Type_Is_Null()
+        {
+            LogFacade facade = new LogFacade();
+            LogConfiguration configuration = new LogConfiguration();
+            Assert.That(() => facade.GetLogger((Type)null),
+                Throws.Exception.TypeOf<ArgumentNullException>()
+                .With.Property("Message").EqualTo("Value cannot be null.\r\nParameter name: type")
+                .And.Property("ParamName").EqualTo("type"));
+        }
 
-		[Test]
-		public void LogFacade_Can_Infer_Logger_Source_From_Call_stack()
-		{
-			LogFacade facade = new LogFacade();
-			LogConfiguration configuration = new LogConfiguration();
-			facade.Configure(configuration);
-			ILogger logger = facade.GetLogger();
-			Assert.AreEqual(typeof(LogFacadeTests), logger.Source);
-		}
+        [Test]
+        public void LogFacade_Can_Infer_Logger_Source_From_Call_stack()
+        {
+            LogFacade facade = new LogFacade();
+            LogConfiguration configuration = new LogConfiguration();
+            facade.Configure(configuration);
+            ILogger logger = facade.GetLogger();
+            Assert.AreEqual(typeof(LogFacadeTests), logger.Source);
+        }
 
-		[Test]
-		public void LogFacade_Will_Return_Logger_For_Expected_Source()
-		{
-			LogFacade facade = new LogFacade();
-			LogConfiguration configuration = new LogConfiguration();
-			facade.Configure(configuration);
-			ILogger logger = facade.GetLogger(typeof(System.String));
-			Assert.AreEqual(typeof(System.String), logger.Source);
-		}
-	}
+        [Test]
+        public void LogFacade_Will_Return_Logger_For_Expected_Source()
+        {
+            LogFacade facade = new LogFacade();
+            LogConfiguration configuration = new LogConfiguration();
+            facade.Configure(configuration);
+            ILogger logger = facade.GetLogger(typeof(System.String));
+            Assert.AreEqual(typeof(System.String), logger.Source);
+        }
+    }
 }

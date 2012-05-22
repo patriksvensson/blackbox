@@ -20,6 +20,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
+using System.Reflection.Emit;
 
 namespace BlackBox.UnitTests.Tests
 {

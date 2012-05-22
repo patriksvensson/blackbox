@@ -45,27 +45,30 @@ namespace BlackBox.UnitTests.Tests.Filters
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level has not been set.")]
 		public void LevelRangeFilter_ThrowsIfMinLevelIsNotSetAtInitialization()
 		{
 			LevelRangeFilter filter = new LevelRangeFilter { MaxLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
-			filter.Initialize(null);
+            Assert.That(() => filter.Initialize(null),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("The minimum log level has not been set."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The maximum log level has not been set.")]
 		public void LevelRangeFilter_ThrowsIfMaxLevelIsNotSetAtInitialization()
 		{
 			LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, Action = LogFilterResult.Accept };
-			filter.Initialize(null);
+            Assert.That(() => filter.Initialize(null),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("The maximum log level has not been set."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The minimum log level must be less or equal to the maximum log level.")]
 		public void LevelRangeFilter_ThrowsIfMinimumLevelIsGreaterThanMaximumLevelAtInitialization()
 		{
 			LevelRangeFilter filter = new LevelRangeFilter { MinLevel = LogLevel.Debug, MaxLevel = LogLevel.Verbose, Action = LogFilterResult.Accept };
-			filter.Initialize(null);
+            Assert.That(() => filter.Initialize(null),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("The minimum log level must be less or equal to the maximum log level."));
 		}
 	}
 }

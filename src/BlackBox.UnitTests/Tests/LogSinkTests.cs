@@ -69,7 +69,6 @@ namespace BlackBox.UnitTests.Tests
 		#endregion
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Cannot change the name of the sink after initialization.")]
 		public void LogSink_LogSinkNamesCanNotChangeAfterKernelInstantiation()
 		{
 			LogConfiguration configuration = new LogConfiguration();
@@ -79,7 +78,9 @@ namespace BlackBox.UnitTests.Tests
 			configuration.Sinks.Add(sink);
 			Assert.AreEqual("fake3", sink.Name);
 			LogKernel kernel = new LogKernel(configuration);
-			sink.Name = "fake4";
+            Assert.That(() => sink.Name = "fake4", 
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("Cannot change the name of the sink after initialization."));
 		}
 
 		[Test]
@@ -179,7 +180,7 @@ namespace BlackBox.UnitTests.Tests
 		}
 
 		[Test]
-		public void LogSinkProxy_UnhandledExceptionsInLogSinkProxyAreHandledAndWrittenToInternalLogWhenWritingMoreThanOneMessage_LogSinkGotNoName()
+		public void LogSink_UnhandledExceptionsInLogSinkProxyAreHandledAndWrittenToInternalLogWhenWritingMoreThanOneMessage_LogSinkGotNoName()
 		{
 			// This test is using the buffer proxy to buffer up messages and
 			// indirectly use the LogSink.Write(ILogEntry[]) overload on the sink.			

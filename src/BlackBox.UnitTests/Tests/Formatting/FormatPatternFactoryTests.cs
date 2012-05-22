@@ -50,11 +50,12 @@ namespace BlackBox.UnitTests.Tests.Formatting
 		}
 
 		[Test]
-		[ExpectedException(typeof(FormatPatternException), ExpectedMessage = "Could not resolve renderer 'nonexistent'.")]
 		public void FormatPatternFactory_BuildPatternWithRendererThatDoNotExist()
 		{
 			var factory = new FormatPatternFactory();
-			var pattern = factory.Create("$(nonexistent(format='HH:mm:ss'))");
+            Assert.That(() => factory.Create("$(nonexistent(format='HH:mm:ss'))"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message").EqualTo("Could not resolve renderer 'nonexistent'."));
 		}
 
 		[Test]
@@ -70,27 +71,30 @@ namespace BlackBox.UnitTests.Tests.Formatting
 		}
 
 		[Test]
-		[ExpectedException(typeof(FormatPatternException), ExpectedMessage = "Could not resolve renderer 'nonexistent'.")]
 		public void FormatPatternFactory_BuildPatternWithNestedRendererThatDoNotExist()
 		{
 			var factory = new FormatPatternFactory();
-			var pattern = factory.Create("$(uppercase(nonexistent()))");
+            Assert.That(() => factory.Create("$(uppercase(nonexistent()))"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message").EqualTo("Could not resolve renderer 'nonexistent'."));
 		}
 
 		[Test]
-		[ExpectedException(typeof(FormatPatternException), ExpectedMessage = "Transformer 'uppercase' has no attached renderer.")]
 		public void FormatPatternFactory_BuildPatternWithTransformerThatHasNoRenderer()
 		{
 			var factory = new FormatPatternFactory();
-			var pattern = factory.Create("$(nonexistent(uppercase()))");
+            Assert.That(() => factory.Create("$(nonexistent(uppercase()))"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message").EqualTo("Transformer 'uppercase' has no attached renderer."));
 		}
 
 		[Test]
-		[ExpectedException(typeof(FormatPatternException), ExpectedMessage = "Could not resolve transformer 'nonexistent'.")]
 		public void FormatPatternFactory_BuildPatternWithTransformerThatDoNotExist()
 		{
 			var factory = new FormatPatternFactory();
-			var pattern = factory.Create("$(nonexistent(message()))");
+            Assert.That(() => factory.Create("$(nonexistent(message()))"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message").EqualTo("Could not resolve transformer 'nonexistent'."));
 		}
 
 		[Test]

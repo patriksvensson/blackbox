@@ -70,17 +70,21 @@ namespace BlackBox.UnitTests.Tests.Formatting
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(FormatPatternException), ExpectedMessage = "Format renderer block is not well formed.")]
 		public void FormatParser_ParseFaultyRenderer_MissingEndParenthesis()
 		{
-			FormatPatternNode[] nodes = FormatPatternParser.Parse("$(time()");
+            Assert.That(() => FormatPatternParser.Parse("$(time()"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message")
+                .EqualTo("Format renderer block is not well formed."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(FormatPatternException), ExpectedMessage = "Not a valid renderer.")]
 		public void FormatParser_ParseFaultyRenderer_RendererMissingParenthesises()
 		{
-			FormatPatternNode[] nodes = FormatPatternParser.Parse("$(time)");
+            Assert.That(() => FormatPatternParser.Parse("$(time)"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message")
+                .EqualTo("Not a valid renderer."));
 		}
 
 		[Test]
@@ -111,6 +115,7 @@ namespace BlackBox.UnitTests.Tests.Formatting
 			Assert.AreEqual("true", ((FormatRendererNode)nodes[0]).Arguments[1].Value);
 		}
 
+        [Test]
 		public void FormatParser_ParseComplexWithEscapedBackSlash()
 		{
 			FormatPatternNode[] nodes = FormatPatternParser.Parse("$(basedir())\\$(time(format='yyyy-MM-dd'))-$(level()).log");

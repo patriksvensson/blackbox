@@ -88,10 +88,12 @@ namespace BlackBox.UnitTests.Tests
 		#endregion
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentNullException), UserMessage = "Log configuration cannot be null.")]
 		public void LogKernel_NullLogConfigurationCannotBePassedToConstructor_Throws()
 		{
-			LogKernel kernel = new LogKernel(null);
+            Assert.That(() => new LogKernel(null),
+                Throws.Exception.TypeOf<ArgumentNullException>()
+                .With.Property("Message").EqualTo("Log configuration cannot be null.\r\nParameter name: configuration")
+                .And.Property("ParamName").EqualTo("configuration"));
 		}
 
 		[Test]

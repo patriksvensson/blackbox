@@ -27,13 +27,6 @@ namespace BlackBox.UnitTests.Tests.Conditions
     {
         private ConditionFactory _factory;
 
-        #region Private Helper Methods
-        private ConditionExpression ParseCondition(string condition)
-        {
-            return _factory.ParseCondition(condition);
-        }
-        #endregion
-
         #region Test Setup
 
         [TestFixtureSetUp]
@@ -45,52 +38,60 @@ namespace BlackBox.UnitTests.Tests.Conditions
         #endregion
 
         [Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Unknown keyword 'invalid' encountered.")]
 		public void ConditionParser_ParseExpressionWithUnknownKeyword()
 		{
-			this.ParseCondition("invalid>4");
+            Assert.That(() => _factory.ParseCondition("invalid>4"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Unknown keyword 'invalid' encountered."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Expected token but encountered end of expression.")]
 		public void ConditionParser_ParseIncompleteExpression_MissingRightBinaryExpression()
 		{
-            this.ParseCondition("1>");
+            Assert.That(() => _factory.ParseCondition("1>"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Expected token but encountered end of expression."));
+
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Expected token but encountered end of expression.")]
 		public void ConditionParser_ParseIncompleteExpression_MissingExpressionAfterAnd()
 		{
-            this.ParseCondition("1>1 AND");
+            Assert.That(() => _factory.ParseCondition("1>1 AND"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Expected token but encountered end of expression."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Invalid token encountered when parsing literal expression.")]
 		public void ConditionParser_ParseIncompleteExpression_2()
 		{
-            this.ParseCondition("1> AND 1==1");
+            Assert.That(() => _factory.ParseCondition("1> AND 1==1"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Invalid token encountered when parsing literal expression."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Expected to find token of type 'ClosingParenthesis' but found null instead.")]
 		public void ConditionParser_ParseIncompleteExpression_MissingClosingParenthesis()
 		{
-            this.ParseCondition("(1>1");
+            Assert.That(() => _factory.ParseCondition("(1>1"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Expected to find token of type 'ClosingParenthesis' but found null instead."));
 		}
 
         [Test]
-        [ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Method expression for type 'BlackBox.Conditions.LengthMethodExpression' expects 1 argument(s) but got 2.")]
         public void ConditionParser_ParseIncompleteExpression_TooManyArgumentsToMethod()
         {
-            this.ParseCondition("length('test', 'test2')");
+            Assert.That(() => _factory.ParseCondition("length('test', 'test2')"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Method expression for type 'BlackBox.Conditions.LengthMethodExpression' expects 1 argument(s) but got 2."));
         }
 
         [Test]
-        [ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Method expression for type 'BlackBox.Conditions.LengthMethodExpression' expects 1 argument(s) but got 0.")]
         public void ConditionParser_ParseIncompleteExpression_TooFewArgumentsToMethod()
         {
-            this.ParseCondition("length()");
+            Assert.That(() => _factory.ParseCondition("length()"),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Method expression for type 'BlackBox.Conditions.LengthMethodExpression' expects 1 argument(s) but got 0."));
         }
 	}
 }

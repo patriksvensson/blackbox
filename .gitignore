@@ -17,3 +17,7 @@ TestResults
 *.nupkg
 blackbox.*.*.*
 TestResult.xml
+*.ncrunchproject
+*.ncrunchsolution
+*.ncrunchproject
+*.crunchsolution.cache

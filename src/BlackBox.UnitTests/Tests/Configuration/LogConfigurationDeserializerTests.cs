@@ -59,12 +59,13 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log sink with type name 'Unknown' has not been registered.")]
 		public void LogConfigurationDeserializer_ParseMissingSink()
 		{
 			string xml = @"<BlackBox><Sinks><Sink Type=""Unknown"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = LogConfigurationDeserializer.Deserialize(document);
+            Assert.That(() => LogConfigurationDeserializer.Deserialize(document),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("Log sink with type name 'Unknown' has not been registered."));
 		}
 
 		[Test]
@@ -85,12 +86,13 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log sink proxy with type name 'Unknown' has not been registered.")]
 		public void LogConfigurationDeserializer_ParseMissingProxy()
 		{
 			string xml = @"<BlackBox><Sinks><Proxy Type=""Unknown"" /></Sinks></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = LogConfigurationDeserializer.Deserialize(document);
+            Assert.That(() => LogConfigurationDeserializer.Deserialize(document),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("Log sink proxy with type name 'Unknown' has not been registered."));
 		}
 
 		[Test]
@@ -129,12 +131,13 @@ namespace BlackBox.UnitTests.Tests.Configuration
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "Log filter with type name 'Unknown' has not been registered.")]
 		public void LogConfigurationDeserializer_ParseMissingFilter()
 		{
 			string xml = @"<BlackBox><Filters><Filter Type=""Unknown"" /></Filters></BlackBox>";
 			XDocument document = XDocument.Parse(xml);
-			var configuration = LogConfigurationDeserializer.Deserialize(document);
+            Assert.That(() => LogConfigurationDeserializer.Deserialize(document),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("Log filter with type name 'Unknown' has not been registered."));
 		}
 
 		[Test]

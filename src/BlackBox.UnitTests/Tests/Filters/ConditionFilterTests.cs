@@ -39,11 +39,12 @@ namespace BlackBox.UnitTests.Tests.Filters
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(BlackBoxException), ExpectedMessage = "The filter condition has not been set.")]
 		public void LevelMatchFilter_ThrowsIfLevelIsNotSetAtInitialization()
 		{
 			ConditionFilter filter = new ConditionFilter();
-            filter.Initialize(new InitializationContext(null, null));
+            Assert.That(() => filter.Initialize(new InitializationContext(null, null)),
+                Throws.Exception.TypeOf<BlackBoxException>()
+                .With.Property("Message").EqualTo("The filter condition has not been set."));
 		}
 	}
 }

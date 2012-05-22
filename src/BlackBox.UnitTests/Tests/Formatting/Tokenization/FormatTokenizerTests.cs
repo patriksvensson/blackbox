@@ -107,10 +107,12 @@ namespace BlackBox.UnitTests.Tests.Formatting
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(FormatPatternException), ExpectedMessage = "Expected parenthesis but found 't'.")]
 		public void FormatTokenizer_ParseFormatParserMissingStartParenthesis()
 		{
-			FormatToken[] result = FormatTokenizer.Tokenize("$time)");
+            Assert.That(() => FormatTokenizer.Tokenize("$time)"),
+                Throws.Exception.TypeOf<FormatPatternException>()
+                .With.Property("Message")
+                .EqualTo("Expected parenthesis but found 't'."));
 		}
 
 		[Test]

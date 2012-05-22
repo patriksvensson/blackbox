@@ -50,21 +50,23 @@ namespace BlackBox.UnitTests.Tests.Conditions
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Unexpected token '$' encountered.")]
 		public void ConditionTokenizer_ParseConditionWithInvalidToken()
 		{
 			string condition = "(1==2) OR (3$2 OR 1>=1)";
 			ConditionTokenizer tokenizer = new ConditionTokenizer(new StringBuffer(condition));
-			ConditionToken[] tokens = tokenizer.Tokenize();
+            Assert.That(() => tokenizer.Tokenize(),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Unexpected token '$' encountered."));
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ConditionException), ExpectedMessage = "Unterminated string literal.")]
 		public void ConditionTokenizer_ParseConditionWithUnterminatedStringLiteral()
 		{
 			string condition = "'aa'=='aa";
 			ConditionTokenizer tokenizer = new ConditionTokenizer(new StringBuffer(condition));
-			ConditionToken[] tokens = tokenizer.Tokenize();
+            Assert.That(() => tokenizer.Tokenize(),
+                Throws.Exception.TypeOf<ConditionException>()
+                .With.Property("Message").EqualTo("Unterminated string literal."));
 		}
 	}
 }
